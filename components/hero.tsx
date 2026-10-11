@@ -1,0 +1,183 @@
+import { emailHref, site } from "@/content/site";
+import { Container } from "./container";
+
+const { hero } = site;
+
+const socials = [
+  { label: "GitHub", href: site.links.github, external: true },
+  { label: "LinkedIn", href: site.links.linkedin, external: true },
+  { label: "Email", href: emailHref, external: false },
+];
+
+export function Hero() {
+  return (
+    <section
+      id="top"
+      className="relative flex min-h-[720px] flex-col justify-between overflow-hidden py-12 h-svh max-h-[1080px]"
+    >
+      {/* Ambient background: grain, top orb and a warm falloff on the right */}
+      <div aria-hidden className="bg-grain pointer-events-none absolute inset-0 z-10" />
+      <div
+        aria-hidden
+        className="animate-ambient pointer-events-none absolute -top-32 right-1/4 hidden h-[560px] w-[560px] rounded-full bg-gradient-to-br from-accent/10 via-accent/5 to-transparent blur-3xl dark:block"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-1/3 -right-24 h-[420px] w-[420px] rounded-full bg-gradient-to-bl from-border/80 via-bg to-transparent blur-2xl dark:top-1/2 dark:h-[380px] dark:w-[380px] dark:from-border/60 dark:via-surface"
+      />
+
+      {/* Reserves the nav's slot; the nav itself is fixed so it can follow the page. */}
+      <div aria-hidden className="h-14 shrink-0" />
+
+      <Container className="relative z-20 my-auto">
+        <div className="grid grid-cols-12 items-center gap-8">
+          {/* Left: typographic narrative */}
+          <div className="col-span-8 space-y-7 pr-6">
+            <div className="inline-flex items-center gap-2.5 rounded-full border border-border/80 bg-surface/60 px-3.5 py-1.5 backdrop-blur-md dark:border-border/90 dark:bg-surface/80">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
+              <span className="whitespace-nowrap font-mono text-[11px] font-medium uppercase tracking-tight text-secondary">
+                {hero.eyebrow.map((item, i) => (
+                  <span key={item}>
+                    {i > 0 && <> <span className="mx-1 text-border">·</span> </>}
+                    {item}
+                  </span>
+                ))}
+              </span>
+            </div>
+
+            <h1 className="text-[64px] font-semibold leading-[1.06] tracking-[-0.035em] text-text">
+              {hero.headline.before}
+              <span className="text-accent">{hero.headline.accent}</span>
+              {hero.headline.after}
+            </h1>
+
+            <p className="max-w-[540px] text-lg leading-relaxed tracking-tight text-secondary">{hero.intro}</p>
+
+            <div className="flex items-center gap-4 pt-2">
+              <a
+                href="#projects"
+                className="group relative inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-sm font-medium text-on-accent shadow-sm shadow-accent/25 transition-[filter,transform] duration-200 ease-brand hover:brightness-110 active:scale-[0.98] dark:font-semibold dark:shadow-accent/20"
+              >
+                <span>View Projects</span>
+                <svg
+                  className="h-3.5 w-3.5 transition-transform duration-200 ease-brand group-hover:translate-x-0.5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  aria-hidden
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+              </a>
+
+              <a
+                href={site.links.resume}
+                className="glass-pill inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-medium text-text transition-[background-color,border-color,transform] duration-200 ease-brand hover:border-text/30 hover:bg-surface active:scale-[0.98]"
+              >
+                <span>Resume</span>
+                <svg className="h-3.5 w-3.5 text-secondary" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          {/* Right: monogram, orb, rings and the status card */}
+          <div className="relative col-span-4 flex h-[380px] items-center justify-end">
+            {/* Oversized faint "A." monogram balancing the left-heavy composition */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute top-1/2 right-[-40px] -translate-y-1/2 select-none text-[520px] leading-none font-bold tracking-[-0.06em] text-text/[0.05]"
+            >
+              {site.monogram}
+              <span className="text-accent/[0.07]">.</span>
+            </div>
+
+            <div
+              aria-hidden
+              className="pointer-events-none absolute top-1/2 right-6 h-72 w-72 -translate-y-1/2 rounded-full bg-accent opacity-[var(--orb-opacity)] blur-3xl"
+            />
+
+            <div aria-hidden className="pointer-events-none absolute top-12 right-8 h-44 w-44 rounded-full border border-border/60 dark:border-border/70" />
+            <div aria-hidden className="pointer-events-none absolute top-16 right-4 h-36 w-36 rounded-full border border-dashed border-accent/30 dark:border-accent/25" />
+
+            <StatusCard />
+          </div>
+        </div>
+      </Container>
+
+      {/* Bottom row: scroll cue and text-only social links */}
+      <Container className="relative z-20">
+        <div className="flex items-end justify-between border-t border-border/60 pt-5 text-xs dark:border-border/70">
+          <a href="#about" className="flex items-center gap-3 font-mono text-[11px] tracking-wide text-secondary">
+            <span className="uppercase">Scroll</span>
+            <span className="relative h-7 w-px overflow-hidden bg-border">
+              <span className="animate-scroll-line block h-full w-full bg-accent" />
+            </span>
+          </a>
+
+          <ul className="flex items-center gap-6 font-mono text-[11px] uppercase tracking-wider text-secondary">
+            {socials.map(({ label, href, external }, i) => (
+              <li key={label} className="flex items-center gap-6">
+                {i > 0 && <span className="text-border">/</span>}
+                <a
+                  href={href}
+                  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="flex items-center gap-1 transition-colors duration-200 ease-brand hover:text-accent"
+                >
+                  {label} <span className="text-[9px] text-secondary/60">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+function StatusCard() {
+  const { status } = hero;
+  return (
+    <div className="glass relative z-20 mr-2 w-[290px] space-y-4 rounded-2xl p-5 shadow-xl dark:shadow-2xl">
+      <div className="flex items-center justify-between border-b border-border/60 pb-3 dark:border-border/80">
+        <div className="flex items-center gap-2">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
+          </span>
+          <span className="font-mono text-[11px] font-medium uppercase tracking-tight text-text">{status.label}</span>
+        </div>
+        <span className="rounded border border-emerald-200/60 bg-emerald-50 px-2 py-0.5 font-mono text-[11px] font-medium text-emerald-700 dark:border-emerald-800/40 dark:bg-emerald-950/40 dark:text-emerald-400">
+          {status.badge}
+        </span>
+      </div>
+
+      <div className="space-y-2">
+        <div className="text-[13px] font-medium tracking-tight text-text">{status.title}</div>
+        <p className="text-xs leading-normal text-secondary">{status.note}</p>
+      </div>
+
+      <div className="flex items-center justify-between border-t border-border/40 pt-2 font-mono text-xs text-secondary dark:border-border/60">
+        <span className="flex items-center gap-1.5">
+          <svg className="h-3.5 w-3.5 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1.5"
+              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+            />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          {site.location} ({site.timezone})
+        </span>
+        <span className="text-[10px] opacity-75">{status.meta}</span>
+      </div>
+    </div>
+  );
+}
