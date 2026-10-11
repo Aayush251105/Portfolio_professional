@@ -1,0 +1,52 @@
+import { site } from "@/content/site";
+import { ArrowLink } from "../arrow-link";
+import { Container } from "../container";
+import { ResumeMenu } from "../resume-menu";
+import { Reveal } from "../reveal";
+import { SectionLabel } from "../section-label";
+import { ContactForm } from "./contact-form";
+
+const { contact } = site;
+
+export function Contact() {
+  return (
+    <section id="contact" className="scroll-mt-24 pt-24 pb-20">
+      <Container>
+        <Reveal>
+          <SectionLabel index={6} title="Contact" className="mb-16" />
+        </Reveal>
+
+        <div className="relative flex flex-col items-center">
+          {/* Warm glow under the composer so its glass reads (dark only: the light value is invalid in the design) */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-12 left-1/2 hidden h-[340px] w-[580px] -translate-x-1/2 rounded-full bg-accent/12 blur-[96px] dark:block"
+          />
+
+          <Reveal className="relative z-10 mb-12 max-w-3xl text-center">
+            <h2 className="text-[72px] leading-[1.05] font-normal tracking-[-0.035em] text-text">
+              {contact.headline.before}
+              <br />
+              <span className="text-accent">{contact.headline.accent}</span>
+            </h2>
+            <p className="mt-4 text-lg leading-7 tracking-[-0.01em] text-secondary">{contact.intro}</p>
+          </Reveal>
+
+          <Reveal delay={0.08} className="flex w-full justify-center">
+            <ContactForm email={site.links.email} />
+          </Reveal>
+
+          <div className="mt-8 flex items-center justify-center gap-8 font-mono text-xs leading-4 font-medium tracking-[0.04em] text-secondary">
+            <ArrowLink href={site.links.github} external>
+              GitHub
+            </ArrowLink>
+            <ArrowLink href={site.links.linkedin} external>
+              LinkedIn
+            </ArrowLink>
+            <ResumeMenu variant="inline" />
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}

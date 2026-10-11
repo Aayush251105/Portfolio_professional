@@ -218,6 +218,13 @@ export const site = {
       },
     ] as ExperienceEntry[],
   },
+
+  contact: {
+    headline: { before: "Let’s build something", accent: "worth shipping." },
+    // TODO: confirm availability wording.
+    intro: "Open to internships and full-time roles starting 2027.",
+    footer: { credit: "Designed and built by me" },
+  },
 } as const;
 
 export type ExperienceEntry = { dates: string; badge: string; role: string; org: string; bullets: string[]; tags: string[] };

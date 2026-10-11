@@ -5,9 +5,10 @@ import { site } from "@/content/site";
 
 /**
  * Resume trigger that opens a liquid-glass menu to pick between resume variants.
- * `pill` is the hero's glass button; `link` is the underlined mono link used in About.
+ * `pill` is the hero's glass button; `link` is the underlined mono link used in About;
+ * `inline` is a quiet "Resume ↗" text link (Contact) whose menu opens upward.
  */
-export function ResumeMenu({ variant = "pill" }: { variant?: "pill" | "link" }) {
+export function ResumeMenu({ variant = "pill" }: { variant?: "pill" | "link" | "inline" }) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -59,9 +60,23 @@ export function ResumeMenu({ variant = "pill" }: { variant?: "pill" | "link" }) 
             setOpen(true);
           }
         }}
-        className={variant === "pill" ? pillClass(open) : linkClass}
+        className={variant === "pill" ? pillClass(open) : variant === "link" ? linkClass : inlineClass}
       >
-        {variant === "pill" ? (
+        {variant === "inline" ? (
+          <>
+            <span>Resume</span>
+            <span
+              aria-hidden
+              className="text-[9px] text-secondary/60 transition-[color,transform,filter] duration-300 ease-brand group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent group-hover:drop-shadow-[0_0_6px_var(--accent)]"
+            >
+              ↗
+            </span>
+            <span
+              aria-hidden
+              className={`absolute inset-x-0 bottom-0 h-px origin-left bg-accent transition-transform duration-300 ease-brand group-hover:scale-x-100 ${open ? "scale-x-100" : "scale-x-0"}`}
+            />
+          </>
+        ) : variant === "pill" ? (
           <>
             <span>Resume</span>
             <svg className="h-3.5 w-3.5 text-secondary" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
@@ -88,7 +103,7 @@ export function ResumeMenu({ variant = "pill" }: { variant?: "pill" | "link" }) 
         aria-label="Choose a resume"
         inert={!open}
         onKeyDown={onMenuKeyDown}
-        className={`glass-liquid absolute top-[calc(100%+12px)] z-50 w-[300px] ${variant === "pill" ? "left-0 origin-top-left" : "right-0 origin-top-right"} rounded-2xl p-2 transition-[opacity,transform] duration-200 ease-brand ${
+        className={`glass-liquid absolute z-50 w-[300px] ${placement[variant]} rounded-2xl p-2 transition-[opacity,transform] duration-200 ease-brand ${
           open
             ? "translate-y-0 scale-100 opacity-100"
             : "pointer-events-none -translate-y-1 scale-[0.98] opacity-0 [backdrop-filter:none]" /* no blur pass while hidden */
@@ -162,3 +177,12 @@ const pillClass = (open: boolean) =>
 
 const linkClass =
   "group relative inline-flex items-center gap-1.5 font-mono text-[11px] leading-[14px] font-medium uppercase tracking-wider text-text transition-colors duration-150 ease-brand hover:text-accent";
+
+const inlineClass =
+  "group relative inline-flex items-center gap-1 py-1 text-secondary outline-none transition-colors duration-200 ease-brand hover:text-accent focus-visible:text-accent";
+
+const placement = {
+  pill: "top-[calc(100%+12px)] left-0 origin-top-left",
+  link: "top-[calc(100%+12px)] right-0 origin-top-right",
+  inline: "bottom-[calc(100%+12px)] left-1/2 -translate-x-1/2 origin-bottom",
+} as const;
