@@ -89,7 +89,9 @@ export function ResumeMenu({ variant = "pill" }: { variant?: "pill" | "link" }) 
         inert={!open}
         onKeyDown={onMenuKeyDown}
         className={`glass-liquid absolute top-[calc(100%+12px)] z-50 w-[300px] ${variant === "pill" ? "left-0 origin-top-left" : "right-0 origin-top-right"} rounded-2xl p-2 transition-[opacity,transform] duration-200 ease-brand ${
-          open ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none -translate-y-1 scale-[0.98] opacity-0"
+          open
+            ? "translate-y-0 scale-100 opacity-100"
+            : "pointer-events-none -translate-y-1 scale-[0.98] opacity-0 [backdrop-filter:none]" /* no blur pass while hidden */
         }`}
       >
         <div className="px-3 pt-2 pb-2.5 font-mono text-[10px] font-medium uppercase tracking-wider text-secondary">

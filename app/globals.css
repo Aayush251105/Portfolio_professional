@@ -93,6 +93,13 @@ html {
   background: var(--bg);
 }
 
+/* Native smooth scrolling for in-page jumps (nav links, CTAs); instant for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 body {
   background: var(--bg);
   color: var(--text);
@@ -114,16 +121,26 @@ body {
 /* ---------- Glass ---------- */
 @utility glass {
   background: var(--glass-bg);
-  backdrop-filter: blur(28px);
+  backdrop-filter: blur(24px);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
 }
 
 @utility glass-pill {
-  background: var(--glass-pill-bg);
-  backdrop-filter: blur(24px);
+  /* Only used on flat backgrounds, so a backdrop blur would be invisible; a slightly denser fill matches it. */
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
   border: 1px solid var(--glass-pill-border);
   box-shadow: var(--glass-pill-shadow);
+}
+
+/*
+ * Same look as `glass`, minus backdrop-filter. Use it wherever the backdrop is flat (tooltips, tiles,
+ * row highlights) — the blur would be invisible there but still costs a GPU pass every scroll frame.
+ */
+@utility glass-flat {
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
 }
 
 /* Liquid glass: heavier blur + saturation, a tinted gradient body and a specular sheen. For popovers. */

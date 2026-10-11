@@ -49,7 +49,7 @@ function CategoryRow({ name, items }: { name: string; items: readonly string[] }
       {/* Hover highlight: glass panel + accent edge, faded in so layout never shifts */}
       <span
         aria-hidden
-        className="glass pointer-events-none absolute inset-0 rounded-xl border-accent/30! opacity-0 transition-opacity duration-300 ease-brand group-hover/row:opacity-100"
+        className="glass-flat pointer-events-none absolute inset-0 rounded-xl border-accent/30! opacity-0 transition-opacity duration-300 ease-brand group-hover/row:opacity-100"
       />
       <span
         aria-hidden
@@ -95,7 +95,7 @@ function SkillItem({ name }: { name: string }) {
       {/* Tooltip: sits above the item, never over the category name */}
       <span
         aria-hidden
-        className="glass pointer-events-none absolute bottom-full left-1/2 z-30 mb-2.5 flex -translate-x-1/2 translate-y-1 items-center gap-1.5 rounded-lg border-accent/40! px-2.5 py-1 font-mono text-[11px] leading-4 whitespace-nowrap text-text opacity-0 transition-[opacity,transform] duration-200 ease-brand group-hover/item:translate-y-0 group-hover/item:opacity-100"
+        className="glass-flat pointer-events-none absolute bottom-full left-1/2 z-30 mb-2.5 flex -translate-x-1/2 translate-y-1 items-center gap-1.5 rounded-lg border-accent/40! px-2.5 py-1 font-mono text-[11px] leading-4 whitespace-nowrap text-text opacity-0 transition-[opacity,transform] duration-200 ease-brand group-hover/item:translate-y-0 group-hover/item:opacity-100"
       >
         <span className="h-1.5 w-1.5 rounded-full bg-accent" />
         {name}
@@ -126,12 +126,12 @@ function MarqueeTile({ name }: { name: string }) {
   const { short, note } = techMeta(name);
   return (
     <div className="group/tile relative pr-0" style={{ "--brand": brandColor(name) } as React.CSSProperties}>
-      <span className="glass pointer-events-none absolute bottom-full left-1/2 z-30 mb-3 flex -translate-x-1/2 translate-y-1 items-center gap-1.5 rounded-lg border-accent/40! px-2.5 py-1 font-mono text-[11px] leading-4 whitespace-nowrap text-text opacity-0 transition-[opacity,transform] duration-200 ease-brand group-hover/tile:translate-y-0 group-hover/tile:opacity-100">
+      <span className="glass-flat pointer-events-none absolute bottom-full left-1/2 z-30 mb-3 flex -translate-x-1/2 translate-y-1 items-center gap-1.5 rounded-lg border-accent/40! px-2.5 py-1 font-mono text-[11px] leading-4 whitespace-nowrap text-text opacity-0 transition-[opacity,transform] duration-200 ease-brand group-hover/tile:translate-y-0 group-hover/tile:opacity-100">
         <span className="h-1.5 w-1.5 rounded-full bg-accent" />
         {name}
         {note && <span className="text-secondary">· {note}</span>}
       </span>
-      <div className="glass flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-2xl text-secondary transition-[transform,border-color,color] duration-300 ease-brand group-hover/tile:-translate-y-1 group-hover/tile:border-accent/60! group-hover/tile:text-text">
+      <div className="glass-flat flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-2xl text-secondary transition-[transform,border-color,color] duration-300 ease-brand group-hover/tile:-translate-y-1 group-hover/tile:border-accent/60! group-hover/tile:text-text">
         <TechIcon name={name} className="h-6 w-6 transition-colors duration-300 ease-brand group-hover/tile:text-(--brand)" />
         <span className="font-mono text-[10px] leading-3 font-medium">{short}</span>
       </div>

@@ -35,7 +35,7 @@ export function Hero() {
         <div className="grid grid-cols-12 items-center gap-8">
           {/* Left: typographic narrative */}
           <div className="col-span-8 space-y-7 pr-6">
-            <div className="inline-flex items-center gap-2.5 rounded-full border border-border/80 bg-surface/60 px-3.5 py-1.5 backdrop-blur-md dark:border-border/90 dark:bg-surface/80">
+            <div className="inline-flex items-center gap-2.5 rounded-full border border-border/80 bg-surface/60 px-3.5 py-1.5 dark:border-border/90 dark:bg-surface/80">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
               <span className="whitespace-nowrap font-mono text-[11px] font-medium uppercase tracking-tight text-secondary">
                 {hero.eyebrow.map((item, i) => (
