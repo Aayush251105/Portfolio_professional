@@ -72,6 +72,17 @@ export const site = {
     portrait: { src: "/about/portrait.png", alt: "Aayush working at a laptop, black and white portrait" },
     badge: { title: "Based in India", meta: "IST · UTC+5:30" },
   },
+
+  skills: {
+    headline: { before: "The tools I ", accent: "think with." },
+    intro: "A focused stack across full-stack development and agentic AI workflows.",
+    categories: [
+      { name: "Languages", items: ["Python", "Java", "JavaScript", "TypeScript", "C", "SQL"] },
+      { name: "Web & Backend", items: ["Next.js", "React", "Node.js", "Express", "Tailwind CSS", "HTML5", "CSS3"] },
+      { name: "AI / ML", items: ["RAG pipelines", "Hugging Face", "T5 fine-tuning", "NumPy", "Pandas", "Agentic workflows"] },
+      { name: "Data & Tools", items: ["MongoDB", "PostgreSQL", "MySQL", "Git", "GitHub", "Postman", "Vercel"] },
+    ],
+  },
 } as const;
 
 /** Resolves the email link, falling back to "#" while the address is TODO. */

@@ -1,4 +1,5 @@
 import { emailHref, site } from "@/content/site";
+import { ArrowLink } from "./arrow-link";
 import { Container } from "./container";
 import { ResumeMenu } from "./resume-menu";
 
@@ -84,7 +85,7 @@ export function Hero() {
               className="pointer-events-none absolute -bottom-24 -left-16 select-none text-[300px] leading-none font-bold tracking-[-0.06em] text-text/[0.06] dark:text-text/[0.05]"
             >
               {site.monogram}
-              .
+              <span className="text-accent/[0.18] dark:text-accent/[0.14]">.</span>
             </div>
 
             <div
@@ -103,7 +104,10 @@ export function Hero() {
       {/* Bottom row: scroll cue and text-only social links */}
       <Container className="relative z-20">
         <div className="flex items-end justify-between border-t border-border/60 pt-5 text-xs dark:border-border/70">
-          <a href="#about" className="flex items-center gap-3 font-mono text-[11px] tracking-wide text-secondary">
+          <a
+            href="#about"
+            className="group flex items-center gap-3 font-mono text-[11px] tracking-wide text-secondary transition-colors duration-200 ease-brand hover:text-text"
+          >
             <span className="uppercase">Scroll</span>
             <span className="relative h-7 w-px overflow-hidden bg-border">
               <span className="animate-scroll-line block h-full w-full bg-accent" />
@@ -114,13 +118,9 @@ export function Hero() {
             {socials.map(({ label, href, external }, i) => (
               <li key={label} className="flex items-center gap-6">
                 {i > 0 && <span className="text-border">/</span>}
-                <a
-                  href={href}
-                  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="flex items-center gap-1 transition-colors duration-200 ease-brand hover:text-accent"
-                >
-                  {label} <span className="text-[9px] text-secondary/60">↗</span>
-                </a>
+                <ArrowLink href={href} external={external}>
+                  {label}
+                </ArrowLink>
               </li>
             ))}
           </ul>

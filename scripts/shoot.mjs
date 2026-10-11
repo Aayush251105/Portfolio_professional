@@ -2,7 +2,8 @@
 //   node scripts/shoot.mjs ref <stitch-folder> [outDir]   -> renders each 1440px canvas in code.html
 //     REF_SEL=<css> / REF_VW=<px> override the canvas selector and viewport width for fluid frames.
 //   node scripts/shoot.mjs app [url] [outDir] [height] [selector]  -> light + dark screenshots of the app
-//   CLICK=<selector> clicks an element first (e.g. to open a menu); SCROLL=<selector> scrolls to it first.
+//   CLICK=<selector> clicks an element first (e.g. to open a menu); SCROLL=<selector> scrolls to it first;
+//   HOVER=<selector> hovers it before the shot. Each adds a suffix to the file name.
 import { chromium } from "playwright";
 import path from "node:path";
 import fs from "node:fs";
@@ -49,8 +50,10 @@ if (mode === "ref") {
       await page.waitForTimeout(1500);
     }
     if (process.env.CLICK) await page.click(process.env.CLICK);
+    if (process.env.HOVER) await page.hover(process.env.HOVER);
     await page.waitForTimeout(300);
-    const file = path.join(out, `app-${theme}${process.env.CLICK ? "-click" : ""}.png`);
+    const suffix = (process.env.CLICK ? "-click" : "") + (process.env.HOVER ? "-hover" : "");
+    const file = path.join(out, `app-${theme}${suffix}.png`);
     if (selector) await page.locator(selector).first().screenshot({ path: file });
     else await page.screenshot({ path: file });
     console.log(file);

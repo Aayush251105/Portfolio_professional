@@ -63,15 +63,15 @@ export function Nav() {
               <a
                 href={`#${id}`}
                 aria-current={active === id ? "location" : undefined}
-                className={`relative transition-colors duration-200 ease-brand hover:text-text ${
+                className={`group relative transition-colors duration-200 ease-brand hover:text-text ${
                   active === id ? "text-text" : ""
                 }`}
               >
                 {label}
                 <span
                   aria-hidden
-                  className={`absolute -bottom-2 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-accent transition-opacity duration-200 ease-brand ${
-                    active === id ? "opacity-100" : "opacity-0"
+                  className={`absolute -bottom-2 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-accent transition-[opacity,transform] duration-200 ease-brand ${
+                    active === id ? "scale-100 opacity-100" : "scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-40"
                   }`}
                 />
               </a>

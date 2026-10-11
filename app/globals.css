@@ -2,6 +2,8 @@
 
 /* Class-based dark mode, driven by next-themes (`class="dark"` on <html>). */
 @custom-variant dark (&:where(.dark, .dark *));
+/* Devices without hover (touch): reveal hover-only affordances permanently. */
+@custom-variant touch (@media (hover: none));
 
 /* ---------- Design tokens ---------- */
 :root {
@@ -191,6 +193,19 @@ body {
   animation: scroll-line 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
 
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility animate-marquee {
+  animation: marquee 48s linear infinite;
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
 @utility animate-ambient {
   animation: ambient 16s ease-in-out infinite;
 }
@@ -213,5 +228,8 @@ body {
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation: none;
+  }
+  .animate-marquee {
+    animation: none !important;
   }
 }
