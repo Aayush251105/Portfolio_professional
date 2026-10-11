@@ -180,7 +180,47 @@ export const site = {
       },
     ] as Project[],
   },
+
+  experience: {
+    headline: { before: "Where I’ve worked and ", accent: "studied." },
+    // TODO: confirm wording.
+    intro: "Hands-on engineering at Kyndryl alongside a Computer Science degree at Shiv Nadar University.",
+    status: "Graduating class of 2027",
+    /** Source: AayushResume_SDE.pdf. Newest first; the first entry gets the filled "latest" node. */
+    entries: [
+      {
+        dates: "May 2026 — Present",
+        badge: "Latest",
+        role: "AI & Software Engineering Intern",
+        org: "Kyndryl",
+        bullets: [
+          "Re-engineered the monitoring workflow for a distributed report generation system by redesigning execution pipelines, improving system observability and reliability in an Agile development environment.",
+          "Designed and implemented a heartbeat-based health monitoring mechanism for long-running report executions, reducing failure detection latency by over 93% through automated failure detection.",
+          "Developed an Agentic AI documentation assistant that enables conversational access to enterprise knowledge, streamlining developer onboarding and technical support.",
+        ],
+        tags: ["Agentic AI", "Distributed systems", "Observability", "Health monitoring", "Agile"],
+      },
+      {
+        dates: "May 2025 — May 2026",
+        badge: "",
+        role: "Public Relations Lead",
+        org: "ACM Shiv Nadar Chapter",
+        bullets: ["Led outreach and publicity campaigns for technical events, increasing student participation by 20%."],
+        tags: ["Outreach", "Event publicity", "Leadership"],
+      },
+      {
+        dates: "Aug 2023 — May 2027",
+        badge: "GPA 9.30",
+        role: "B.Tech, Computer Science",
+        org: "Shiv Nadar University",
+        bullets: ["Dean’s List: Monsoon 2023, Spring 2024 and Monsoon 2025."],
+        tags: [], // TODO: key coursework, e.g. Data Structures & Algorithms / Operating Systems
+      },
+    ] as ExperienceEntry[],
+  },
 } as const;
+
+export type ExperienceEntry = { dates: string; badge: string; role: string; org: string; bullets: string[]; tags: string[] };
 
 export type ProjectCategory = "Full-stack" | "AI-ML";
 export type Project = {
