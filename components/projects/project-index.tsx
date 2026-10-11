@@ -192,25 +192,34 @@ export function ProjectIndex() {
               </svg>
             </div>
 
-            {/* Crossfading content: old and new share one grid cell, so height never jumps */}
+            {/*
+              Every project is rendered in the same grid cell and only the selected one is visible.
+              The card is therefore always as tall as the tallest project: swapping never changes the
+              page height (a height change at the bottom of the page made the browser re-scroll,
+              which moved a different row under the cursor and caused a hover feedback loop).
+            */}
             <div className="grid grid-cols-[minmax(0,1fr)] [&>*]:col-start-1 [&>*]:row-start-1">
-              <AnimatePresence initial={false}>
-                <motion.div
-                  key={selected.id}
-                  initial={reduced ? false : { opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={reduced ? undefined : { opacity: 0, y: -6 }}
-                  transition={{ duration: 0.3, ease }}
-                >
-                  <div className="relative mt-4 h-[210px] overflow-hidden rounded-lg border border-border/60 bg-bg/60 p-3.5">
-                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(var(--text)_1px,transparent_1px)] [background-size:12px_12px] opacity-[0.03]" />
-                    <div className="relative h-full">
-                      <ProjectPreview kind={selected.preview} />
+              {projects.map((p) => {
+                const shown = p.id === selected.id;
+                return (
+                  <div
+                    key={p.id}
+                    aria-hidden={!shown}
+                    inert={!shown}
+                    className={`transition-[opacity,transform] ease-brand ${
+                      shown ? "translate-y-0 opacity-100 duration-300" : "pointer-events-none -translate-y-1.5 opacity-0 duration-200"
+                    } motion-reduce:transition-none`}
+                  >
+                    <div className="relative mt-4 h-[210px] overflow-hidden rounded-lg border border-border/60 bg-bg/60 p-3.5">
+                      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(var(--text)_1px,transparent_1px)] [background-size:12px_12px] opacity-[0.03]" />
+                      <div className="relative h-full">
+                        <ProjectPreview kind={p.preview} />
+                      </div>
                     </div>
+                    <ProjectMeta project={p} />
                   </div>
-                  <ProjectMeta project={selected} />
-                </motion.div>
-              </AnimatePresence>
+                );
+              })}
             </div>
           </div>
         </div>
