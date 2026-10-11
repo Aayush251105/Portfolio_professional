@@ -98,7 +98,105 @@ export const site = {
       { issuer: "Udemy", title: "The Complete Python Bootcamp", type: "Course certificate", year: "", href: "" },
     ] as { issuer: string; title: string; type: string; year: string; href: string }[],
   },
+
+  projects: {
+    headline: "Selected work.",
+    /**
+     * Source: AayushResume_SDE.pdf (descriptions, stacks, repo links). TODO: `year` for the first three,
+     * `live` demo URLs, and HireLens AI's stack + repo. Empty values are simply not rendered.
+     */
+    items: [
+      {
+        id: "vidtube-ai",
+        name: "VidTube AI",
+        category: "Full-stack",
+        featured: true,
+        year: "",
+        tag: "Full-stack · Media AI",
+        summary: "An AI-powered SaaS platform for uploading, managing and transforming media with Cloudinary's AI APIs.",
+        highlights: [
+          "Built an AI-powered SaaS platform for uploading, managing, and transforming media using Cloudinary AI APIs.",
+          "Implemented intelligent media processing: video compression, hover previews, and automatic image aspect-ratio transformations.",
+          "Handled secure authentication with Clerk and optimized data management using Prisma with NeonDB (PostgreSQL).",
+        ],
+        stack: ["Next.js", "Node.js", "Prisma", "NeonDB", "Cloudinary", "Clerk", "Vercel"],
+        github: "https://github.com/Aayush251105/VidTube-AI",
+        live: "",
+        preview: "vidtube",
+      },
+      {
+        id: "booknow",
+        name: "BookNow",
+        category: "Full-stack",
+        featured: true,
+        year: "",
+        tag: "Full-stack · MVC",
+        summary: "A full-stack property booking platform with listing search, dynamic filtering, user reviews and complete CRUD.",
+        highlights: [
+          "Engineered a full-stack property booking platform using MVC architecture, featuring listing search, dynamic filtering, user reviews, and complete CRUD operations.",
+          "Implemented authentication and authorization via Passport.js with server-side input validation using Joi schemas.",
+          "Integrated Cloudinary for cloud-based image management and Mapbox for interactive location visualization.",
+        ],
+        stack: ["Node.js", "Express", "MongoDB", "EJS", "Passport.js", "Cloudinary", "Mapbox"],
+        github: "https://github.com/Aayush251105/BookNow_Project",
+        live: "",
+        preview: "booknow",
+      },
+      {
+        id: "summarizer-ai",
+        name: "SummarizerAI",
+        category: "AI-ML",
+        featured: true,
+        year: "",
+        tag: "AI/ML · NLP",
+        summary: "Dialogue summarization with a T5 transformer fine-tuned on SAMSum, served through FastAPI to a React frontend.",
+        highlights: [
+          "Fine-tuned a T5 Transformer model on the SAMSum dialogue dataset to generate conversation summaries.",
+          "Built an end-to-end text summarization pipeline including preprocessing, tokenization, model training, and inference.",
+          "Developed a React frontend and FastAPI backend for real-time AI-powered text summarization.",
+        ],
+        stack: ["Python", "PyTorch", "Hugging Face", "FastAPI", "React"],
+        github: "https://github.com/Aayush251105/SummarizerAI",
+        live: "",
+        preview: "summarizer",
+      },
+      {
+        id: "hirelens-ai",
+        name: "HireLens AI",
+        category: "AI-ML",
+        featured: false,
+        year: "2026",
+        tag: "AI/ML · Top 15, GoDaddy AI Buildathon",
+        summary: "An interview simulator that generates role-specific questions from a resume and job description, then evaluates answers with AI feedback.",
+        highlights: [
+          "Top 15 at the GoDaddy AI Buildathon (Apr 2026).",
+          "Generates role-specific interview questions from a candidate's resume and the job description.",
+          "Provides AI-powered feedback and evaluates candidate performance across multiple assessment metrics.",
+        ],
+        stack: [], // TODO: HireLens AI stack
+        github: "", // TODO: repo URL
+        live: "",
+        preview: "hirelens",
+      },
+    ] as Project[],
+  },
 } as const;
+
+export type ProjectCategory = "Full-stack" | "AI-ML";
+export type Project = {
+  id: string;
+  name: string;
+  category: ProjectCategory;
+  featured: boolean;
+  year: string;
+  tag: string;
+  summary: string;
+  highlights: string[];
+  stack: string[];
+  github: string;
+  live: string;
+  preview: "vidtube" | "booknow" | "summarizer" | "hirelens";
+};
 
 /** Resolves the email link, falling back to "#" while the address is TODO. */
 export const emailHref = site.links.email ? `mailto:${site.links.email}` : "#";
