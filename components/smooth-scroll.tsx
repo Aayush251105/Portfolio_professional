@@ -3,6 +3,7 @@
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 import { useEffect } from "react";
+import { LOADER_LOCK_MS } from "./loader";
 
 let instance: Lenis | null = null;
 
@@ -22,7 +23,14 @@ export function SmoothScroll() {
       anchors: true,
       stopInertiaOnNavigate: true,
     });
+    // Hold scrolling while the intro loader plays (its inline script set html.is-loading).
+    let resume: ReturnType<typeof setTimeout> | undefined;
+    if (document.documentElement.classList.contains("is-loading")) {
+      instance.stop();
+      resume = setTimeout(() => instance?.start(), Math.max(0, LOADER_LOCK_MS - performance.now()));
+    }
     return () => {
+      clearTimeout(resume);
       instance?.destroy();
       instance = null;
     };

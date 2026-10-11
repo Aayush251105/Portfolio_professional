@@ -6,7 +6,7 @@ const vw = Number(vwArg ?? 390);
 fs.mkdirSync(out, { recursive: true });
 const b = await chromium.launch();
 const ctx = await b.newContext({ viewport: { width: vw, height: 844 }, colorScheme: theme, hasTouch: vw < 1024, isMobile: vw < 768, deviceScaleFactor: 1 });
-await ctx.addInitScript((t) => localStorage.setItem("theme", t), theme);
+await ctx.addInitScript((t) => { localStorage.setItem("theme", t); sessionStorage.setItem("a-loader-seen", "1"); }, theme);
 const p = await ctx.newPage();
 const errs = []; p.on("pageerror", (e) => errs.push(e.message));
 await p.goto("http://localhost:3000", { waitUntil: "networkidle" });

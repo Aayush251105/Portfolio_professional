@@ -36,7 +36,7 @@ if (mode === "ref") {
   for (const theme of ["light", "dark"]) {
     const vw = Number(process.env.VW ?? 1440);
     const ctx = await browser.newContext({ viewport: { width: vw, height }, colorScheme: theme, hasTouch: vw < 1024, isMobile: vw < 768 });
-    await ctx.addInitScript((t) => localStorage.setItem("theme", t), theme);
+    await ctx.addInitScript((t) => { localStorage.setItem("theme", t); sessionStorage.setItem("a-loader-seen", "1"); }, theme);
     const page = await ctx.newPage();
     await page.goto(url, { waitUntil: "networkidle" });
     await page.evaluate(() => document.fonts.ready);

@@ -63,7 +63,7 @@ export function Nav() {
     >
       {/* The menu panel is a sibling of the pill, not a child: a backdrop-filter element nested inside
           another one can only blur its parent's content, so the page behind would show through unblurred. */}
-      <div ref={navRef} className="relative w-full max-w-[760px]">
+      <div ref={navRef} className="intro-down relative w-full max-w-[760px]">
         <nav
           aria-label="Primary"
           className="glass relative flex h-12 w-full items-center justify-between gap-4 rounded-full px-5 md:h-14 md:gap-12 md:px-6"

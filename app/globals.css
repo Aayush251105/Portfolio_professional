@@ -222,6 +222,220 @@ body {
   animation: ambient 16s ease-in-out infinite;
 }
 
+/* ---------- Intro loader (components/loader.tsx) ----------
+ * Pure CSS so it starts on first paint, before JS. Timeline (ms):
+ *   0-150 glow settles (the page is hydrating, so nothing intricate moves yet)
+ *   150-800 "A" outline draws · 600-950 fill · 800-1100 accent period pops + ring
+ *   250-1250 progress line + counter · 350-900 name letters rise
+ *   1300-1650 content lifts out · 1400-2100 curtain slides up · then hidden.
+ * The page entrance (.intro / .word) starts at --intro, as the curtain passes.
+ */
+:root {
+  --intro: 1.65s;
+  --curtain: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* Seen this session or reduced motion: the inline script marks the loader and the page enters at once. */
+[data-loader][data-skip] {
+  display: none;
+}
+[data-loader][data-skip] ~ * {
+  --intro: 0.05s;
+}
+
+@property --loader-count {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+
+.loader {
+  animation: loader-hide 0s linear 2.1s forwards;
+}
+.loader-panel {
+  animation: loader-curtain 0.7s var(--curtain) 1.4s forwards;
+}
+.loader-content {
+  animation: loader-content-out 0.35s cubic-bezier(0.5, 0, 0.75, 0) 1.3s forwards;
+}
+.loader-glow {
+  animation: loader-glow 1.4s var(--ease) both;
+}
+.loader-stroke {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation:
+    loader-draw 0.65s cubic-bezier(0.65, 0, 0.35, 1) 0.15s forwards,
+    loader-fade-out 0.2s ease 0.8s forwards;
+}
+.loader-fill {
+  opacity: 0;
+  animation: loader-fade-in 0.35s var(--ease) 0.6s forwards;
+}
+.loader-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0);
+  animation: loader-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 0.8s forwards;
+}
+.loader-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: loader-ring 0.6s var(--ease) 1.05s forwards;
+}
+.loader-line {
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: loader-line 1s cubic-bezier(0.65, 0, 0.35, 1) 0.25s forwards;
+}
+.loader-count {
+  animation: loader-count 1s cubic-bezier(0.65, 0, 0.35, 1) 0.25s forwards;
+  counter-reset: loader var(--loader-count);
+}
+.loader-count::before {
+  content: counter(loader, decimal-leading-zero);
+}
+.loader-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(70%);
+  animation: loader-letter 0.5s var(--ease) forwards;
+  animation-delay: calc(0.35s + var(--l) * 35ms);
+}
+
+@keyframes loader-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes loader-fade-in {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes loader-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes loader-pop {
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes loader-ring {
+  0% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.6);
+  }
+}
+@keyframes loader-line {
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes loader-count {
+  to {
+    --loader-count: 100;
+  }
+}
+@keyframes loader-letter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes loader-glow {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+}
+@keyframes loader-content-out {
+  to {
+    opacity: 0;
+    transform: translateY(-28px) scale(0.98);
+  }
+}
+@keyframes loader-curtain {
+  to {
+    transform: translateY(calc(-100% - 16vh));
+  }
+}
+@keyframes loader-hide {
+  to {
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* Page lock while the loader plays (class set/cleared by the loader's inline script) */
+html.is-loading {
+  overflow: hidden;
+}
+
+/* ---------- Page entrance, choreographed after the loader ---------- */
+.intro {
+  animation: intro-rise 0.9s var(--ease) both;
+  animation-delay: calc(var(--intro) + var(--i, 0) * 90ms);
+}
+.intro-down {
+  animation: intro-down 0.8s var(--ease) both;
+  animation-delay: var(--intro);
+}
+.intro-fade {
+  animation: intro-fade 1.8s var(--ease) both;
+  animation-delay: calc(var(--intro) + 0.35s);
+}
+/* Headline words rise from behind a mask; padding keeps descenders (g, y) inside the clip */
+.word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+.word > span {
+  display: inline-block;
+  animation: word-rise 1s var(--ease) both;
+  animation-delay: calc(var(--intro) + 0.1s + var(--w) * 45ms);
+}
+
+@keyframes intro-rise {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+@keyframes intro-down {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+}
+@keyframes intro-fade {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+}
+@keyframes word-rise {
+  from {
+    transform: translateY(108%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-loader] {
+    display: none;
+  }
+}
+
 /* Theme toggle: 200ms crossfade via the View Transitions API (opacity only). */
 ::view-transition-old(root),
 ::view-transition-new(root) {

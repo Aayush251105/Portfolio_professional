@@ -5,6 +5,7 @@ const url = process.argv[2] ?? "http://localhost:3100";
 const browser = await chromium.launch({ args: ["--enable-gpu-rasterization", "--ignore-gpu-blocklist"] });
 for (const theme of ["light", "dark"]) {
   const ctx = await browser.newContext({ viewport: { width: 1440, height: 880 }, colorScheme: theme });
+  await ctx.addInitScript(() => sessionStorage.setItem("a-loader-seen", "1")); // skip the intro loader
   const page = await ctx.newPage();
   await page.goto(url, { waitUntil: "networkidle" });
   if (process.env.INJECT) await page.addStyleTag({ content: process.env.INJECT });

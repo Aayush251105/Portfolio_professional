@@ -3,6 +3,24 @@ import { ArrowLink } from "./arrow-link";
 import { Container } from "./container";
 import { ResumeMenu } from "./resume-menu";
 
+const cssVars = (v: Record<string, number>) => v as React.CSSProperties;
+
+/** Splits text into masked words that rise in sequence (see .word in globals.css). */
+function RiseWords({ text, start }: { text: string; start: number }) {
+  return text
+    .split(/(\s+)/)
+    .filter(Boolean)
+    .map((part, i) =>
+      /\s/.test(part) ? (
+        part
+      ) : (
+        <span key={i} className="word">
+          <span style={cssVars({ "--w": start + i / 2 })}>{part}</span>
+        </span>
+      ),
+    );
+}
+
 const { hero } = site;
 
 const socials = [
@@ -25,7 +43,7 @@ export function Hero() {
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute top-1/3 -right-24 h-[420px] w-[420px] rounded-full bg-gradient-to-bl from-border/80 via-bg to-transparent blur-2xl dark:top-1/2 dark:h-[380px] dark:w-[380px] dark:from-border/60 dark:via-surface"
+        className="intro-fade pointer-events-none absolute top-1/3 -right-24 h-[420px] w-[420px] rounded-full bg-gradient-to-bl from-border/80 via-bg to-transparent blur-2xl dark:top-1/2 dark:h-[380px] dark:w-[380px] dark:from-border/60 dark:via-surface"
       />
 
       {/* Reserves the nav's slot; the nav itself is fixed so it can follow the page. */}
@@ -35,7 +53,7 @@ export function Hero() {
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-8">
           {/* Left: typographic narrative */}
           <div className="space-y-6 lg:col-span-8 lg:space-y-7 lg:pr-6">
-            <div className="inline-flex items-center gap-2.5 rounded-full border border-border/80 bg-surface/60 px-3.5 py-1.5 dark:border-border/90 dark:bg-surface/80">
+            <div style={cssVars({ "--i": 0 })} className="intro inline-flex items-center gap-2.5 rounded-full border border-border/80 bg-surface/60 px-3.5 py-1.5 dark:border-border/90 dark:bg-surface/80">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
               <span className="whitespace-nowrap font-mono text-[11px] font-medium uppercase tracking-tight text-secondary">
                 {hero.eyebrow.map((item, i) => (
@@ -48,14 +66,16 @@ export function Hero() {
             </div>
 
             <h1 className="text-[42px] font-semibold leading-[1.06] tracking-[-0.035em] text-text sm:text-[54px] lg:text-[64px]">
-              {hero.headline.before}
-              <span className="text-accent">{hero.headline.accent}</span>
-              {hero.headline.after}
+              <RiseWords text={hero.headline.before} start={0} />
+              <span className="text-accent">
+                <RiseWords text={hero.headline.accent} start={2} />
+              </span>
+              <RiseWords text={hero.headline.after} start={3} />
             </h1>
 
-            <p className="max-w-[540px] text-base leading-relaxed tracking-tight text-secondary sm:text-lg">{hero.intro}</p>
+            <p style={cssVars({ "--i": 4 })} className="intro max-w-[540px] text-base leading-relaxed tracking-tight text-secondary sm:text-lg">{hero.intro}</p>
 
-            <div className="flex flex-wrap items-center gap-3 pt-2 sm:gap-4">
+            <div style={cssVars({ "--i": 5 })} className="intro flex flex-wrap items-center gap-3 pt-2 sm:gap-4">
               <a
                 href="#projects"
                 className="group relative inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-sm font-medium text-on-accent shadow-sm shadow-accent/25 transition-[filter,transform] duration-200 ease-brand hover:brightness-110 active:scale-[0.98] dark:font-semibold dark:shadow-accent/20"
@@ -82,7 +102,7 @@ export function Hero() {
             {/* Faint "A." monogram: peeks out from the card's lower-left to balance the left-heavy composition */}
             <div
               aria-hidden
-              className="pointer-events-none absolute -bottom-10 left-[4%] select-none text-[220px] leading-none sm:left-[18%] lg:-bottom-24 lg:-left-16 lg:text-[300px] font-bold tracking-[-0.06em] text-text/[0.06] dark:text-text/[0.05]"
+              className="intro-fade pointer-events-none absolute -bottom-10 left-[4%] select-none text-[220px] leading-none sm:left-[18%] lg:-bottom-24 lg:-left-16 lg:text-[300px] font-bold tracking-[-0.06em] text-text/[0.06] dark:text-text/[0.05]"
             >
               {site.monogram}
               <span className="text-accent/[0.18] dark:text-accent/[0.14]">.</span>
@@ -90,11 +110,11 @@ export function Hero() {
 
             <div
               aria-hidden
-              className="pointer-events-none absolute top-1/2 right-1/2 h-64 w-64 translate-x-1/2 -translate-y-1/2 rounded-full lg:right-6 lg:h-72 lg:w-72 lg:translate-x-0 bg-accent opacity-[var(--orb-opacity)] blur-3xl"
+              className="intro-fade pointer-events-none absolute top-1/2 right-1/2 h-64 w-64 translate-x-1/2 -translate-y-1/2 rounded-full lg:right-6 lg:h-72 lg:w-72 lg:translate-x-0 bg-accent opacity-[var(--orb-opacity)] blur-3xl"
             />
 
-            <div aria-hidden className="pointer-events-none absolute top-12 right-8 hidden h-44 w-44 rounded-full lg:block border border-border/60 dark:border-border/70" />
-            <div aria-hidden className="pointer-events-none absolute top-16 right-4 hidden h-36 w-36 rounded-full lg:block border border-dashed border-accent/30 dark:border-accent/25" />
+            <div aria-hidden className="intro-fade pointer-events-none absolute top-12 right-8 hidden h-44 w-44 rounded-full lg:block border border-border/60 dark:border-border/70" />
+            <div aria-hidden className="intro-fade pointer-events-none absolute top-16 right-4 hidden h-36 w-36 rounded-full lg:block border border-dashed border-accent/30 dark:border-accent/25" />
 
             <StatusCard />
           </div>
@@ -103,7 +123,7 @@ export function Hero() {
 
       {/* Bottom row: scroll cue and text-only social links */}
       <Container className="relative z-20">
-        <div className="flex items-end justify-center border-t border-border/60 pt-5 sm:justify-between text-xs dark:border-border/70">
+        <div style={cssVars({ "--i": 7 })} className="intro flex items-end justify-center border-t border-border/60 pt-5 sm:justify-between text-xs dark:border-border/70">
           <a
             href="#about"
             className="group hidden items-center gap-3 font-mono text-[11px] tracking-wide text-secondary transition-colors sm:flex duration-200 ease-brand hover:text-text"
@@ -133,7 +153,7 @@ export function Hero() {
 function StatusCard() {
   const { status } = hero;
   return (
-    <div className="glass relative z-20 w-[290px] max-w-full space-y-4 lg:mr-2 rounded-2xl p-5 shadow-xl dark:shadow-2xl">
+    <div style={cssVars({ "--i": 6 })} className="intro glass relative z-20 w-[290px] max-w-full space-y-4 lg:mr-2 rounded-2xl p-5 shadow-xl dark:shadow-2xl">
       <div className="flex items-center justify-between border-b border-border/60 pb-3 dark:border-border/80">
         <div className="flex items-center gap-2">
           <span className="relative flex h-2.5 w-2.5">
