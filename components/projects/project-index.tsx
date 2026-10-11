@@ -23,6 +23,8 @@ export function ProjectIndex() {
   const [filter, setFilter] = useState<"All" | ProjectCategory>("All");
   const [selectedId, setSelectedId] = useState(() => (projects.find((p) => p.featured) ?? projects[0]).id);
   const [openId, setOpenId] = useState<string | null>(null);
+  // Below lg the index is an accordion. Starts with the first featured project expanded.
+  const [expandedId, setExpandedId] = useState<string | null>(() => (projects.find((p) => p.featured) ?? projects[0]).id);
   const rowRefs = useRef(new Map<string, HTMLButtonElement>());
   const reduced = useReducedMotion();
 
@@ -34,6 +36,12 @@ export function ProjectIndex() {
     setFilter(next);
     const list = projects.filter((p) => next === "All" || p.category === next);
     if (!list.some((p) => p.id === selectedId)) setSelectedId((list.find((p) => p.featured) ?? list[0]).id);
+  }
+
+  /** Desktop opens the case study; below lg a tap toggles the accordion (decided at click time, so SSR markup is identical). */
+  function onRowClick(id: string) {
+    if (window.matchMedia("(min-width: 1024px)").matches) setOpenId(id);
+    else setExpandedId((cur) => (cur === id ? null : id));
   }
 
   function onRowKeyDown(e: React.KeyboardEvent, index: number) {
@@ -48,8 +56,8 @@ export function ProjectIndex() {
   return (
     <>
       {/* Headline + filter tabs */}
-      <div className="mb-8 flex items-baseline justify-between border-b border-border/40 pb-3">
-        <h2 className="text-[44px] leading-none font-medium tracking-[-0.03em] text-text">{site.projects.headline}</h2>
+      <div className="mb-8 flex flex-col items-start gap-5 border-b border-border/40 pb-3 sm:flex-row sm:items-baseline sm:justify-between">
+        <h2 className="text-[34px] leading-none font-medium tracking-[-0.03em] text-text lg:text-[44px]">{site.projects.headline}</h2>
         <div role="tablist" aria-label="Filter projects" className="flex items-center gap-6 font-mono text-xs leading-4 font-medium tracking-[0.04em]">
           {filters.map(({ key, label }) => {
             const active = filter === key;
@@ -75,19 +83,20 @@ export function ProjectIndex() {
         </div>
       </div>
 
-      <div className="grid grid-cols-12 items-start gap-10">
-        {/* Index list */}
-        <div className="col-span-7">
+      <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12">
+        {/* Index list (accordion below lg) */}
+        <div className="lg:col-span-7">
           <ul className="flex flex-col border-t border-border" aria-label="Projects">
             <AnimatePresence initial={false}>
               {visible.map((p, i) => {
                 const active = p.id === selected?.id;
+                const expanded = p.id === expandedId;
                 return (
                   <motion.li
                     key={p.id}
                     layout={reduced ? false : "position"}
                     initial={reduced ? false : { opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 64 }}
+                    animate={{ opacity: 1, height: "auto" }}
                     exit={reduced ? undefined : { opacity: 0, height: 0 }}
                     transition={{ duration: 0.35, ease }}
                     className="border-b border-border [overflow-x:visible] [overflow-y:clip]"
@@ -98,36 +107,37 @@ export function ProjectIndex() {
                         else rowRefs.current.delete(p.id);
                       }}
                       type="button"
-                      aria-haspopup="dialog"
                       aria-current={active ? "true" : undefined}
+                      aria-expanded={expanded}
+                      aria-controls={`project-panel-${p.id}`}
                       onMouseEnter={() => setSelectedId(p.id)}
                       onFocus={() => setSelectedId(p.id)}
-                      onClick={() => setOpenId(p.id)}
+                      onClick={() => onRowClick(p.id)}
                       onKeyDown={(e) => onRowKeyDown(e, i)}
                       className={`group flex h-16 w-full items-center justify-between px-2 text-left outline-none transition-[opacity,transform] duration-250 ease-brand focus-visible:bg-text/[0.03] ${
-                        active ? "translate-x-3 opacity-100" : "opacity-40 hover:opacity-100"
+                        active ? "lg:translate-x-3" : "lg:opacity-40 lg:hover:opacity-100"
                       }`}
                     >
-                      <span className="flex items-center gap-5">
+                      <span className="flex items-center gap-4 lg:gap-5">
                         <span
-                          className={`font-mono text-[11px] leading-[14px] tracking-[0.06em] transition-colors duration-250 ${
-                            active ? "font-semibold text-accent" : "text-secondary"
-                          }`}
+                          className={`font-mono text-[11px] leading-[14px] tracking-[0.06em] text-secondary transition-colors duration-250 ${
+                            active ? "lg:font-semibold lg:text-accent" : ""
+                          } ${expanded ? "max-lg:font-semibold max-lg:text-accent" : ""}`}
                         >
                           {number(p)}
                         </span>
                         <span
-                          className={`flex items-center gap-1.5 text-[17px] leading-6 tracking-tight transition-[color,font-weight] duration-250 ${
-                            active ? "font-semibold text-accent" : "font-medium text-text"
-                          }`}
+                          className={`flex items-center gap-1.5 text-[17px] leading-6 font-medium tracking-tight text-text transition-[color,font-weight] duration-250 ${
+                            active ? "lg:font-semibold lg:text-accent" : ""
+                          } ${expanded ? "max-lg:font-semibold max-lg:text-accent" : ""}`}
                         >
                           {p.name}
-                          {p.featured && !active && <span className="text-[11px] leading-none text-accent">★</span>}
+                          {p.featured && <span className={`text-[11px] leading-none text-accent ${active ? "lg:hidden" : ""}`}>★</span>}
                         </span>
                         <span
-                          className={`ml-1 font-mono text-[11px] leading-[14px] uppercase tracking-wider transition-colors duration-250 ${
-                            active ? "text-accent/80" : "text-secondary"
-                          }`}
+                          className={`ml-1 font-mono text-[11px] leading-[14px] uppercase tracking-wider text-secondary transition-colors duration-250 ${
+                            active ? "lg:text-accent/80" : ""
+                          } ${expanded ? "max-lg:text-accent/80" : ""}`}
                         >
                           {categoryLabel(p.category)}
                         </span>
@@ -140,14 +150,58 @@ export function ProjectIndex() {
                         )}
                         <span
                           aria-hidden
-                          className={`text-lg leading-none font-medium text-accent transition-[opacity,transform] duration-250 ease-brand ${
+                          className={`hidden text-lg leading-none font-medium text-accent transition-[opacity,transform] duration-250 ease-brand lg:inline ${
                             active ? "translate-x-0 opacity-100" : "-translate-x-2 opacity-0"
                           }`}
                         >
                           →
                         </span>
+                        {/* Accordion chevron (below lg) */}
+                        <svg
+                          aria-hidden
+                          viewBox="0 0 24 24"
+                          className={`h-4 w-4 transition-[transform,color] duration-300 ease-brand lg:hidden ${expanded ? "rotate-180 text-accent" : "text-secondary"}`}
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
+                        </svg>
                       </span>
                     </button>
+
+                    {/* Accordion panel (below lg only) */}
+                    <AnimatePresence initial={false}>
+                      {expanded && (
+                        <motion.div
+                          id={`project-panel-${p.id}`}
+                          key="panel"
+                          initial={reduced ? false : { height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={reduced ? undefined : { height: 0, opacity: 0 }}
+                          transition={{ duration: 0.4, ease }}
+                          className="overflow-hidden lg:hidden"
+                        >
+                          <div className="px-2 pb-6">
+                            <div className="relative h-[200px] overflow-hidden rounded-lg border border-border/60 bg-bg/60 p-3.5">
+                              <ProjectPreview kind={p.preview} />
+                            </div>
+                            <ProjectMeta project={p} />
+                            <button
+                              type="button"
+                              aria-haspopup="dialog"
+                              onClick={() => setOpenId(p.id)}
+                              className="group mt-5 inline-flex items-center gap-1.5 font-mono text-xs leading-4 font-medium tracking-[0.04em] text-text transition-colors duration-200 ease-brand hover:text-accent"
+                            >
+                              Read case study
+                              <span aria-hidden className="text-accent transition-transform duration-200 ease-brand group-hover:translate-x-0.5">
+                                →
+                              </span>
+                            </button>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </motion.li>
                 );
               })}
@@ -162,7 +216,7 @@ export function ProjectIndex() {
         </div>
 
         {/* Sticky glass preview */}
-        <div className="sticky top-28 col-span-5">
+        <div className="sticky top-28 col-span-5 hidden lg:block">
           <div aria-hidden className="pointer-events-none absolute -top-12 -left-12 h-72 w-72 rounded-full bg-accent opacity-25 blur-3xl" />
           <div className="glass relative overflow-hidden rounded-2xl p-6 shadow-xl">
             {/* Browser chrome */}
@@ -242,7 +296,7 @@ function ProjectMeta({ project }: { project: Project }) {
   return (
     <div className="mt-5 space-y-3">
       <div className="flex items-center justify-between gap-3">
-        <h3 className="text-[23px] leading-8 font-semibold tracking-tight text-text">{project.name}</h3>
+        <h3 className="text-xl leading-8 font-semibold tracking-tight text-text lg:text-[23px]">{project.name}</h3>
         <span className="shrink-0 rounded border border-accent/40 bg-accent/10 px-2 py-0.5 font-mono text-[11px] leading-4 font-medium uppercase text-accent">
           {project.tag.split(",")[0]}
         </span>

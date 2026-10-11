@@ -94,6 +94,8 @@ html {
 }
 
 body {
+  /* No sideways scroll from decorative glows at phone widths; clip (unlike hidden) keeps sticky working. */
+  overflow-x: clip;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);

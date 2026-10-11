@@ -8,7 +8,7 @@ const { certifications } = site;
 
 export function Certifications() {
   return (
-    <section id="certifications" className="relative scroll-mt-24 overflow-x-clip pt-24 pb-24">
+    <section id="certifications" className="relative scroll-mt-24 overflow-x-clip py-16 lg:pt-24 lg:pb-24">
       {/* Ambient warm glow behind the cards (dark only, as in the design) so the card glass reads */}
       <div
         aria-hidden

@@ -16,7 +16,7 @@ export function Timeline({ entries }: { entries: readonly ExperienceEntry[] }) {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 70%", "end 70%"] });
 
   return (
-    <div ref={ref} className="relative pl-10">
+    <div ref={ref} className="relative pl-8 lg:pl-10">
       {/* Track + scroll-linked progress fill */}
       <div aria-hidden className="absolute top-3 bottom-8 left-0 w-px bg-border">
         <motion.div
@@ -25,7 +25,7 @@ export function Timeline({ entries }: { entries: readonly ExperienceEntry[] }) {
         />
       </div>
 
-      <ol className="space-y-16">
+      <ol className="space-y-8 lg:space-y-16">
         {entries.map((entry, i) => (
           <li key={entry.org + entry.role} className="relative">
             <Reveal delay={i * 0.05}>
@@ -40,7 +40,7 @@ export function Timeline({ entries }: { entries: readonly ExperienceEntry[] }) {
 
 function TimelineEntry({ entry, latest }: { entry: ExperienceEntry; latest: boolean }) {
   return (
-    <article className="group relative -ml-8 rounded-2xl p-8">
+    <article className="group relative -ml-5 rounded-2xl p-5 lg:-ml-8 lg:p-8">
       {/* Hover surface fades in (opacity only) */}
       <span
         aria-hidden
@@ -48,7 +48,7 @@ function TimelineEntry({ entry, latest }: { entry: ExperienceEntry; latest: bool
       />
 
       {/* Node, centred on the track line (track is 8px left of the card edge) */}
-      <span aria-hidden className="absolute top-[35px] -left-[12.5px] flex">
+      <span aria-hidden className="absolute top-[23px] -left-[16.5px] flex lg:top-[35px] lg:-left-[12.5px]">
         <span
           className={`h-2.5 w-2.5 rounded-full ring-4 ring-bg transition-[transform,background-color,border-color] duration-200 ease-brand group-hover:scale-125 ${
             latest ? "bg-accent" : "border-2 border-secondary bg-bg group-hover:border-accent"
@@ -57,7 +57,7 @@ function TimelineEntry({ entry, latest }: { entry: ExperienceEntry; latest: bool
       </span>
 
       <div className="relative">
-        <div className="mb-2 flex items-center justify-between gap-4">
+        <div className="mb-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
           <span className="font-mono text-xs leading-4 uppercase tracking-wider text-secondary">{entry.dates}</span>
           {entry.badge &&
             (latest ? (
@@ -70,7 +70,7 @@ function TimelineEntry({ entry, latest }: { entry: ExperienceEntry; latest: bool
         </div>
 
         <div className="mb-4">
-          <h3 className="text-2xl leading-8 font-bold tracking-tight text-text transition-colors duration-200 ease-brand group-hover:text-accent">
+          <h3 className="text-xl leading-7 font-bold sm:text-2xl sm:leading-8 tracking-tight text-text transition-colors duration-200 ease-brand group-hover:text-accent">
             {entry.role}
           </h3>
           <p className="mt-0.5 text-base leading-6 font-medium text-secondary">{entry.org}</p>

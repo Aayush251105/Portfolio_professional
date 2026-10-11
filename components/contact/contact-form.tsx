@@ -56,7 +56,7 @@ export function ContactForm({ email }: { email: string }) {
   }
 
   return (
-    <div className="glass relative z-10 w-[720px] max-w-full rounded-[24px] p-8">
+    <div className="glass relative z-10 w-[720px] max-w-full rounded-[24px] p-6 sm:p-8">
       <div className="mb-2 flex items-center justify-between border-b border-border/60 pb-6">
         <span className="font-mono text-[11px] leading-[14px] font-medium uppercase tracking-wider text-secondary">Send a message</span>
         <span className="inline-flex items-center gap-2 font-mono text-[11px] leading-[14px] font-medium tracking-[0.06em] text-secondary">
@@ -81,7 +81,7 @@ export function ContactForm({ email }: { email: string }) {
             </label>
           </div>
 
-          <div className="grid grid-cols-2 gap-6 pt-2">
+          <div className="grid grid-cols-1 gap-6 pt-2 sm:grid-cols-2">
             <Field label="Your name" error={visibleError("name")}>
               {(props) => (
                 <input
@@ -134,8 +134,8 @@ export function ContactForm({ email }: { email: string }) {
             )}
           </Field>
 
-          <div className="flex items-center justify-between pt-4">
-            <div className="flex items-center gap-1.5 text-[13px] leading-5 text-secondary">
+          <div className="flex flex-col-reverse items-stretch gap-5 pt-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-wrap items-center justify-center gap-1.5 text-[13px] leading-5 text-secondary">
               <span>or email me directly</span>
               <CopyEmail email={email} />
             </div>
@@ -232,7 +232,7 @@ function SubmitButton({ status }: { status: Status }) {
     <button
       type="submit"
       disabled={sending}
-      className="group flex items-center gap-2 rounded-full bg-accent px-6 py-2.5 text-[13px] leading-5 font-medium text-on-accent shadow-[0_2px_8px_color-mix(in_srgb,var(--accent)_25%,transparent)] transition-[filter,transform,opacity] duration-200 ease-brand hover:brightness-110 active:scale-[0.98] disabled:cursor-progress disabled:opacity-85 dark:font-semibold"
+      className="group flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 sm:py-2.5 text-[13px] leading-5 font-medium text-on-accent shadow-[0_2px_8px_color-mix(in_srgb,var(--accent)_25%,transparent)] transition-[filter,transform,opacity] duration-200 ease-brand hover:brightness-110 active:scale-[0.98] disabled:cursor-progress disabled:opacity-85 dark:font-semibold"
     >
       <span>{sending ? "Sending…" : "Send message"}</span>
       {sending ? (

@@ -55,7 +55,7 @@ export function CaseStudy({ project, number, onClose }: { project: Project | nul
       {project && (
         <motion.div
           key="case-study"
-          className="fixed inset-0 z-[60] flex items-center justify-center p-6"
+          className="fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -73,24 +73,24 @@ export function CaseStudy({ project, number, onClose }: { project: Project | nul
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduced ? undefined : { opacity: 0, y: 16, scale: 0.98 }}
             transition={{ duration: 0.4, ease }}
-            className="relative max-h-[86vh] w-full max-w-[1080px] overflow-y-auto overscroll-contain rounded-3xl border border-border bg-surface p-10 shadow-2xl"
+            className="relative max-h-[86vh] w-full max-w-[1080px] overflow-y-auto overscroll-contain rounded-3xl border border-border bg-surface p-6 shadow-2xl sm:p-10"
           >
             <button
               ref={closeRef}
               type="button"
               aria-label="Close case study"
               onClick={onClose}
-              className="group glass-pill absolute top-6 right-6 flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-[color,border-color,transform] duration-200 ease-brand hover:border-accent hover:text-accent active:scale-95"
+              className="group glass-pill absolute top-4 right-4 z-10 flex sm:top-6 sm:right-6 h-10 w-10 items-center justify-center rounded-full text-secondary transition-[color,border-color,transform] duration-200 ease-brand hover:border-accent hover:text-accent active:scale-95"
             >
               <svg viewBox="0 0 24 24" className="h-4 w-4 transition-transform duration-300 ease-brand group-hover:rotate-90" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
                 <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
               </svg>
             </button>
 
-            <div className="grid grid-cols-12 items-center gap-12">
-              <div className="col-span-5">
+            <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12">
+              <div className="lg:col-span-5">
                 <span className="font-mono text-[11px] leading-[14px] tracking-[0.06em] text-secondary">{number}</span>
-                <h3 id="case-study-title" className="mt-2 text-[28px] leading-9 font-medium tracking-[-0.02em] text-text">
+                <h3 id="case-study-title" className="mt-2 pr-12 text-[26px] sm:text-[28px] leading-9 font-medium tracking-[-0.02em] text-text">
                   {project.name}
                 </h3>
                 <p className="mt-1 font-mono text-[11px] leading-[14px] uppercase tracking-wider text-accent">{project.tag}</p>
@@ -122,7 +122,7 @@ export function CaseStudy({ project, number, onClose }: { project: Project | nul
                 </div>
               </div>
 
-              <div className="col-span-7">
+              <div className="lg:col-span-7">
                 <div className="rounded-2xl border border-border bg-bg/50 p-4 shadow-[0_8px_30px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
                   <div className="flex items-center gap-1.5 pb-3">
                     <span className="h-2.5 w-2.5 rounded-full bg-accent/40" />
@@ -132,7 +132,7 @@ export function CaseStudy({ project, number, onClose }: { project: Project | nul
                       {project.id}/preview
                     </span>
                   </div>
-                  <div className="h-[300px] rounded-lg border border-border/60 bg-surface p-5">
+                  <div className="h-[260px] rounded-lg border border-border/60 bg-surface p-4 sm:h-[300px] sm:p-5">
                     <ProjectPreview kind={project.preview} />
                   </div>
                 </div>

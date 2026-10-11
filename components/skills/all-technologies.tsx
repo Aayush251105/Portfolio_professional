@@ -50,7 +50,7 @@ export function AllTechnologies() {
             transition={{ duration: 0.45, ease }}
             className="overflow-hidden"
           >
-            <div className="grid grid-cols-4 gap-8 pt-10 pb-2">
+            <div className="grid grid-cols-1 gap-8 pt-10 pb-2 sm:grid-cols-2 lg:grid-cols-4">
               {site.skills.categories.map((category, ci) => (
                 <motion.div
                   key={category.name}

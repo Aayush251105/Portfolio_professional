@@ -15,7 +15,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-[720px] flex-col justify-between overflow-hidden py-12 h-svh max-h-[1080px]"
+      className="relative flex min-h-svh flex-col justify-between gap-12 overflow-hidden py-6 md:py-12 lg:h-svh lg:max-h-[1080px] lg:min-h-[720px] lg:gap-0 lg:py-12"
     >
       {/* Ambient background: grain, top orb and a warm falloff on the right */}
       <div aria-hidden className="bg-grain pointer-events-none absolute inset-0 z-10" />
@@ -32,9 +32,9 @@ export function Hero() {
       <div aria-hidden className="h-14 shrink-0" />
 
       <Container className="relative z-30 my-auto">
-        <div className="grid grid-cols-12 items-center gap-8">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-8">
           {/* Left: typographic narrative */}
-          <div className="col-span-8 space-y-7 pr-6">
+          <div className="space-y-6 lg:col-span-8 lg:space-y-7 lg:pr-6">
             <div className="inline-flex items-center gap-2.5 rounded-full border border-border/80 bg-surface/60 px-3.5 py-1.5 dark:border-border/90 dark:bg-surface/80">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
               <span className="whitespace-nowrap font-mono text-[11px] font-medium uppercase tracking-tight text-secondary">
@@ -47,15 +47,15 @@ export function Hero() {
               </span>
             </div>
 
-            <h1 className="text-[64px] font-semibold leading-[1.06] tracking-[-0.035em] text-text">
+            <h1 className="text-[42px] font-semibold leading-[1.06] tracking-[-0.035em] text-text sm:text-[54px] lg:text-[64px]">
               {hero.headline.before}
               <span className="text-accent">{hero.headline.accent}</span>
               {hero.headline.after}
             </h1>
 
-            <p className="max-w-[540px] text-lg leading-relaxed tracking-tight text-secondary">{hero.intro}</p>
+            <p className="max-w-[540px] text-base leading-relaxed tracking-tight text-secondary sm:text-lg">{hero.intro}</p>
 
-            <div className="flex items-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center gap-3 pt-2 sm:gap-4">
               <a
                 href="#projects"
                 className="group relative inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-sm font-medium text-on-accent shadow-sm shadow-accent/25 transition-[filter,transform] duration-200 ease-brand hover:brightness-110 active:scale-[0.98] dark:font-semibold dark:shadow-accent/20"
@@ -78,11 +78,11 @@ export function Hero() {
           </div>
 
           {/* Right: monogram, orb, rings and the status card */}
-          <div className="relative col-span-4 flex h-[380px] items-center justify-end">
+          <div className="relative flex h-[300px] items-center justify-center lg:col-span-4 lg:h-[380px] lg:justify-end">
             {/* Faint "A." monogram: peeks out from the card's lower-left to balance the left-heavy composition */}
             <div
               aria-hidden
-              className="pointer-events-none absolute -bottom-24 -left-16 select-none text-[300px] leading-none font-bold tracking-[-0.06em] text-text/[0.06] dark:text-text/[0.05]"
+              className="pointer-events-none absolute -bottom-10 left-[4%] select-none text-[220px] leading-none sm:left-[18%] lg:-bottom-24 lg:-left-16 lg:text-[300px] font-bold tracking-[-0.06em] text-text/[0.06] dark:text-text/[0.05]"
             >
               {site.monogram}
               <span className="text-accent/[0.18] dark:text-accent/[0.14]">.</span>
@@ -90,11 +90,11 @@ export function Hero() {
 
             <div
               aria-hidden
-              className="pointer-events-none absolute top-1/2 right-6 h-72 w-72 -translate-y-1/2 rounded-full bg-accent opacity-[var(--orb-opacity)] blur-3xl"
+              className="pointer-events-none absolute top-1/2 right-1/2 h-64 w-64 translate-x-1/2 -translate-y-1/2 rounded-full lg:right-6 lg:h-72 lg:w-72 lg:translate-x-0 bg-accent opacity-[var(--orb-opacity)] blur-3xl"
             />
 
-            <div aria-hidden className="pointer-events-none absolute top-12 right-8 h-44 w-44 rounded-full border border-border/60 dark:border-border/70" />
-            <div aria-hidden className="pointer-events-none absolute top-16 right-4 h-36 w-36 rounded-full border border-dashed border-accent/30 dark:border-accent/25" />
+            <div aria-hidden className="pointer-events-none absolute top-12 right-8 hidden h-44 w-44 rounded-full lg:block border border-border/60 dark:border-border/70" />
+            <div aria-hidden className="pointer-events-none absolute top-16 right-4 hidden h-36 w-36 rounded-full lg:block border border-dashed border-accent/30 dark:border-accent/25" />
 
             <StatusCard />
           </div>
@@ -103,10 +103,10 @@ export function Hero() {
 
       {/* Bottom row: scroll cue and text-only social links */}
       <Container className="relative z-20">
-        <div className="flex items-end justify-between border-t border-border/60 pt-5 text-xs dark:border-border/70">
+        <div className="flex items-end justify-center border-t border-border/60 pt-5 sm:justify-between text-xs dark:border-border/70">
           <a
             href="#about"
-            className="group flex items-center gap-3 font-mono text-[11px] tracking-wide text-secondary transition-colors duration-200 ease-brand hover:text-text"
+            className="group hidden items-center gap-3 font-mono text-[11px] tracking-wide text-secondary transition-colors sm:flex duration-200 ease-brand hover:text-text"
           >
             <span className="uppercase">Scroll</span>
             <span className="relative h-7 w-px overflow-hidden bg-border">
@@ -114,9 +114,9 @@ export function Hero() {
             </span>
           </a>
 
-          <ul className="flex items-center gap-6 font-mono text-[11px] uppercase tracking-wider text-secondary">
+          <ul className="flex items-center gap-4 font-mono text-[11px] uppercase tracking-wider text-secondary sm:gap-6">
             {socials.map(({ label, href, external }, i) => (
-              <li key={label} className="flex items-center gap-6">
+              <li key={label} className="flex items-center gap-4 sm:gap-6">
                 {i > 0 && <span className="text-border">/</span>}
                 <ArrowLink href={href} external={external}>
                   {label}
@@ -133,7 +133,7 @@ export function Hero() {
 function StatusCard() {
   const { status } = hero;
   return (
-    <div className="glass relative z-20 mr-2 w-[290px] space-y-4 rounded-2xl p-5 shadow-xl dark:shadow-2xl">
+    <div className="glass relative z-20 w-[290px] max-w-full space-y-4 lg:mr-2 rounded-2xl p-5 shadow-xl dark:shadow-2xl">
       <div className="flex items-center justify-between border-b border-border/60 pb-3 dark:border-border/80">
         <div className="flex items-center gap-2">
           <span className="relative flex h-2.5 w-2.5">

@@ -4,9 +4,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 type Cert = { issuer: string; title: string; type: string; year: string; href: string };
 
-const CARD = 360;
 const GAP = 24;
-const STEP = CARD + GAP;
+/** One card plus the gap; card width is responsive (300px on phones, 360px from sm). */
+const stepOf = (track: HTMLElement) => (track.querySelector("article")?.offsetWidth ?? 360) + GAP;
 
 /**
  * Horizontal scroll-snap carousel. The track starts at the container's left edge and bleeds
@@ -33,7 +33,7 @@ export function CertCarousel({
     // Count cards fully inside the 1200px content column, not the bleed area.
     const column = track.parentElement?.clientWidth ?? track.clientWidth;
     const right = track.scrollLeft + column + GAP;
-    setLastVisible(Math.max(1, Math.min(items.length, Math.floor(right / STEP))));
+    setLastVisible(Math.max(1, Math.min(items.length, Math.floor(right / stepOf(track)))));
     setAtStart(track.scrollLeft <= 2);
     setAtEnd(track.scrollLeft + track.clientWidth >= track.scrollWidth - 2);
   }, [items.length]);
@@ -51,16 +51,17 @@ export function CertCarousel({
 
   const scrollByCards = (dir: 1 | -1) => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    trackRef.current?.scrollBy({ left: dir * STEP, behavior: reduced ? "auto" : "smooth" });
+    const track = trackRef.current;
+    track?.scrollBy({ left: dir * stepOf(track), behavior: reduced ? "auto" : "smooth" });
   };
 
   const pad = (n: number) => String(n).padStart(2, "0");
 
   return (
     <>
-      <div className="mb-12 flex items-end justify-between">
+      <div className="mb-8 flex flex-col items-start gap-6 sm:flex-row sm:items-end sm:justify-between lg:mb-12">
         <div className="max-w-[620px]">
-          <h2 className="mb-3 text-[44px] leading-[50px] font-normal tracking-[-0.025em] text-text">
+          <h2 className="mb-3 text-[34px] leading-[40px] font-normal tracking-[-0.025em] text-text lg:text-[44px] lg:leading-[50px]">
             {headline.before}
             <span className="font-medium text-accent">{headline.accent}</span>
           </h2>
@@ -94,7 +95,7 @@ export function CertCarousel({
         </div>
       </div>
 
-      <div className="mt-4 h-[2px] w-[360px] overflow-hidden rounded-full bg-border">
+      <div className="mt-4 h-[2px] w-full max-w-[360px] overflow-hidden rounded-full bg-border">
         <div
           className="h-full origin-left rounded-full bg-accent transition-transform duration-500 ease-brand"
           style={{ transform: `scaleX(${lastVisible / Math.max(1, items.length)})` }}
@@ -106,7 +107,7 @@ export function CertCarousel({
 
 function CertCard({ cert }: { cert: Cert }) {
   return (
-    <article className="group glass relative flex h-[224px] w-[360px] shrink-0 snap-start flex-col justify-between rounded-3xl p-6 transition-[transform,border-color,box-shadow,background-color] duration-300 ease-brand hover:-translate-y-2 hover:border-accent! hover:shadow-[0_16px_36px_-8px_color-mix(in_srgb,var(--accent)_18%,transparent)] focus-within:-translate-y-2 focus-within:border-accent!">
+    <article className="group glass relative flex h-[224px] w-[300px] shrink-0 snap-start sm:w-[360px] flex-col justify-between rounded-3xl p-6 transition-[transform,border-color,box-shadow,background-color] duration-300 ease-brand hover:-translate-y-2 hover:border-accent! hover:shadow-[0_16px_36px_-8px_color-mix(in_srgb,var(--accent)_18%,transparent)] focus-within:-translate-y-2 focus-within:border-accent!">
       <div className="flex items-start justify-between">
         <span className="font-mono text-[11px] leading-[14px] font-medium uppercase tracking-wider text-secondary transition-colors duration-300 ease-brand group-hover:font-semibold group-hover:text-accent group-focus-within:text-accent">
           {cert.issuer}
