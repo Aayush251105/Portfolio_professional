@@ -93,13 +93,6 @@ html {
   background: var(--bg);
 }
 
-/* Native smooth scrolling for in-page jumps (nav links, CTAs); instant for reduced motion. */
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
-
 body {
   background: var(--bg);
   color: var(--text);
