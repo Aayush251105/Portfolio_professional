@@ -83,6 +83,21 @@ export const site = {
       { name: "Data & Tools", items: ["MongoDB", "PostgreSQL", "MySQL", "Git", "GitHub", "Postman", "Vercel"] },
     ],
   },
+
+  certifications: {
+    headline: { before: "Always ", accent: "learning." },
+    // TODO: confirm wording.
+    intro: "Credentials across cloud, applied AI and core programming, picked up alongside coursework and internships.",
+    /**
+     * Source: AayushResume_SDE.pdf. TODO: add `year` and `href` (verification URL) for each;
+     * cards hide the year and the "Verify" link until they're set. Issuer for the Python Bootcamp is assumed (Udemy).
+     */
+    items: [
+      { issuer: "Amazon Web Services", title: "AWS Certified Cloud Practitioner", type: "Certification", year: "", href: "" },
+      { issuer: "Google", title: "Google AI Essentials", type: "Course certificate", year: "", href: "" },
+      { issuer: "Udemy", title: "The Complete Python Bootcamp", type: "Course certificate", year: "", href: "" },
+    ] as { issuer: string; title: string; type: string; year: string; href: string }[],
+  },
 } as const;
 
 /** Resolves the email link, falling back to "#" while the address is TODO. */

@@ -23,12 +23,12 @@ export function Nav() {
       },
       { rootMargin: "-50% 0px -50% 0px" },
     );
-    // Clear the active link while the hero is in view.
-    const hero = document.getElementById("top");
-    const heroObserver = new IntersectionObserver(([entry]) => entry.isIntersecting && setActive(null), {
+    // Clear the active link over sections that have no nav link (hero, certifications).
+    const unlinked = ["top", "certifications"].map((id) => document.getElementById(id));
+    const heroObserver = new IntersectionObserver((entries) => entries.some((e) => e.isIntersecting) && setActive(null), {
       rootMargin: "-50% 0px -50% 0px",
     });
-    if (hero) heroObserver.observe(hero);
+    for (const el of unlinked) if (el) heroObserver.observe(el);
     for (const { id } of site.nav) {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
