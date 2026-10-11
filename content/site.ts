@@ -53,6 +53,25 @@ export const site = {
       meta: "B.Tech",
     },
   },
+
+  about: {
+    // TODO: confirm wording. Headline kept from the approved design.
+    headline: { before: "I like turning ", accent: "complex systems into products", after: " that feel simple." },
+    // TODO: confirm wording (role tense, Kyndryl description).
+    paragraphs: [
+      "Currently in my 4th year pursuing B.Tech in Computer Science Engineering at Shiv Nadar University (graduating 2027). Recognized on the Dean's List for academic distinction.",
+      "As an Agentic AI intern at Kyndryl, I build agentic workflows, designing how autonomous agents plan, use tools and deliver reliable results.",
+    ],
+    stats: [
+      { label: "Milestone", value: "Class of 2027" },
+      { label: "Academic", value: "Dean's List Honoree" },
+      { label: "Practice", value: "Agentic AI Intern" },
+    ],
+    education: "B.Tech, Computer Science Engineering · Shiv Nadar University",
+    // TODO: replace with a real photo of Aayush (same 3:4 crop). Current file is the design's placeholder render.
+    portrait: { src: "/about/portrait.png", alt: "Aayush working at a laptop, black and white portrait" },
+    badge: { title: "Based in India", meta: "IST · UTC+5:30" },
+  },
 } as const;
 
 /** Resolves the email link, falling back to "#" while the address is TODO. */

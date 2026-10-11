@@ -3,8 +3,11 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { site } from "@/content/site";
 
-/** Hero "Resume" button: opens a liquid-glass menu to pick between resume variants. */
-export function ResumeMenu() {
+/**
+ * Resume trigger that opens a liquid-glass menu to pick between resume variants.
+ * `pill` is the hero's glass button; `link` is the underlined mono link used in About.
+ */
+export function ResumeMenu({ variant = "pill" }: { variant?: "pill" | "link" }) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -56,18 +59,26 @@ export function ResumeMenu() {
             setOpen(true);
           }
         }}
-        className={`glass-pill inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-medium text-text transition-[background-color,border-color,transform] duration-200 ease-brand hover:border-text/30 hover:bg-surface active:scale-[0.98] ${
-          open ? "border-text/30 bg-surface" : ""
-        }`}
+        className={variant === "pill" ? pillClass(open) : linkClass}
       >
-        <span>Resume</span>
-        <svg className="h-3.5 w-3.5 text-secondary" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-          />
-        </svg>
+        {variant === "pill" ? (
+          <>
+            <span>Resume</span>
+            <svg className="h-3.5 w-3.5 text-secondary" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+              />
+            </svg>
+          </>
+        ) : (
+          <>
+            <span>Download resume</span>
+            <span className="text-accent transition-transform duration-150 ease-brand group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
+            <span className="absolute inset-x-0 -bottom-1 h-px bg-text transition-colors duration-150 ease-brand group-hover:bg-accent" />
+          </>
+        )}
       </button>
 
       <div
@@ -77,7 +88,7 @@ export function ResumeMenu() {
         aria-label="Choose a resume"
         inert={!open}
         onKeyDown={onMenuKeyDown}
-        className={`glass-liquid absolute top-[calc(100%+12px)] left-0 z-50 w-[300px] origin-top-left rounded-2xl p-2 transition-[opacity,transform] duration-200 ease-brand ${
+        className={`glass-liquid absolute top-[calc(100%+12px)] z-50 w-[300px] ${variant === "pill" ? "left-0 origin-top-left" : "right-0 origin-top-right"} rounded-2xl p-2 transition-[opacity,transform] duration-200 ease-brand ${
           open ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none -translate-y-1 scale-[0.98] opacity-0"
         }`}
       >
@@ -141,3 +152,11 @@ export function ResumeMenu() {
     </div>
   );
 }
+
+const pillClass = (open: boolean) =>
+  `glass-pill inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-medium text-text transition-[background-color,border-color,transform] duration-200 ease-brand hover:border-text/30 hover:bg-surface active:scale-[0.98] ${
+    open ? "border-text/30 bg-surface" : ""
+  }`;
+
+const linkClass =
+  "group relative inline-flex items-center gap-1.5 font-mono text-[11px] leading-[14px] font-medium uppercase tracking-wider text-text transition-colors duration-150 ease-brand hover:text-accent";

@@ -1,5 +1,6 @@
 // Visual QA helper.
 //   node scripts/shoot.mjs ref <stitch-folder> [outDir]   -> renders each 1440px canvas in code.html
+//     REF_SEL=<css> / REF_VW=<px> override the canvas selector and viewport width for fluid frames.
 //   node scripts/shoot.mjs app [url] [outDir] [height] [selector]  -> light + dark screenshots of the app
 //   CLICK=<selector> clicks an element first (e.g. to open a menu); SCROLL=<selector> scrolls to it first.
 import { chromium } from "playwright";
@@ -15,12 +16,12 @@ const browser = await chromium.launch();
 
 if (mode === "ref") {
   const html = path.resolve("..", "stitch_editorial_portfolio_hero_dual_theme", target, "code.html");
-  const page = await browser.newPage({ viewport: { width: 1600, height: 1000 } });
+  const page = await browser.newPage({ viewport: { width: Number(process.env.REF_VW ?? 1600), height: 1000 } });
   await page.goto(pathToFileURL(html).href, { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
   // Freeze animations so the reference is deterministic.
   await page.addStyleTag({ content: "*{animation:none!important}" });
-  const canvases = page.locator("section.w-\\[1440px\\]");
+  const canvases = page.locator(process.env.REF_SEL ?? "section.w-\\[1440px\\]");
   const n = await canvases.count();
   for (let i = 0; i < n; i++) {
     const file = path.join(out, `ref-${i === 0 ? "light" : i === 1 ? "dark" : i}.png`);
@@ -36,8 +37,17 @@ if (mode === "ref") {
     const page = await ctx.newPage();
     await page.goto(url, { waitUntil: "networkidle" });
     await page.evaluate(() => document.fonts.ready);
+    // Wait for React to hydrate (the nav's toggle gets a click handler) before interacting.
+    await page.waitForFunction(() => {
+      const btn = document.querySelector("button[aria-label='Toggle theme']");
+      return btn && Object.keys(btn).some((k) => k.startsWith("__reactProps"));
+    });
     await page.addStyleTag({ content: "*{animation:none!important;transition:none!important}" });
-    if (process.env.SCROLL) await page.locator(process.env.SCROLL).first().scrollIntoViewIfNeeded();
+    if (process.env.SCROLL) {
+      // Align the target with the top of the viewport, then let the reveal animation finish.
+      await page.locator(process.env.SCROLL).first().evaluate((el) => el.scrollIntoView({ block: "start" }));
+      await page.waitForTimeout(1500);
+    }
     if (process.env.CLICK) await page.click(process.env.CLICK);
     await page.waitForTimeout(300);
     const file = path.join(out, `app-${theme}${process.env.CLICK ? "-click" : ""}.png`);
