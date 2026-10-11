@@ -1,6 +1,7 @@
 // Visual QA helper.
 //   node scripts/shoot.mjs ref <stitch-folder> [outDir]   -> renders each 1440px canvas in code.html
 //   node scripts/shoot.mjs app [url] [outDir] [height] [selector]  -> light + dark screenshots of the app
+//   CLICK=<selector> clicks an element first (e.g. to open a menu); SCROLL=<selector> scrolls to it first.
 import { chromium } from "playwright";
 import path from "node:path";
 import fs from "node:fs";
@@ -36,8 +37,10 @@ if (mode === "ref") {
     await page.goto(url, { waitUntil: "networkidle" });
     await page.evaluate(() => document.fonts.ready);
     await page.addStyleTag({ content: "*{animation:none!important;transition:none!important}" });
+    if (process.env.SCROLL) await page.locator(process.env.SCROLL).first().scrollIntoViewIfNeeded();
+    if (process.env.CLICK) await page.click(process.env.CLICK);
     await page.waitForTimeout(300);
-    const file = path.join(out, `app-${theme}.png`);
+    const file = path.join(out, `app-${theme}${process.env.CLICK ? "-click" : ""}.png`);
     if (selector) await page.locator(selector).first().screenshot({ path: file });
     else await page.screenshot({ path: file });
     console.log(file);

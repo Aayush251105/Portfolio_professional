@@ -14,13 +14,21 @@ export const site = {
   location: "India",
   timezone: "IST / UTC+5:30",
 
-  // TODO: real URLs / address. Until supplied these resolve to "#".
   links: {
-    github: "#", // TODO: GitHub profile URL
-    linkedin: "#", // TODO: LinkedIn profile URL
-    email: "", // TODO: contact email address
-    resume: "#", // TODO: resume PDF URL (e.g. /resume.pdf)
+    github: "https://github.com/Aayush251105",
+    linkedin: "https://www.linkedin.com/in/aayush-gupta-b6066b290/",
+    email: "aayushgupta054@gmail.com",
   },
+
+  /**
+   * Resume variants shown in the hero's Resume menu.
+   * TODO: drop the PDFs into /public/resume/ and set each `href` (e.g. "/resume/aayush-swe.pdf").
+   * An entry with an empty `href` renders as "Coming soon".
+   */
+  resumes: [
+    { label: "Software Engineering", note: "Full-stack & backend roles", href: "" },
+    { label: "AI / ML", note: "ML engineering & research", href: "" },
+  ] as { label: string; note: string; href: string }[],
 
   nav: [
     { id: "about", label: "About" },

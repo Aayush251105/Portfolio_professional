@@ -23,6 +23,13 @@
   --glass-pill-border: rgba(227, 225, 220, 0.7);
   --glass-pill-shadow: 0 4px 16px -2px rgba(20, 20, 20, 0.03), inset 0 1px 1px 0 rgba(255, 255, 255, 0.8);
 
+  --liquid-from: rgba(251, 250, 248, 0.78);
+  --liquid-to: rgba(245, 244, 241, 0.55);
+  --liquid-highlight: rgba(255, 255, 255, 0.9);
+  --liquid-lowlight: rgba(20, 20, 20, 0.04);
+  --liquid-sheen: rgba(255, 255, 255, 0.7);
+  --liquid-shadow: 0 24px 48px -12px rgba(20, 20, 20, 0.12), 0 4px 12px -4px rgba(20, 20, 20, 0.06);
+
   --orb-opacity: 0.35;
   --grain-opacity: 0.035;
 
@@ -48,6 +55,13 @@
   --glass-pill-bg: rgba(21, 21, 20, 0.6);
   --glass-pill-border: rgba(38, 38, 36, 0.85);
   --glass-pill-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.08);
+
+  --liquid-from: rgba(30, 30, 28, 0.72);
+  --liquid-to: rgba(16, 16, 15, 0.6);
+  --liquid-highlight: rgba(255, 255, 255, 0.12);
+  --liquid-lowlight: rgba(0, 0, 0, 0.4);
+  --liquid-sheen: rgba(255, 255, 255, 0.06);
+  --liquid-shadow: 0 24px 56px -12px rgba(0, 0, 0, 0.6), 0 4px 14px -4px rgba(0, 0, 0, 0.4);
 
   --orb-opacity: 0.25;
   --grain-opacity: 0.045;
@@ -96,7 +110,6 @@ body {
 @utility glass {
   background: var(--glass-bg);
   backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
 }
@@ -104,9 +117,33 @@ body {
 @utility glass-pill {
   background: var(--glass-pill-bg);
   backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--glass-pill-border);
   box-shadow: var(--glass-pill-shadow);
+}
+
+/* Liquid glass: heavier blur + saturation, a tinted gradient body and a specular sheen. For popovers. */
+@utility glass-liquid {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(145deg, var(--liquid-from), var(--liquid-to));
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    var(--liquid-shadow),
+    inset 0 1px 0 0 var(--liquid-highlight),
+    inset 0 -1px 0 0 var(--liquid-lowlight);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+      radial-gradient(120% 60% at 15% 0%, var(--liquid-sheen), transparent 60%),
+      radial-gradient(80% 50% at 100% 100%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%);
+  }
 }
 
 /* ---------- Texture ---------- */
