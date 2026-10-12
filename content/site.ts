@@ -68,7 +68,7 @@ export const site = {
     ],
     education: "B.Tech, Computer Science Engineering · Shiv Nadar University",
     // `darkSrc` is optional: a version of the photo on a dark backdrop, shown in dark mode.
-    portrait: { src: "/about/portrait.jpg", darkSrc: "", alt: "Portrait of Aayush Gupta" },
+    portrait: { src: "/about/portrait.jpg", darkSrc: "/about/portrait-dark.jpg", alt: "Portrait of Aayush Gupta" },
     badge: { title: "Based in India", meta: "IST · UTC+5:30" },
   },
 
