@@ -6,7 +6,7 @@ import { createPortal } from "react-dom";
 import type { Project } from "@/content/site";
 import { getLenis } from "../smooth-scroll";
 import { ProjectLinks } from "./project-links";
-import { ProjectPreview } from "./previews";
+import { displayUrl, ProjectVisual } from "./project-visual";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -96,14 +96,16 @@ export function CaseStudy({ project, number, onClose }: { project: Project | nul
                 <p className="mt-1 font-mono text-[11px] leading-[14px] uppercase tracking-wider text-accent-ink">{project.tag}</p>
                 <p className="mt-4 text-[15px] leading-6 text-secondary">{project.summary}</p>
 
-                <ul className="mt-6 space-y-3 border-t border-border pt-5">
-                  {project.highlights.map((h) => (
-                    <li key={h} className="flex gap-3 text-sm leading-[1.45rem] text-text">
-                      <span aria-hidden className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-accent" />
-                      {h}
-                    </li>
-                  ))}
-                </ul>
+                {project.highlights.length > 0 && (
+                  <ul className="mt-6 space-y-3 border-t border-border pt-5">
+                    {project.highlights.map((h) => (
+                      <li key={h} className="flex gap-3 text-sm leading-[1.45rem] text-text">
+                        <span aria-hidden className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-accent" />
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+                )}
 
                 {project.stack.length > 0 && (
                   <p className="mt-6 font-mono text-[11.5px] leading-4 tracking-wide text-secondary">
@@ -122,18 +124,18 @@ export function CaseStudy({ project, number, onClose }: { project: Project | nul
                 </div>
               </div>
 
-              <div className="lg:col-span-7">
+              <div className="lg:col-span-7 lg:mt-10">
                 <div className="rounded-2xl border border-border bg-bg/50 p-4 shadow-[0_8px_30px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
                   <div className="flex items-center gap-1.5 pb-3">
                     <span className="h-2.5 w-2.5 rounded-full bg-accent/40" />
                     <span className="h-2.5 w-2.5 rounded-full bg-secondary/30" />
                     <span className="h-2.5 w-2.5 rounded-full bg-secondary/30" />
                     <span className="mx-auto rounded-md border border-border/80 bg-surface/70 px-3 py-0.5 font-mono text-[11px] leading-4 text-secondary">
-                      {project.id}/preview
+                      {displayUrl(project)}
                     </span>
                   </div>
-                  <div className="h-[260px] rounded-lg border border-border/60 bg-surface p-4 sm:h-[300px] sm:p-5">
-                    <ProjectPreview kind={project.preview} />
+                  <div className="relative h-[260px] overflow-hidden rounded-lg border border-border/60 bg-surface sm:h-[340px]">
+                    <ProjectVisual project={project} sizes="(min-width: 1024px) 600px, 100vw" />
                   </div>
                 </div>
               </div>

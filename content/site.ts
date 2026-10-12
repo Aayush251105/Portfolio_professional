@@ -21,12 +21,11 @@ export const site = {
   },
 
   /**
-   * Resume variants shown in the hero's Resume menu.
-   * TODO: drop the PDFs into /public/resume/ and set each `href` (e.g. "/resume/aayush-swe.pdf").
-   * An entry with an empty `href` renders as "Coming soon".
+   * Resume variants shown in the Resume menus (files live in /public/resumes).
+   * TODO: add the AI / ML resume's `href`. An entry with an empty `href` renders as "Soon".
    */
   resumes: [
-    { label: "Software Engineering", note: "Full-stack & backend roles", href: "" },
+    { label: "Software Engineering", note: "Full-stack & backend roles", href: "/resumes/AayushResume_SDE.pdf" },
     { label: "AI / ML", note: "ML engineering & research", href: "" },
   ] as { label: string; note: string; href: string }[],
 
@@ -68,8 +67,7 @@ export const site = {
       { label: "Practice", value: "Agentic AI Intern" },
     ],
     education: "B.Tech, Computer Science Engineering · Shiv Nadar University",
-    // TODO: replace with a real photo of Aayush (same 3:4 crop). Current file is the design's placeholder render.
-    portrait: { src: "/about/portrait.png", alt: "Aayush working at a laptop, black and white portrait" },
+    portrait: { src: "/about/portrait.jpg", alt: "Portrait of Aayush Gupta" },
     badge: { title: "Based in India", meta: "IST · UTC+5:30" },
   },
 
@@ -102,36 +100,40 @@ export const site = {
   projects: {
     headline: "Selected work.",
     /**
-     * Source: AayushResume_SDE.pdf (descriptions, stacks, repo links). TODO: `year` for the first three,
-     * `live` demo URLs, and HireLens AI's stack + repo. Empty values are simply not rendered.
+     * Sources: Aayush's previous portfolio (summaries, stacks, repos, live links, screenshots in /public/projects)
+     * and AayushResume_SDE.pdf (case-study highlights). TODO: `year` for each (only HireLens is known).
+     * Empty values are simply not rendered; projects without an `image` show their illustrated preview.
      */
     items: [
       {
         id: "vidtube-ai",
         name: "VidTube AI",
-        category: "Full-stack",
+        categories: ["Full-stack", "AI-ML"],
         featured: true,
         year: "",
         tag: "Full-stack · Media AI",
-        summary: "An AI-powered SaaS platform for uploading, managing and transforming media with Cloudinary's AI APIs.",
+        summary:
+          "AI-powered SaaS platform for uploading, managing and transforming media with Cloudinary's AI APIs, with automated video compression and intelligent previews.",
         highlights: [
           "Built an AI-powered SaaS platform for uploading, managing, and transforming media using Cloudinary AI APIs.",
           "Implemented intelligent media processing: video compression, hover previews, and automatic image aspect-ratio transformations.",
           "Handled secure authentication with Clerk and optimized data management using Prisma with NeonDB (PostgreSQL).",
         ],
-        stack: ["Next.js", "Node.js", "Prisma", "NeonDB", "Cloudinary", "Clerk", "Vercel"],
+        stack: ["Next.js", "React", "TypeScript", "Prisma", "NeonDB", "Cloudinary", "Clerk"],
         github: "https://github.com/Aayush251105/VidTube-AI",
-        live: "",
+        live: "https://vid-tube-ai.vercel.app/",
+        image: "/projects/vidtube.png",
         preview: "vidtube",
       },
       {
         id: "booknow",
         name: "BookNow",
-        category: "Full-stack",
-        featured: true,
+        categories: ["Full-stack"],
+        featured: false,
         year: "",
         tag: "Full-stack · MVC",
-        summary: "A full-stack property booking platform with listing search, dynamic filtering, user reviews and complete CRUD.",
+        summary:
+          "Full-stack property booking platform built on MVC, with browsing, filtering, interactive maps and secure authentication.",
         highlights: [
           "Engineered a full-stack property booking platform using MVC architecture, featuring listing search, dynamic filtering, user reviews, and complete CRUD operations.",
           "Implemented authentication and authorization via Passport.js with server-side input validation using Joi schemas.",
@@ -139,14 +141,64 @@ export const site = {
         ],
         stack: ["Node.js", "Express", "MongoDB", "EJS", "Passport.js", "Cloudinary", "Mapbox"],
         github: "https://github.com/Aayush251105/BookNow_Project",
-        live: "",
+        live: "https://booknow-s4kr.onrender.com/",
+        image: "/projects/booknow.png",
         preview: "booknow",
+      },
+      {
+        id: "questflow",
+        name: "Questflow",
+        categories: ["Full-stack"],
+        featured: false,
+        year: "",
+        tag: "Full-stack · Community Q&A",
+        summary:
+          "Full-stack Q&A platform inspired by Stack Overflow, with reputation systems, custom dashboards and community-driven engagement.",
+        highlights: [],
+        stack: ["Next.js", "React", "TypeScript", "Appwrite"],
+        github: "https://github.com/Aayush251105/Proj-QuestFlow",
+        live: "",
+        image: "/projects/questflow.png",
+      },
+      {
+        id: "hirelens-ai",
+        name: "HireLens AI",
+        categories: ["AI-ML", "Full-stack"],
+        featured: true,
+        year: "2026",
+        tag: "AI/ML · Top 15, GoDaddy AI Buildathon",
+        summary:
+          "AI talent-assessment tool for high-volume technical hiring: role-specific interview questions from a resume and job description, automated screening and AI-driven candidate evaluation.",
+        highlights: [
+          "Top 15 at the GoDaddy AI Buildathon (Apr 2026).",
+          "Generates role-specific interview questions from a candidate's resume and the job description.",
+          "Provides AI-powered feedback and evaluates candidate performance across multiple assessment metrics.",
+        ],
+        stack: ["React", "Python", "FastAPI", "TiDB"],
+        github: "https://github.com/Aayush251105/HireLens-AI",
+        live: "https://hirelens-ai-q1fa.onrender.com",
+        image: "/projects/hirelens.png",
+        preview: "hirelens",
+      },
+      {
+        id: "virtual-tryon",
+        name: "Virtual Try-On",
+        categories: ["AI-ML", "Full-stack"],
+        featured: true,
+        year: "",
+        tag: "AI/ML · Computer vision",
+        summary: "AI-powered virtual clothing try-on that uses computer-vision models for realistic garment visualization.",
+        highlights: [],
+        stack: ["React", "Python", "FastAPI"],
+        github: "https://github.com/Aayush251105/VirtualTryOn",
+        live: "",
+        image: "/projects/virtual-tryon.png",
       },
       {
         id: "summarizer-ai",
         name: "SummarizerAI",
-        category: "AI-ML",
-        featured: true,
+        categories: ["AI-ML"],
+        featured: false,
         year: "",
         tag: "AI/ML · NLP",
         summary: "Dialogue summarization with a T5 transformer fine-tuned on SAMSum, served through FastAPI to a React frontend.",
@@ -161,22 +213,46 @@ export const site = {
         preview: "summarizer",
       },
       {
-        id: "hirelens-ai",
-        name: "HireLens AI",
-        category: "AI-ML",
+        id: "fitrack",
+        name: "FiTrack",
+        categories: ["Full-stack"],
         featured: false,
-        year: "2026",
-        tag: "AI/ML · Top 15, GoDaddy AI Buildathon",
-        summary: "An interview simulator that generates role-specific questions from a resume and job description, then evaluates answers with AI feedback.",
-        highlights: [
-          "Top 15 at the GoDaddy AI Buildathon (Apr 2026).",
-          "Generates role-specific interview questions from a candidate's resume and the job description.",
-          "Provides AI-powered feedback and evaluates candidate performance across multiple assessment metrics.",
-        ],
-        stack: [], // TODO: HireLens AI stack
-        github: "", // TODO: repo URL
+        year: "",
+        tag: "Full-stack · Personal finance",
+        summary: "Personal finance tracker with automated expense categorization and visual budget analytics.",
+        highlights: [],
+        stack: ["React", "Firebase", "Chart.js"],
+        github: "https://github.com/Aayush251105/FiTrack",
         live: "",
-        preview: "hirelens",
+        image: "/projects/fitrack.png",
+      },
+      {
+        id: "nlp-spellchecker",
+        name: "NLP Spellchecker",
+        categories: ["AI-ML"],
+        featured: false,
+        year: "",
+        tag: "AI/ML · NLP",
+        summary: "Spellchecker built on NLP techniques, with multi-category evaluation and mutation-based testing.",
+        highlights: [],
+        stack: ["Python", "NLP", "NumPy"],
+        github: "https://github.com/Aayush251105/SpellCorrectionSystem_NLP",
+        live: "",
+        image: "/projects/spellchecker.png",
+      },
+      {
+        id: "arts",
+        name: "ARTS",
+        categories: ["Full-stack"],
+        featured: true,
+        year: "",
+        tag: "Full-stack · Airline reservations",
+        summary: "Airline reservation and ticketing system with flight search, a full booking flow and seat management.",
+        highlights: [],
+        stack: ["Java", "Spring Boot", "React", "MySQL"],
+        github: "https://github.com/Aayush251105/ARTS_Proj",
+        live: "",
+        image: "/projects/arts.png",
       },
     ] as Project[],
   },
@@ -233,7 +309,8 @@ export type ProjectCategory = "Full-stack" | "AI-ML";
 export type Project = {
   id: string;
   name: string;
-  category: ProjectCategory;
+  /** First entry is the label shown in the index; the project appears under every listed filter. */
+  categories: ProjectCategory[];
   featured: boolean;
   year: string;
   tag: string;
@@ -242,7 +319,9 @@ export type Project = {
   stack: string[];
   github: string;
   live: string;
-  preview: "vidtube" | "booknow" | "summarizer" | "hirelens";
+  /** Screenshot in /public/projects; falls back to the illustrated `preview` when absent. */
+  image?: string;
+  preview?: "vidtube" | "booknow" | "summarizer" | "hirelens";
 };
 
 /** Resolves the email link, falling back to "#" while the address is TODO. */

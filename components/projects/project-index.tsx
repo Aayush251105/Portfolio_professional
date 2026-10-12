@@ -6,7 +6,7 @@ import { site, type Project, type ProjectCategory } from "@/content/site";
 import { ArrowLink } from "../arrow-link";
 import { CaseStudy } from "./case-study";
 import { ProjectLinks } from "./project-links";
-import { ProjectPreview } from "./previews";
+import { displayUrl, ProjectVisual } from "./project-visual";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 const filters: { key: "All" | ProjectCategory; label: string }[] = [
@@ -28,13 +28,13 @@ export function ProjectIndex() {
   const rowRefs = useRef(new Map<string, HTMLButtonElement>());
   const reduced = useReducedMotion();
 
-  const visible = projects.filter((p) => filter === "All" || p.category === filter);
+  const visible = projects.filter((p) => filter === "All" || p.categories.includes(filter));
   const selected = visible.find((p) => p.id === selectedId) ?? visible[0];
   const open = projects.find((p) => p.id === openId) ?? null;
 
   function applyFilter(next: typeof filter) {
     setFilter(next);
-    const list = projects.filter((p) => next === "All" || p.category === next);
+    const list = projects.filter((p) => next === "All" || p.categories.includes(next));
     if (!list.some((p) => p.id === selectedId)) setSelectedId((list.find((p) => p.featured) ?? list[0]).id);
   }
 
@@ -139,7 +139,7 @@ export function ProjectIndex() {
                             active ? "lg:text-accent-ink" : ""
                           } ${expanded ? "max-lg:text-accent-ink" : ""}`}
                         >
-                          {categoryLabel(p.category)}
+                          {categoryLabel(p.categories[0])}
                         </span>
                       </span>
                       <span className="flex items-center gap-3">
@@ -183,8 +183,8 @@ export function ProjectIndex() {
                           className="overflow-hidden lg:hidden"
                         >
                           <div className="px-2 pb-6">
-                            <div className="relative h-[200px] overflow-hidden rounded-lg border border-border/60 bg-bg/60 p-3.5">
-                              <ProjectPreview kind={p.preview} />
+                            <div className="relative h-[200px] overflow-hidden rounded-lg border border-border/60 bg-bg/60 sm:h-[300px]">
+                              <ProjectVisual project={p} sizes="(min-width: 1024px) 1px, 100vw" />
                             </div>
                             <ProjectMeta project={p} />
                             <button
@@ -236,7 +236,7 @@ export function ProjectIndex() {
                     transition={{ duration: 0.15 }}
                     className="truncate font-mono text-[11.5px] leading-4 whitespace-nowrap text-secondary"
                   >
-                    {selected.id}/preview
+                    {displayUrl(selected)}
                   </motion.span>
                 </AnimatePresence>
               </div>
@@ -264,11 +264,8 @@ export function ProjectIndex() {
                       shown ? "translate-y-0 opacity-100 duration-300" : "pointer-events-none -translate-y-1.5 opacity-0 duration-200"
                     } motion-reduce:transition-none`}
                   >
-                    <div className="relative mt-4 h-[210px] overflow-hidden rounded-lg border border-border/60 bg-bg/60 p-3.5">
-                      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(var(--text)_1px,transparent_1px)] [background-size:12px_12px] opacity-[0.03]" />
-                      <div className="relative h-full">
-                        <ProjectPreview kind={p.preview} />
-                      </div>
+                    <div className="relative mt-4 h-[210px] overflow-hidden rounded-lg border border-border/60 bg-bg/60">
+                      <ProjectVisual project={p} shown={shown} sizes="(min-width: 1024px) 440px, 1px" />
                     </div>
                     <ProjectMeta project={p} />
                   </div>
