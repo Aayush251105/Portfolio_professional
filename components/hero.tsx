@@ -123,7 +123,7 @@ export function Hero() {
 
       {/* Bottom row: scroll cue and text-only social links */}
       <Container className="relative z-20">
-        <div style={cssVars({ "--i": 7 })} className="intro flex items-end justify-center border-t border-border/60 pt-5 sm:justify-between text-xs dark:border-border/70">
+        <div data-chat-avoid style={cssVars({ "--i": 7 })} className="intro flex items-end justify-center border-t border-border/60 pt-5 sm:justify-between text-xs dark:border-border/70">
           <a
             href="#about"
             className="group hidden items-center gap-3 font-mono text-[11px] tracking-wide text-secondary transition-colors sm:flex duration-200 ease-brand hover:text-text"

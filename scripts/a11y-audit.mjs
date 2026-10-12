@@ -1,4 +1,4 @@
-// WCAG 2.1 AA audit with axe-core: node scripts/a11y-audit.mjs [url]
+// WCAG 2.1 AA audit with axe-core (page, then the open chat panel): node scripts/a11y-audit.mjs [url]
 import { chromium } from "playwright";
 import AxeBuilder from "@axe-core/playwright";
 const url = process.argv[2] ?? "http://localhost:3100";
@@ -20,6 +20,13 @@ for (const [w, theme] of [[1440, "light"], [1440, "dark"], [390, "light"], [390,
     console.log(` [${v.impact}] ${v.id}: ${v.help} (${v.nodes.length} nodes)`);
     for (const n of v.nodes.slice(0, 4)) console.log(`    - ${n.target.join(" ")} :: ${(n.failureSummary || "").split("\n").slice(1, 2).join(" ").trim().slice(0, 160)}`);
   }
+  // The chat panel (closed during the page audit): open it with Ctrl+K and audit just the panel.
+  await p.keyboard.press("Control+k");
+  await p.waitForTimeout(600);
+  const chat = await new AxeBuilder({ page: p }).include("[role=dialog][aria-modal=false]").withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
+  total += chat.violations.length;
+  console.log(`   chat panel: ${chat.violations.length} violation types, ${chat.passes.length} passing checks`);
+  for (const v of chat.violations) console.log(`    [${v.impact}] ${v.id}: ${v.help} :: ${v.nodes.map((n) => n.target.join(" ")).slice(0, 3).join(", ")}`);
   await ctx.close();
 }
 await b.close();

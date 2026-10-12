@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { MESSAGE_MAX, validateContact, type ContactErrors, type ContactInput } from "@/lib/contact";
+import { scrollToSection, useSiteAction } from "@/lib/site-actions";
 import { CopyEmail } from "./copy-email";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -19,6 +20,14 @@ export function ContactForm({ email }: { email: string }) {
 
   const errors = { ...validateContact(values), ...serverErrors };
   const visibleError = (field: keyof ContactInput) => (touched[field] ? errors[field] : undefined);
+
+  // Chat assistant: drop a drafted message into the form for the visitor to review and send.
+  useSiteAction((action) => {
+    if (action.type !== "prefill_contact") return;
+    update("message", action.message);
+    setTouched((t) => ({ ...t, message: false }));
+    scrollToSection("contact");
+  });
 
   function update(field: keyof ContactInput, value: string) {
     setValues((v) => ({ ...v, [field]: field === "message" ? value.slice(0, MESSAGE_MAX) : value }));

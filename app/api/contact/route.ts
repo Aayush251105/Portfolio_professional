@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { validateContact, type ContactInput } from "@/lib/contact";
+import { clientIp, createRateLimiter } from "@/lib/rate-limit";
 
 /*
  * POST /api/contact: sends the contact form to CONTACT_TO_EMAIL via Resend.
@@ -7,25 +8,8 @@ import { validateContact, type ContactInput } from "@/lib/contact";
  * verified in Resend; defaults to Resend's onboarding sender, which only delivers to your own account).
  */
 
-const WINDOW_MS = 10 * 60 * 1000;
-const MAX_PER_WINDOW = 5;
-
-// Best-effort, per-instance rate limit. Serverless instances don't share memory, so this blunts
-// bursts from one client rather than guaranteeing a global limit.
-const hits = new Map<string, number[]>();
-
-function rateLimited(ip: string) {
-  const now = Date.now();
-  const recent = (hits.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
-  if (recent.length >= MAX_PER_WINDOW) {
-    hits.set(ip, recent);
-    return true;
-  }
-  recent.push(now);
-  hits.set(ip, recent);
-  if (hits.size > 5000) hits.clear(); // keep memory bounded
-  return false;
-}
+// 5 messages per 10 minutes per IP (best-effort; see lib/rate-limit.ts).
+const rateLimited = createRateLimiter({ windowMs: 10 * 60 * 1000, max: 5 });
 
 const escapeHtml = (s: string) =>
   s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
@@ -49,8 +33,7 @@ export async function POST(request: Request) {
   const errors = validateContact(input);
   if (Object.keys(errors).length) return Response.json({ error: "Please fix the highlighted fields.", errors }, { status: 422 });
 
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown";
-  if (rateLimited(ip)) {
+  if (rateLimited(clientIp(request))) {
     return Response.json({ error: "Too many messages. Please try again in a few minutes." }, { status: 429 });
   }
 

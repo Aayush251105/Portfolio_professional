@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Certification } from "@/content/site";
 import { CertViewer } from "./cert-viewer";
+import { useSiteAction } from "@/lib/site-actions";
 
 type Cert = Certification;
 
@@ -38,6 +39,13 @@ export function CertCarousel({
       return null;
     });
   }, [viewable]);
+
+  // Chat assistant: open a certificate in the viewer.
+  useSiteAction((action) => {
+    if (action.type !== "show_certificate") return;
+    const i = viewable.findIndex((c) => c.id === action.id);
+    if (i >= 0) setViewerIndex(i);
+  });
 
   const measure = useCallback(() => {
     const track = trackRef.current;

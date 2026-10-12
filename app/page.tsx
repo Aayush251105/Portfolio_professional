@@ -1,4 +1,5 @@
 import { About } from "@/components/about";
+import { Chat } from "@/components/chat/chat";
 import { Certifications } from "@/components/certifications/certifications";
 import { Contact } from "@/components/contact/contact";
 import { Experience } from "@/components/experience/experience";
@@ -27,6 +28,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <Chat />
     </>
   );
 }

@@ -3,6 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useRef, useState } from "react";
 import { site, type Project, type ProjectCategory } from "@/content/site";
+import { scrollToSection, useSiteAction } from "@/lib/site-actions";
 import { ArrowLink } from "../arrow-link";
 import { CaseStudy } from "./case-study";
 import { ProjectLinks } from "./project-links";
@@ -37,6 +38,19 @@ export function ProjectIndex() {
     const list = projects.filter((p) => next === "All" || p.categories.includes(next));
     if (!list.some((p) => p.id === selectedId)) setSelectedId((list.find((p) => p.featured) ?? list[0]).id);
   }
+
+  // Chat assistant: filter the list, or open a project's case study.
+  useSiteAction((action) => {
+    if (action.type === "filter_projects") {
+      applyFilter(action.filter);
+      scrollToSection("projects");
+    } else if (action.type === "show_project" && projects.some((p) => p.id === action.id)) {
+      if (!visible.some((p) => p.id === action.id)) setFilter("All");
+      setSelectedId(action.id);
+      setExpandedId(action.id);
+      setOpenId(action.id);
+    }
+  });
 
   /** Desktop opens the case study; below lg a tap toggles the accordion (decided at click time, so SSR markup is identical). */
   function onRowClick(id: string) {
