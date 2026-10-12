@@ -22,14 +22,27 @@ export function ContactForm({ email }: { email: string }) {
 
   function update(field: keyof ContactInput, value: string) {
     setValues((v) => ({ ...v, [field]: field === "message" ? value.slice(0, MESSAGE_MAX) : value }));
-    setServerErrors((e) => ({ ...e, [field]: undefined }));
+    // Delete (don't set to undefined): an undefined key would override the field's validation error when merged.
+    setServerErrors((e) => {
+      const next = { ...e };
+      delete next[field];
+      return next;
+    });
     if (status === "error") setStatus("idle");
   }
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setTouched({ name: true, email: true, message: true });
-    if (Object.keys(validateContact(values)).length) return;
+    const invalid = Object.keys(validateContact(values)) as (keyof ContactInput)[];
+    if (invalid.length) {
+      // Never fail silently: say why, and put the cursor in the first field that needs fixing.
+      setStatusMessage(invalid.length === 1 ? "One field needs a fix before this can send." : "A few fields need a fix before this can send.");
+      setStatus("error");
+      const first = (["name", "email", "message"] as const).find((f) => invalid.includes(f));
+      e.currentTarget.querySelector<HTMLElement>(`[name="${first}"]`)?.focus();
+      return;
+    }
 
     const company = (new FormData(e.currentTarget).get("company") as string) ?? "";
     setStatus("sending");
