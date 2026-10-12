@@ -90,8 +90,7 @@ export const site = {
     /**
      * Sources: previous portfolio, the certificate PDFs in /public/certs and verification links.
      * `image` (a preview rendered from the PDF by scripts/render-certs.py) opens the in-page viewer;
-     * `href` is the issuer's verification page. TODO: years for Cybersecurity and the Apna College courses,
-     * and the correct Google Cybersecurity PDF (the current file is a copy of AI Essentials).
+     * `href` is the issuer's verification page. TODO: years for the Apna College courses.
      */
     items: [
       {
@@ -109,8 +108,10 @@ export const site = {
         issuer: "Google · Coursera",
         title: "Google Cybersecurity Professional Certificate",
         type: "Professional certificate",
-        year: "",
+        year: "2024",
         href: "https://www.coursera.org/account/accomplishments/specialization/F87Y8YT7SZSZ",
+        pdf: "/certs/google-cybersecurity.pdf",
+        image: { src: "/certs/previews/google-cybersecurity.jpg", width: 1600, height: 1237 },
       },
       {
         id: "google-ai-essentials",
