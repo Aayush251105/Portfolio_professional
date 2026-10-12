@@ -88,14 +88,63 @@ export const site = {
     // TODO: confirm wording.
     intro: "Credentials across cloud, applied AI and core programming, picked up alongside coursework and internships.",
     /**
-     * Source: AayushResume_SDE.pdf. TODO: add `year` and `href` (verification URL) for each;
-     * cards hide the year and the "Verify" link until they're set. Issuer for the Python Bootcamp is assumed (Udemy).
+     * Sources: previous portfolio, the certificate PDFs in /public/certs and verification links.
+     * `image` (a preview rendered from the PDF by scripts/render-certs.py) opens the in-page viewer;
+     * `href` is the issuer's verification page. TODO: years for Cybersecurity and the Apna College courses,
+     * and the correct Google Cybersecurity PDF (the current file is a copy of AI Essentials).
      */
     items: [
-      { issuer: "Amazon Web Services", title: "AWS Certified Cloud Practitioner", type: "Certification", year: "", href: "" },
-      { issuer: "Google", title: "Google AI Essentials", type: "Course certificate", year: "", href: "" },
-      { issuer: "Udemy", title: "The Complete Python Bootcamp", type: "Course certificate", year: "", href: "" },
-    ] as { issuer: string; title: string; type: string; year: string; href: string }[],
+      {
+        id: "aws-cloud-practitioner",
+        issuer: "Amazon Web Services",
+        title: "AWS Certified Cloud Practitioner",
+        type: "Certification",
+        year: "2026",
+        href: "https://www.credly.com/badges/eeff9b65-f5c4-4502-8b7b-ae67d06e30e8",
+        pdf: "/certs/aws-cloud-practitioner.pdf",
+        image: { src: "/certs/previews/aws-cloud-practitioner.jpg", width: 1600, height: 1237 },
+      },
+      {
+        id: "google-cybersecurity",
+        issuer: "Google · Coursera",
+        title: "Google Cybersecurity Professional Certificate",
+        type: "Professional certificate",
+        year: "",
+        href: "https://www.coursera.org/account/accomplishments/specialization/F87Y8YT7SZSZ",
+      },
+      {
+        id: "google-ai-essentials",
+        issuer: "Google · Coursera",
+        title: "Google AI Essentials",
+        type: "Course certificate",
+        year: "2024",
+        href: "https://www.coursera.org/account/accomplishments/verify/A7YF36G7XNMF",
+        pdf: "/certs/google-ai-essentials.pdf",
+        image: { src: "/certs/previews/google-ai-essentials.jpg", width: 1600, height: 1237 },
+      },
+      {
+        id: "python-bootcamp",
+        issuer: "Udemy",
+        title: "The Complete Python Bootcamp",
+        type: "Course certificate",
+        year: "2024",
+        href: "https://www.udemy.com/certificate/UC-af94d237-a6b6-471d-a77c-0045da8bfdfc/",
+        pdf: "/certs/python-bootcamp.pdf",
+        image: { src: "/certs/previews/python-bootcamp.jpg", width: 1600, height: 1190 },
+      },
+      {
+        id: "apna-alpha-dsa",
+        issuer: "Apna College",
+        title: "Alpha: DSA with Java",
+        type: "Course certificate",
+        year: "",
+        href: "",
+        pdf: "/certs/apna-college-alpha-dsa-java.pdf",
+        image: { src: "/certs/previews/apna-college-alpha-dsa-java.jpg", width: 1600, height: 1132 },
+      },
+      { id: "apna-sigma-web", issuer: "Apna College", title: "Web Development: Sigma 7.0", type: "Course", year: "", href: "" },
+      { id: "apna-prime-aiml", issuer: "Apna College", title: "AI / ML: Prime 1.0", type: "Course", year: "", href: "" },
+    ] as Certification[],
   },
 
   projects: {
@@ -303,6 +352,18 @@ export const site = {
     footer: { credit: "Designed and built by me" },
   },
 } as const;
+
+export type Certification = {
+  id: string;
+  issuer: string;
+  title: string;
+  type: string;
+  year: string;
+  /** Issuer's verification page. */
+  href: string;
+  pdf?: string;
+  image?: { src: string; width: number; height: number };
+};
 
 export type ExperienceEntry = { dates: string; badge: string; role: string; org: string; bullets: string[]; tags: string[] };
 
