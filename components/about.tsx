@@ -56,18 +56,25 @@ export function About() {
             <div className="flex justify-center md:col-span-5 md:justify-end">
               <div className="relative w-full max-w-[360px]">
                 <div className="relative aspect-[3/4] max-h-[470px] w-full overflow-hidden rounded-2xl border border-border bg-surface shadow-[0_8px_30px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
+                  {/* Full-colour photo. A separate dark-mode version is optional; CSS picks the visible one (no flash). */}
                   <Image
                     src={about.portrait.src}
                     alt={about.portrait.alt}
                     fill
                     sizes="360px"
                     loading="eager"
-                    className="object-cover object-center contrast-[1.05] grayscale dark:brightness-90 dark:contrast-[1.1]"
+                    className={`object-cover object-center ${about.portrait.darkSrc ? "dark:hidden" : ""}`}
                   />
-                  <div
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#141414]/25 via-transparent to-transparent dark:from-bg/60"
-                  />
+                  {about.portrait.darkSrc && (
+                    <Image
+                      src={about.portrait.darkSrc}
+                      alt={about.portrait.alt}
+                      fill
+                      sizes="360px"
+                      loading="eager"
+                      className="hidden object-cover object-center dark:block"
+                    />
+                  )}
                 </div>
 
                 <div className="glass absolute -bottom-5 -left-3 flex sm:-left-5 items-center gap-3 rounded-xl px-3.5 py-2.5">
