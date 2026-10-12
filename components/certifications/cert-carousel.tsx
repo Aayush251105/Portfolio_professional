@@ -109,7 +109,7 @@ function CertCard({ cert }: { cert: Cert }) {
   return (
     <article className="group glass relative flex h-[224px] w-[300px] shrink-0 snap-start sm:w-[360px] flex-col justify-between rounded-3xl p-6 transition-[transform,border-color,box-shadow,background-color] duration-300 ease-brand hover:-translate-y-2 hover:border-accent! hover:shadow-[0_16px_36px_-8px_color-mix(in_srgb,var(--accent)_18%,transparent)] focus-within:-translate-y-2 focus-within:border-accent!">
       <div className="flex items-start justify-between">
-        <span className="font-mono text-[11px] leading-[14px] font-medium uppercase tracking-wider text-secondary transition-colors duration-300 ease-brand group-hover:font-semibold group-hover:text-accent group-focus-within:text-accent">
+        <span className="font-mono text-[11px] leading-[14px] font-medium uppercase tracking-wider text-secondary transition-colors duration-300 ease-brand group-hover:font-semibold group-hover:text-accent-ink group-focus-within:text-accent-ink">
           {cert.issuer}
         </span>
         <span className="h-2 w-2 rounded-full bg-border transition-[background-color,transform] duration-300 ease-brand group-hover:scale-110 group-hover:bg-accent group-focus-within:bg-accent" />
@@ -133,7 +133,7 @@ function CertCard({ cert }: { cert: Cert }) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Verify ${cert.title}`}
-            className="inline-flex translate-y-1 items-center gap-0.5 border-b border-accent pb-0.5 font-mono text-[11px] leading-[14px] font-medium tracking-[0.06em] text-accent opacity-0 transition-[opacity,transform] duration-300 ease-brand group-hover:translate-y-0 group-hover:opacity-100 focus-visible:translate-y-0 focus-visible:opacity-100 touch:translate-y-0 touch:opacity-100"
+            className="inline-flex translate-y-1 items-center gap-0.5 border-b border-accent pb-0.5 font-mono text-[11px] leading-[14px] font-medium tracking-[0.06em] text-accent-ink opacity-0 transition-[opacity,transform] duration-300 ease-brand group-hover:translate-y-0 group-hover:opacity-100 focus-visible:translate-y-0 focus-visible:opacity-100 touch:translate-y-0 touch:opacity-100"
           >
             Verify ↗
           </a>

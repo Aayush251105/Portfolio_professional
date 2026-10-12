@@ -27,14 +27,14 @@ export function CopyEmail({ email }: { email: string }) {
       type="button"
       onClick={copy}
       title="Copy email address"
-      className="group inline-flex items-center gap-1.5 font-mono text-[13px] leading-5 font-medium text-text transition-colors duration-200 ease-brand hover:text-accent"
+      className="group inline-flex items-center gap-1.5 font-mono text-[13px] leading-5 font-medium text-text transition-colors duration-200 ease-brand hover:text-accent-ink"
     >
       {/* Both labels share one grid cell so the button width doesn't jump */}
       <span className="grid [&>*]:col-start-1 [&>*]:row-start-1">
         <span className={`transition-[opacity,transform] duration-200 ease-brand ${copied ? "-translate-y-1 opacity-0" : "opacity-100"}`}>{email}</span>
         <span
           aria-hidden={!copied}
-          className={`text-accent transition-[opacity,transform] duration-200 ease-brand ${copied ? "opacity-100" : "translate-y-1 opacity-0"}`}
+          className={`text-accent-ink transition-[opacity,transform] duration-200 ease-brand ${copied ? "opacity-100" : "translate-y-1 opacity-0"}`}
         >
           Copied
         </span>

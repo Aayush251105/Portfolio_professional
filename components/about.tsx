@@ -34,7 +34,7 @@ export function About() {
                 <dl className="grid grid-cols-3 divide-x divide-border border-y border-border py-4">
                   {about.stats.map(({ label, value }, i) => (
                     <div key={label} className={i === 0 ? "pr-4 pl-1" : i === about.stats.length - 1 ? "pl-4" : "px-4"}>
-                      <dt className="mb-1 block font-mono text-[11px] leading-[14px] font-medium uppercase tracking-wider text-tertiary">
+                      <dt className="mb-1 block font-mono text-[11px] leading-[14px] font-medium uppercase tracking-wider text-secondary">
                         {label}
                       </dt>
                       <dd className="font-mono text-[11px] leading-[14px] font-semibold uppercase tracking-wide text-text">{value}</dd>

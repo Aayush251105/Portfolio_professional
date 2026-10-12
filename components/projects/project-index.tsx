@@ -114,30 +114,30 @@ export function ProjectIndex() {
                       onFocus={() => setSelectedId(p.id)}
                       onClick={() => onRowClick(p.id)}
                       onKeyDown={(e) => onRowKeyDown(e, i)}
-                      className={`group flex h-16 w-full items-center justify-between px-2 text-left outline-none transition-[opacity,transform] duration-250 ease-brand focus-visible:bg-text/[0.03] ${
-                        active ? "lg:translate-x-3" : "lg:opacity-40 lg:hover:opacity-100"
+                      className={`group flex h-16 w-full items-center justify-between rounded-sm px-2 text-left transition-transform duration-250 ease-brand focus-visible:bg-text/[0.03] ${
+                        active ? "lg:translate-x-3" : ""
                       }`}
                     >
                       <span className="flex items-center gap-4 lg:gap-5">
                         <span
                           className={`font-mono text-[11px] leading-[14px] tracking-[0.06em] text-secondary transition-colors duration-250 ${
-                            active ? "lg:font-semibold lg:text-accent" : ""
-                          } ${expanded ? "max-lg:font-semibold max-lg:text-accent" : ""}`}
+                            active ? "lg:font-semibold lg:text-accent-ink" : ""
+                          } ${expanded ? "max-lg:font-semibold max-lg:text-accent-ink" : ""}`}
                         >
                           {number(p)}
                         </span>
                         <span
                           className={`flex items-center gap-1.5 text-[17px] leading-6 font-medium tracking-tight text-text transition-[color,font-weight] duration-250 ${
-                            active ? "lg:font-semibold lg:text-accent" : ""
-                          } ${expanded ? "max-lg:font-semibold max-lg:text-accent" : ""}`}
+                            active ? "lg:font-semibold lg:text-accent-ink" : "lg:text-secondary lg:group-hover:text-text"
+                          } ${expanded ? "max-lg:font-semibold max-lg:text-accent-ink" : ""}`}
                         >
                           {p.name}
                           {p.featured && <span className={`text-[11px] leading-none text-accent ${active ? "lg:hidden" : ""}`}>★</span>}
                         </span>
                         <span
                           className={`ml-1 font-mono text-[11px] leading-[14px] uppercase tracking-wider text-secondary transition-colors duration-250 ${
-                            active ? "lg:text-accent/80" : ""
-                          } ${expanded ? "max-lg:text-accent/80" : ""}`}
+                            active ? "lg:text-accent-ink" : ""
+                          } ${expanded ? "max-lg:text-accent-ink" : ""}`}
                         >
                           {categoryLabel(p.category)}
                         </span>
@@ -191,7 +191,7 @@ export function ProjectIndex() {
                               type="button"
                               aria-haspopup="dialog"
                               onClick={() => setOpenId(p.id)}
-                              className="group mt-5 inline-flex items-center gap-1.5 font-mono text-xs leading-4 font-medium tracking-[0.04em] text-text transition-colors duration-200 ease-brand hover:text-accent"
+                              className="group mt-5 inline-flex items-center gap-1.5 font-mono text-xs leading-4 font-medium tracking-[0.04em] text-text transition-colors duration-200 ease-brand hover:text-accent-ink"
                             >
                               Read case study
                               <span aria-hidden className="text-accent transition-transform duration-200 ease-brand group-hover:translate-x-0.5">
@@ -297,7 +297,7 @@ function ProjectMeta({ project }: { project: Project }) {
     <div className="mt-5 space-y-3">
       <div className="flex items-center justify-between gap-3">
         <h3 className="text-xl leading-8 font-semibold tracking-tight text-text lg:text-[23px]">{project.name}</h3>
-        <span className="shrink-0 rounded border border-accent/40 bg-accent/10 px-2 py-0.5 font-mono text-[11px] leading-4 font-medium uppercase text-accent">
+        <span className="shrink-0 rounded border border-accent/40 bg-accent/10 px-2 py-0.5 font-mono text-[11px] leading-4 font-medium uppercase text-accent-ink">
           {project.tag.split(",")[0]}
         </span>
       </div>

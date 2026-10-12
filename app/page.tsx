@@ -7,12 +7,17 @@ import { Hero } from "@/components/hero";
 import { Nav } from "@/components/nav";
 import { Projects } from "@/components/projects/projects";
 import { Skills } from "@/components/skills/skills";
+import { personJsonLd } from "@/lib/seo";
+
+// Escape "<" as < so the JSON can never close the <script> tag early.
+const jsonLd = JSON.stringify(personJsonLd).replace(/</g, `${String.fromCharCode(92)}u003c`);
 
 export default function Home() {
   return (
     <>
       <Nav />
-      <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />
+      <main id="main" tabIndex={-1} className="outline-none">
         <Hero />
         <About />
         <Skills />

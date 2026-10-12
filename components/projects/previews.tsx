@@ -46,11 +46,11 @@ function VidTubeMock() {
         </div>
         {/* Aspect-ratio transforms */}
         <div className="flex w-[72px] flex-col gap-2">
-          <div className="flex aspect-video items-end rounded border border-border bg-border/50 p-1">
+          <div className="flex aspect-video items-end rounded border border-border bg-surface p-1">
             <span className={`${mono} text-secondary`}>16:9</span>
           </div>
           <div className="flex aspect-square w-3/4 items-end rounded border border-accent/50 bg-accent/10 p-1">
-            <span className={`${mono} text-accent`}>1:1</span>
+            <span className={`${mono} text-accent-ink`}>1:1</span>
           </div>
         </div>
       </div>
@@ -92,7 +92,7 @@ function BookNowMock() {
           <div
             key={d}
             className={`relative rounded-md border py-1.5 text-center ${
-              active ? "border-accent/60 bg-accent/10 text-accent" : "border-border bg-surface text-text"
+              active ? "border-accent/60 bg-accent/10 text-accent-ink" : "border-border bg-surface text-text"
             }`}
           >
             {active && <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-accent" />}
@@ -131,7 +131,7 @@ function SummarizerMock() {
         </p>
       </div>
       <div className="rounded-md border border-accent/40 bg-accent/10 px-2.5 py-2">
-        <div className={`${mono} mb-1 font-medium uppercase tracking-wider text-accent`}>Summary</div>
+        <div className={`${mono} mb-1 font-medium uppercase tracking-wider text-accent-ink`}>Summary</div>
         <p className="text-xs leading-4 text-text">Amanda baked cookies and will bring Jerry some tomorrow.</p>
       </div>
     </div>

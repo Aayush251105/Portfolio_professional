@@ -114,7 +114,7 @@ export function ContactForm({ email }: { email: string }) {
             counter={
               <span
                 className={`font-mono text-[11px] leading-[14px] tracking-[0.06em] tabular-nums transition-colors duration-200 ${
-                  values.message.length >= MESSAGE_MAX ? "text-accent" : "text-secondary/80"
+                  values.message.length >= MESSAGE_MAX ? "text-accent-ink" : "text-secondary"
                 }`}
               >
                 {values.message.length} / {MESSAGE_MAX}
@@ -150,7 +150,7 @@ export function ContactForm({ email }: { email: string }) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2, ease }}
-                className="text-right text-[13px] leading-5 text-accent"
+                className="text-right text-[13px] leading-5 text-accent-ink"
               >
                 {statusMessage}
               </motion.p>
@@ -162,6 +162,7 @@ export function ContactForm({ email }: { email: string }) {
         <div
           role="status"
           aria-hidden={status !== "sent"}
+          inert={status !== "sent"}
           className={`flex flex-col items-center justify-center gap-3 text-center transition-[opacity,transform] duration-300 ease-brand ${
             status === "sent" ? "translate-y-0 opacity-100 delay-150" : "pointer-events-none translate-y-2 opacity-0"
           }`}
@@ -176,7 +177,7 @@ export function ContactForm({ email }: { email: string }) {
           <button
             type="button"
             onClick={() => setStatus("idle")}
-            className="mt-2 font-mono text-xs leading-4 font-medium tracking-[0.04em] text-secondary underline decoration-border underline-offset-4 transition-colors duration-200 hover:text-accent hover:decoration-accent"
+            className="mt-2 font-mono text-xs leading-4 font-medium tracking-[0.04em] text-secondary underline decoration-border underline-offset-4 transition-colors duration-200 hover:text-accent-ink hover:decoration-accent"
           >
             Send another
           </button>
@@ -187,7 +188,7 @@ export function ContactForm({ email }: { email: string }) {
 }
 
 const fieldClass =
-  "w-full border-0 border-b bg-transparent px-1 py-3 text-[15px] leading-6 tracking-[-0.005em] text-text placeholder:text-secondary/70 outline-none transition-colors duration-200 ease-brand focus:border-accent";
+  "w-full border-0 border-b bg-transparent px-1 py-3 text-[15px] leading-6 tracking-[-0.005em] text-text placeholder:text-secondary outline-none transition-colors duration-200 ease-brand focus:border-accent";
 
 function Field({
   label,
@@ -218,7 +219,7 @@ function Field({
       {counter && <span className="pointer-events-none absolute right-1 bottom-3">{counter}</span>}
       {/* Error slot: grows open smoothly, so fields below don't jump abruptly */}
       <div className={`grid transition-[grid-template-rows] duration-200 ease-brand ${error ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
-        <p id={`${id}-error`} className="overflow-hidden px-1 pt-1.5 text-xs leading-4 text-accent">
+        <p id={`${id}-error`} className="overflow-hidden px-1 pt-1.5 text-xs leading-4 text-accent-ink">
           {error}
         </p>
       </div>
@@ -232,7 +233,7 @@ function SubmitButton({ status }: { status: Status }) {
     <button
       type="submit"
       disabled={sending}
-      className="group flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 sm:py-2.5 text-[13px] leading-5 font-medium text-on-accent shadow-[0_2px_8px_color-mix(in_srgb,var(--accent)_25%,transparent)] transition-[filter,transform,opacity] duration-200 ease-brand hover:brightness-110 active:scale-[0.98] disabled:cursor-progress disabled:opacity-85 dark:font-semibold"
+      className="group flex items-center justify-center gap-2 rounded-full bg-accent-solid px-6 py-3 sm:py-2.5 text-[13px] leading-5 font-medium text-on-accent shadow-[0_2px_8px_color-mix(in_srgb,var(--accent)_25%,transparent)] transition-[filter,transform,opacity] duration-200 ease-brand hover:brightness-110 active:scale-[0.98] disabled:cursor-progress disabled:opacity-85 dark:font-semibold"
     >
       <span>{sending ? "Sending…" : "Send message"}</span>
       {sending ? (

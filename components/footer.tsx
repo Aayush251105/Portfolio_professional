@@ -18,7 +18,7 @@ export async function Footer() {
         <div className="flex flex-col items-center gap-3 font-mono sm:flex-row sm:justify-between text-[11px] leading-[14px] font-medium tracking-[0.06em] text-secondary">
           <span>© {year} {site.name}</span>
           <span>{site.contact.footer.credit}</span>
-          <a href="#top" className="group inline-flex items-center gap-1 transition-colors duration-200 ease-brand hover:text-accent">
+          <a href="#top" className="group inline-flex items-center gap-1 transition-colors duration-200 ease-brand hover:text-accent-ink">
             Back to top
             <span aria-hidden className="transition-transform duration-300 ease-brand group-hover:-translate-y-0.5">
               ↑

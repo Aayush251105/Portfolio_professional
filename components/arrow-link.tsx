@@ -17,7 +17,7 @@ export function ArrowLink({
     <a
       href={href}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className={`group relative inline-flex items-center gap-1 py-1 outline-none transition-colors duration-200 ease-brand hover:text-accent focus-visible:text-accent ${className}`}
+      className={`group relative inline-flex items-center gap-1 py-1 outline-none transition-colors duration-200 ease-brand hover:text-accent-ink focus-visible:text-accent-ink ${className}`}
     >
       <span>{children}</span>
       <span

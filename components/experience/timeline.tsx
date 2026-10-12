@@ -61,7 +61,7 @@ function TimelineEntry({ entry, latest }: { entry: ExperienceEntry; latest: bool
           <span className="font-mono text-xs leading-4 uppercase tracking-wider text-secondary">{entry.dates}</span>
           {entry.badge &&
             (latest ? (
-              <span className="rounded-full bg-accent/10 px-2.5 py-0.5 font-mono text-[11px] leading-4 font-medium uppercase tracking-wider text-accent">
+              <span className="rounded-full bg-accent/10 px-2.5 py-0.5 font-mono text-[11px] leading-4 font-medium uppercase tracking-wider text-accent-ink">
                 {entry.badge}
               </span>
             ) : (

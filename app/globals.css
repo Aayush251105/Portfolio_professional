@@ -14,6 +14,10 @@
   --text-secondary: #6e6c67;
   --text-tertiary: #9e9b95;
   --accent: #e5532d;
+  /* Deeper vermilion for small accent text: 5.4:1 on bg (bright accent is 3.4:1, fine only for large text) */
+  --accent-ink: #b43a18;
+  /* Solid CTA fill in light mode: white text needs 4.5:1, the brand accent gives 3.75:1 */
+  --accent-solid: #cf4724;
   --on-accent: #ffffff;
 
   /* Glass: warm white in light */
@@ -48,6 +52,8 @@
   --text-secondary: #8f8d87;
   --text-tertiary: #66645e;
   --accent: #ff6a3d;
+  --accent-ink: #ff6a3d; /* already 6.9:1 on dark bg */
+  --accent-solid: #ff6a3d; /* dark text on it: passes */
   --on-accent: #0c0c0b;
 
   /* Glass: warm charcoal in dark */
@@ -80,6 +86,8 @@
   --color-secondary: var(--text-secondary);
   --color-tertiary: var(--text-tertiary);
   --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-solid: var(--accent-solid);
   --color-on-accent: var(--on-accent);
 
   --font-sans: var(--font-geist), -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -111,6 +119,15 @@ body {
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
+}
+
+/* Skip link: parked above the viewport, slides in on keyboard focus */
+.skip-link {
+  transform: translateY(calc(-100% - 24px));
+  transition: transform 200ms var(--ease);
+}
+.skip-link:focus-visible {
+  transform: none;
 }
 
 /* ---------- Glass ---------- */

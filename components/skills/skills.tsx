@@ -90,7 +90,7 @@ function SkillItem({ name }: { name: string }) {
         name={name}
         className="absolute top-1/2 -left-[19px] h-[15px] w-[15px] -translate-y-1/2 scale-75 touch:static touch:mr-1.5 touch:inline-block touch:translate-y-[2px] text-secondary opacity-0 transition-[opacity,transform,color] duration-300 ease-brand group-hover/row:scale-100 group-hover/row:opacity-100 group-hover/item:scale-110 group-hover/item:text-(--brand) touch:scale-100 touch:opacity-100"
       />
-      <span className="transition-colors duration-200 ease-brand group-hover/item:text-accent">{name}</span>
+      <span className="transition-colors duration-200 ease-brand group-hover/item:text-accent-ink">{name}</span>
 
       {/* Tooltip: sits above the item, never over the category name */}
       <span

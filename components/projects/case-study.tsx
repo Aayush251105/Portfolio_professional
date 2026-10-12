@@ -93,7 +93,7 @@ export function CaseStudy({ project, number, onClose }: { project: Project | nul
                 <h3 id="case-study-title" className="mt-2 pr-12 text-[26px] sm:text-[28px] leading-9 font-medium tracking-[-0.02em] text-text">
                   {project.name}
                 </h3>
-                <p className="mt-1 font-mono text-[11px] leading-[14px] uppercase tracking-wider text-accent">{project.tag}</p>
+                <p className="mt-1 font-mono text-[11px] leading-[14px] uppercase tracking-wider text-accent-ink">{project.tag}</p>
                 <p className="mt-4 text-[15px] leading-6 text-secondary">{project.summary}</p>
 
                 <ul className="mt-6 space-y-3 border-t border-border pt-5">

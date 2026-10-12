@@ -78,7 +78,7 @@ export function Hero() {
             <div style={cssVars({ "--i": 5 })} className="intro flex flex-wrap items-center gap-3 pt-2 sm:gap-4">
               <a
                 href="#projects"
-                className="group relative inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-sm font-medium text-on-accent shadow-sm shadow-accent/25 transition-[filter,transform] duration-200 ease-brand hover:brightness-110 active:scale-[0.98] dark:font-semibold dark:shadow-accent/20"
+                className="group relative inline-flex items-center gap-2 rounded-full bg-accent-solid px-6 py-3.5 text-sm font-medium text-on-accent shadow-sm shadow-accent/25 transition-[filter,transform] duration-200 ease-brand hover:brightness-110 active:scale-[0.98] dark:font-semibold dark:shadow-accent/20"
               >
                 <span>View Projects</span>
                 <svg
@@ -185,7 +185,7 @@ function StatusCard() {
           </svg>
           {site.location} ({site.timezone})
         </span>
-        <span className="text-[10px] opacity-75">{status.meta}</span>
+        <span className="text-[10px]">{status.meta}</span>
       </div>
     </div>
   );

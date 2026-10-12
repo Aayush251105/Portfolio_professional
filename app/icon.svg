@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- "A." mark: same glyph geometry as the intro loader, on an ink tile that reads in light and dark tabs -->
+  <rect width="64" height="64" rx="14" fill="#141414"/>
+  <path fill="#F5F4F1" fill-rule="evenodd" d="M12.4 50.2 L24.6 15.8 H31.8 L44 50.2 H36.8 L34.2 42.5 H22.2 L19.6 50.2 Z M24.8 35.5 H31.6 L28.2 25.3 Z"/>
+  <rect x="45.6" y="43.4" width="6.8" height="6.8" rx="1.2" fill="#FF6A3D"/>
+</svg>

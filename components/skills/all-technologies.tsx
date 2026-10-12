@@ -58,7 +58,7 @@ export function AllTechnologies() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, ease, delay: 0.08 + ci * 0.05 }}
                 >
-                  <div className="mb-4 flex items-center gap-3 font-mono text-[11px] leading-[14px] font-medium uppercase tracking-wider text-tertiary">
+                  <div className="mb-4 flex items-center gap-3 font-mono text-[11px] leading-[14px] font-medium uppercase tracking-wider text-secondary">
                     {category.name}
                     <span className="h-px flex-1 bg-border" />
                   </div>

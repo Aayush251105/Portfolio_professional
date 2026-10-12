@@ -112,12 +112,12 @@ export function ResumeMenu({ variant = "pill" }: { variant?: "pill" | "link" | "
         <div className="px-3 pt-2 pb-2.5 font-mono text-[10px] font-medium uppercase tracking-wider text-secondary">
           Choose a resume
         </div>
-        <ul className="space-y-0.5">
+        <ul role="none" className="space-y-0.5">
           {site.resumes.map(({ label, note, href }) => {
             const ready = Boolean(href);
             const body = (
               <>
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-border/70 bg-surface/60 text-secondary transition-colors duration-200 ease-brand group-hover:text-accent group-focus-visible:text-accent">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-border/70 bg-surface/60 text-secondary transition-colors duration-200 ease-brand group-hover:text-accent-ink group-focus-visible:text-accent-ink">
                   <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.6" viewBox="0 0 24 24" aria-hidden>
                     <path
                       strokeLinecap="round"
@@ -131,7 +131,7 @@ export function ResumeMenu({ variant = "pill" }: { variant?: "pill" | "link" | "
                   <span className="block truncate text-xs text-secondary">{note}</span>
                 </span>
                 {ready ? (
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-secondary transition-colors duration-200 ease-brand group-hover:text-accent group-focus-visible:text-accent">
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-secondary transition-colors duration-200 ease-brand group-hover:text-accent-ink group-focus-visible:text-accent-ink">
                     PDF ↗
                   </span>
                 ) : (
@@ -142,7 +142,7 @@ export function ResumeMenu({ variant = "pill" }: { variant?: "pill" | "link" | "
               </>
             );
             const itemClass =
-              "group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left outline-none transition-colors duration-200 ease-brand focus-visible:bg-text/[0.05]";
+              "group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left outline-none transition-colors duration-200 ease-brand focus-visible:bg-text/[0.05] focus-visible:ring-1 focus-visible:ring-accent/60";
             return (
               <li key={label} role="none">
                 {ready ? (
@@ -176,10 +176,10 @@ const pillClass = (open: boolean) =>
   }`;
 
 const linkClass =
-  "group relative inline-flex items-center gap-1.5 font-mono text-[11px] leading-[14px] font-medium uppercase tracking-wider text-text transition-colors duration-150 ease-brand hover:text-accent";
+  "group relative inline-flex items-center gap-1.5 font-mono text-[11px] leading-[14px] font-medium uppercase tracking-wider text-text transition-colors duration-150 ease-brand hover:text-accent-ink";
 
 const inlineClass =
-  "group relative inline-flex items-center gap-1 py-1 text-secondary outline-none transition-colors duration-200 ease-brand hover:text-accent focus-visible:text-accent";
+  "group relative inline-flex items-center gap-1 py-1 text-secondary outline-none transition-colors duration-200 ease-brand hover:text-accent-ink focus-visible:text-accent-ink";
 
 const placement = {
   pill: "top-[calc(100%+12px)] left-0 origin-top-left",
