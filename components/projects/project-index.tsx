@@ -229,8 +229,8 @@ export function ProjectIndex() {
           </div>
         </div>
 
-        {/* Sticky glass preview */}
-        <div className="sticky top-28 col-span-5 hidden lg:block">
+        {/* Glass preview, vertically centred against the list */}
+        <div className="relative col-span-5 hidden self-center lg:block">
           <div aria-hidden className="pointer-events-none absolute -top-12 -left-12 h-72 w-72 rounded-full bg-accent opacity-25 blur-3xl" />
           <div className="glass relative overflow-hidden rounded-2xl p-6 shadow-xl">
             {/* Browser chrome */}
