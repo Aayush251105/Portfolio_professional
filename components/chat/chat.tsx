@@ -11,7 +11,14 @@ type Message = { id: string; role: "user" | "assistant"; content: string; action
 const ease = [0.22, 1, 0.36, 1] as const;
 const STORAGE_KEY = "chat-v1";
 const INPUT_MAX = 500;
-const suggestions = ["What is he working on right now?", "Show me his AI projects", "Is he open to internships?", "Can I see his resume?"];
+const suggestions = ["What did he build at Kyndryl?", "Show me his AI projects", "Is he open to internships?"];
+
+/** What the assistant can do, shown before the first question. */
+const capabilities = [
+  { title: "Ask about him", body: "Projects, internship, skills and goals.", icon: "M8 10h8M8 14h5M21 12a9 9 0 0 1-13.5 7.8L3 21l1.2-4.5A9 9 0 1 1 21 12z" },
+  { title: "Just say where", body: "“Show me his projects” and I’ll take you there.", icon: "M5 12h14m-6-6l6 6-6 6" },
+  { title: "Get in touch", body: "His resume, links, or a drafted message.", icon: "M4 6h16v12H4zM4 7l8 6 8-6" },
+];
 
 const uid = () => Math.random().toString(36).slice(2, 10);
 
@@ -93,7 +100,7 @@ export function Chat() {
   // Keep the newest message in view while it streams.
   useEffect(() => {
     const log = logRef.current;
-    if (log) log.scrollTop = log.scrollHeight;
+    if (log && messages.length) log.scrollTop = log.scrollHeight;
   }, [messages, open]);
 
   useEffect(() => () => abortRef.current?.abort(), []);
@@ -222,7 +229,7 @@ export function Chat() {
             exit={reduced ? { opacity: 0 } : { opacity: 0, y: 12, scale: 0.97 }}
             transition={{ duration: reduced ? 0.15 : 0.35, ease }}
             style={{ transformOrigin: "bottom right" }}
-            className="glass-liquid fixed inset-x-3 bottom-3 z-[55] flex h-[min(560px,calc(100dvh-5.5rem))] flex-col overflow-hidden rounded-[28px] sm:inset-x-auto sm:right-6 sm:bottom-6 sm:w-[400px] sm:h-[min(600px,calc(100dvh-7.5rem))]"
+            className="glass-liquid fixed inset-x-3 bottom-3 z-[55] flex h-[min(620px,calc(100dvh-5.5rem))] flex-col overflow-hidden rounded-[28px] sm:inset-x-auto sm:right-6 sm:bottom-6 sm:w-[400px] sm:h-[min(640px,calc(100dvh-7.5rem))]"
           >
             {/* Header */}
             <div className="flex items-center justify-between gap-3 border-b border-border/60 px-5 py-4">
@@ -234,7 +241,7 @@ export function Chat() {
                   <h2 id={titleId} className="text-[15px] leading-5 font-medium tracking-[-0.01em] text-text">
                     Ask about Aayush
                   </h2>
-                  <p className="font-mono text-[10.5px] leading-4 tracking-[0.06em] text-secondary uppercase">Answers from his portfolio</p>
+                  <p className="font-mono text-[10.5px] leading-4 tracking-[0.06em] text-secondary uppercase">AI guide · knows his story</p>
                 </div>
               </div>
               <div className="flex items-center gap-1.5">
@@ -261,10 +268,26 @@ export function Chat() {
               {messages.length === 0 ? (
                 <div className="my-auto">
                   <p className="text-[22px] leading-7 font-medium tracking-[-0.02em] text-text">
-                    Hi! Ask me anything about <span className="text-accent">Aayush</span>.
+                    Hi! I’m Aayush’s <span className="text-accent">AI guide</span>.
                   </p>
-                  <p className="mt-2 text-sm leading-6 text-secondary">His projects, experience, skills or how to reach him. I can also take you around the site.</p>
-                  <div className="mt-5 flex flex-wrap gap-2">
+                  <p className="mt-2 text-sm leading-6 text-secondary">I know the stories behind his work, not just the page.</p>
+                  <ul className="mt-4 flex flex-col gap-3">
+                    {capabilities.map((c) => (
+                      <li key={c.title} className="flex gap-3">
+                        <span aria-hidden className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-accent/30 bg-accent/[0.08] text-accent-ink">
+                          <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d={c.icon} />
+                          </svg>
+                        </span>
+                        <span className="text-[13px] leading-5 text-secondary">
+                          <span className="block font-medium text-text">{c.title}</span>
+                          {c.body}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-5 mb-2.5 font-mono text-[10.5px] leading-4 tracking-[0.06em] text-secondary uppercase">Try asking</p>
+                  <div className="flex flex-wrap gap-2">
                     {suggestions.map((s) => (
                       <button
                         key={s}
