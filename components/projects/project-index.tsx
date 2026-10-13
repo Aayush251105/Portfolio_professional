@@ -8,6 +8,7 @@ import { ArrowLink } from "../arrow-link";
 import { CaseStudy } from "./case-study";
 import { ProjectLinks } from "./project-links";
 import { displayUrl, ProjectVisual } from "./project-visual";
+import { TiltCard } from "./tilt-card";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 const filters: { key: "All" | ProjectCategory; label: string }[] = [
@@ -231,8 +232,8 @@ export function ProjectIndex() {
 
         {/* Glass preview, vertically centred against the list */}
         <div className="relative col-span-5 hidden self-center lg:block">
-          <div aria-hidden className="pointer-events-none absolute -top-12 -left-12 h-72 w-72 rounded-full bg-accent opacity-25 blur-3xl" />
-          <div className="glass relative overflow-hidden rounded-2xl p-6 shadow-xl">
+          <div aria-hidden className="pointer-events-none absolute -top-12 -left-12 h-72 w-72 animate-ambient rounded-full bg-accent opacity-25 blur-3xl" />
+          <TiltCard className="glass overflow-hidden rounded-2xl p-6 shadow-xl">
             {/* Browser chrome */}
             <div className="flex items-center justify-between border-b border-border/70 pb-4">
               <div className="flex items-center gap-1.5">
@@ -286,7 +287,7 @@ export function ProjectIndex() {
                 );
               })}
             </div>
-          </div>
+          </TiltCard>
         </div>
       </div>
 

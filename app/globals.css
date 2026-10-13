@@ -7,6 +7,7 @@
 
 /* ---------- Design tokens ---------- */
 :root {
+  --tilt-light: color-mix(in srgb, var(--accent) 9%, transparent);
   --bg: #f5f4f1;
   --surface: #fbfaf8;
   --border: #e3e1dc;
@@ -45,6 +46,7 @@
 }
 
 .dark {
+  --tilt-light: rgba(255, 255, 255, 0.07);
   --bg: #0c0c0b;
   --surface: #151514;
   --border: #262624;
@@ -233,6 +235,20 @@ body {
   &:hover {
     animation-play-state: paused;
   }
+}
+
+/* Idle float for the project preview: a slow, barely-there drift. */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@utility animate-float {
+  animation: float 7s ease-in-out infinite;
 }
 
 @utility animate-ambient {
