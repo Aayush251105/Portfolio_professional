@@ -229,7 +229,7 @@ body {
 }
 
 @utility animate-marquee {
-  animation: marquee 48s linear infinite;
+  animation: marquee 60s linear infinite;
   &:hover {
     animation-play-state: paused;
   }

@@ -113,7 +113,8 @@ function IconMarquee() {
       aria-hidden
       className="relative mt-10 overflow-hidden pt-12 pb-4 [mask-image:linear-gradient(to_right,transparent,black_3rem,black_calc(100%-3rem),transparent)] lg:mt-14 lg:[mask-image:linear-gradient(to_right,transparent,black_10rem,black_calc(100%-10rem),transparent)]"
     >
-      <div className="animate-marquee flex w-max gap-6">
+      {/* Spacing is a right margin on each tile (not gap) so the -50% loop lands exactly on the copy */}
+      <div className="animate-marquee flex w-max">
         {[...techs, ...techs].map((name, i) => (
           <MarqueeTile key={`${name}-${i}`} name={name} />
         ))}
@@ -125,15 +126,15 @@ function IconMarquee() {
 function MarqueeTile({ name }: { name: string }) {
   const { short, note } = techMeta(name);
   return (
-    <div className="group/tile relative pr-0" style={{ "--brand": brandColor(name) } as React.CSSProperties}>
+    <div className="group/tile relative mr-6 lg:mr-8" style={{ "--brand": brandColor(name) } as React.CSSProperties}>
       <span className="glass-flat pointer-events-none absolute bottom-full left-1/2 z-30 mb-3 flex -translate-x-1/2 translate-y-1 items-center gap-1.5 rounded-lg border-accent/40! px-2.5 py-1 font-mono text-[11px] leading-4 whitespace-nowrap text-text opacity-0 transition-[opacity,transform] duration-200 ease-brand group-hover/tile:translate-y-0 group-hover/tile:opacity-100">
         <span className="h-1.5 w-1.5 rounded-full bg-accent" />
         {name}
         {note && <span className="text-secondary">· {note}</span>}
       </span>
-      <div className="glass-flat flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-2xl text-secondary transition-[transform,border-color,color] duration-300 ease-brand group-hover/tile:-translate-y-1 group-hover/tile:border-accent/60! group-hover/tile:text-text">
-        <TechIcon name={name} className="h-6 w-6 transition-colors duration-300 ease-brand group-hover/tile:text-(--brand)" />
-        <span className="font-mono text-[10px] leading-3 font-medium">{short}</span>
+      <div className="glass-flat flex h-20 w-20 flex-col items-center justify-center gap-1.5 rounded-[20px] lg:h-24 lg:w-24 lg:gap-2 lg:rounded-[24px] text-secondary transition-[transform,border-color,color] duration-300 ease-brand group-hover/tile:-translate-y-1 group-hover/tile:border-accent/60! group-hover/tile:text-text">
+        <TechIcon name={name} className="h-7 w-7 lg:h-9 lg:w-9 transition-colors duration-300 ease-brand group-hover/tile:text-(--brand)" />
+        <span className="font-mono text-[10.5px] leading-3 font-medium lg:text-[11px]">{short}</span>
       </div>
     </div>
   );
