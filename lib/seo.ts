@@ -13,7 +13,7 @@ export const seo = {
   fullName: "Aayush Gupta",
   title: "Aayush Gupta — Software Engineer · AI/ML",
   description:
-    "Aayush Gupta is a software engineer building full-stack products and agentic AI systems. B.Tech CSE at Shiv Nadar University, AI & Software Engineering intern at Kyndryl.",
+    "Aayush Gupta is a software engineer building full-stack products and agentic AI systems. B.Tech CSE at Shiv Nadar University, former SDE intern at Kyndryl.",
   jobTitle: "Software Engineer",
   keywords: ["Aayush Gupta", "software engineer", "AI/ML", "agentic AI", "full-stack developer", "Next.js", "portfolio", "Shiv Nadar University"],
 };
@@ -28,7 +28,6 @@ export const personJsonLd = {
   email: `mailto:${site.links.email}`,
   address: { "@type": "PostalAddress", addressCountry: "IN" },
   alumniOf: { "@type": "CollegeOrUniversity", name: "Shiv Nadar University" },
-  worksFor: { "@type": "Organization", name: "Kyndryl" },
   sameAs: [site.links.github, site.links.linkedin],
   knowsAbout: site.skills.categories.flatMap((c) => c.items),
 };

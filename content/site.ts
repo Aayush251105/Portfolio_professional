@@ -48,7 +48,7 @@ export const site = {
       badge: "Available",
       title: "Open to opportunities · Graduating 2027",
       // Built from known facts. TODO: replace with what Aayush is looking for (role type / timing).
-      note: "Agentic AI intern at Kyndryl. 4th-year B.Tech CSE at Shiv Nadar University.",
+      note: "Former SDE intern at Kyndryl. 4th-year B.Tech CSE at Shiv Nadar University.",
       meta: "B.Tech",
     },
   },
@@ -59,12 +59,12 @@ export const site = {
     // TODO: confirm wording (role tense, Kyndryl description).
     paragraphs: [
       "Currently in my 4th year pursuing B.Tech in Computer Science Engineering at Shiv Nadar University (graduating 2027). Recognized on the Dean's List for academic distinction.",
-      "As an Agentic AI intern at Kyndryl, I build agentic workflows, designing how autonomous agents plan, use tools and deliver reliable results.",
+      "As an SDE intern at Kyndryl (May to July 2026), I built heartbeat-based failure detection for long-running report jobs and an AI documentation assistant that put scattered enterprise docs one question away.",
     ],
     stats: [
       { label: "Milestone", value: "Class of 2027" },
       { label: "Academic", value: "Dean's List Honoree" },
-      { label: "Practice", value: "Agentic AI Intern" },
+      { label: "Experience", value: "SDE Intern · Kyndryl" },
     ],
     education: "B.Tech, Computer Science Engineering · Shiv Nadar University",
     // `darkSrc` is optional: a version of the photo on a dark backdrop, shown in dark mode.
@@ -316,9 +316,9 @@ export const site = {
     /** Source: AayushResume_SDE.pdf. Newest first; the first entry gets the filled "latest" node. */
     entries: [
       {
-        dates: "May 2026 — Present",
-        badge: "Latest",
-        role: "AI & Software Engineering Intern",
+        dates: "May 2026 — Jul 2026",
+        badge: "Internship",
+        role: "SDE Intern",
         org: "Kyndryl",
         bullets: [
           "Re-engineered the monitoring workflow for a distributed report generation system by redesigning execution pipelines, improving system observability and reliability in an Agile development environment.",
