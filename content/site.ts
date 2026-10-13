@@ -40,9 +40,8 @@ export const site = {
   hero: {
     eyebrow: ["Software Engineer", "AI/ML", "Class of 2027"],
     headline: { before: "I build ", accent: "intelligent", after: " software that feels effortless." },
-    // TODO: confirm or rewrite. Kept from the approved design as a draft; makes no factual claims.
     intro:
-      "Bridging robust systems engineering and cutting-edge neural models to deliver products of quiet clarity and speed.",
+      "Full-stack products with AI at their core. At Kyndryl, I cut failure detection from up to two hours to about six minutes.",
     status: {
       label: "Status",
       badge: "Available",
