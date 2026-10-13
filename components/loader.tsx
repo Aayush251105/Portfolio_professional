@@ -8,7 +8,7 @@
 const NAME = "Aayush Gupta";
 export const LOADER_KEY = "a-loader-seen";
 /** Matches the CSS timeline: the page becomes scrollable as the curtain clears. */
-export const LOADER_LOCK_MS = 1700;
+export const LOADER_LOCK_MS = 2500;
 
 // The "A" with its counter cut out (even-odd), drawn on a 0-128 x 0-110 grid.
 const A_PATH = "M4 104 L39 6 H61 L96 104 H74 L66.6 82 H33.4 L26 104 Z M39.6 64 H60.4 L50 33 Z";

@@ -106,7 +106,7 @@ export const site = {
         id: "google-cybersecurity",
         issuer: "Google · Coursera",
         title: "Google Cybersecurity Professional Certificate",
-        type: "Professional certificate",
+        type: "Career certificate",
         year: "2024",
         href: "https://www.coursera.org/account/accomplishments/specialization/F87Y8YT7SZSZ",
         pdf: "/certs/google-cybersecurity.pdf",

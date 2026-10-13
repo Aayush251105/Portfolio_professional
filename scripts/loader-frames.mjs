@@ -12,7 +12,7 @@ const p = await ctx.newPage();
 await p.goto(process.env.URL ?? "http://localhost:3000", { waitUntil: "domcontentloaded" });
 await p.evaluate(() => document.fonts.ready);
 await p.evaluate(() => document.getAnimations().forEach((a) => a.pause()));
-const times = [0, 200, 400, 600, 800, 1000, 1250, 1450, 1600, 1750, 1900, 2050, 2400, 2900];
+const times = [0, 300, 600, 900, 1200, 1500, 1800, 2000, 2200, 2450, 2700, 3000];
 for (const t of times) {
   await p.evaluate((t) => document.getAnimations().forEach((a) => (a.currentTime = t)), t);
   await p.waitForTimeout(60);
