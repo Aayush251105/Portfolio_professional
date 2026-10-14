@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, JetBrains_Mono } from "next/font/google";
-import { Cursor } from "@/components/cursor";
 import { Loader } from "@/components/loader";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -59,7 +58,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Loader />
         <ThemeProvider>{children}</ThemeProvider>
         <SmoothScroll />
-        <Cursor />
       </body>
     </html>
   );
