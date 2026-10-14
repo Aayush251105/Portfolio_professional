@@ -141,62 +141,66 @@ const swapOut = "transition-opacity duration-300 ease-brand group-hover:opacity-
 function CertCard({ cert, onView, buttonRef }: { cert: Cert; onView?: () => void; buttonRef: (el: HTMLButtonElement | null) => void }) {
   const hasActions = Boolean(onView || cert.href);
   return (
-    <article className="group glass relative flex h-[224px] w-[300px] shrink-0 snap-start sm:w-[360px] flex-col justify-between rounded-3xl p-6 transition-[transform,border-color,box-shadow,background-color] duration-300 ease-brand hover:-translate-y-2 hover:border-accent! hover:shadow-[0_16px_36px_-8px_color-mix(in_srgb,var(--accent)_18%,transparent)] focus-within:-translate-y-2 focus-within:border-accent!">
-      {/* Whole card opens the viewer (stretched button); Verify stays its own link above it */}
-      {onView && (
-        <button
-          ref={buttonRef}
-          type="button"
-          aria-haspopup="dialog"
-          aria-label={`View certificate: ${cert.title}`}
-          onClick={onView}
-          className="absolute inset-0 z-0 cursor-zoom-in rounded-3xl"
-        />
-      )}
-
-      <div className="pointer-events-none relative flex items-start justify-between">
-        <span className="font-mono text-[11px] leading-[14px] font-medium uppercase tracking-wider text-secondary transition-colors duration-300 ease-brand group-hover:font-semibold group-hover:text-accent-ink group-focus-within:text-accent-ink">
-          {cert.issuer}
-        </span>
-        <span className="h-2 w-2 rounded-full bg-border transition-[background-color,transform] duration-300 ease-brand group-hover:scale-110 group-hover:bg-accent group-focus-within:bg-accent" />
-      </div>
-
-      <h3 className="pointer-events-none relative line-clamp-2 text-xl leading-[26px] font-medium tracking-[-0.015em] text-text">{cert.title}</h3>
-
-      <div className="pointer-events-none relative flex items-center border-t border-border/70 pt-3 transition-colors duration-300 ease-brand group-hover:border-accent/30">
-        <div className="flex min-w-0 items-center gap-2.5 whitespace-nowrap font-mono text-[11px] leading-[14px] font-medium tracking-[0.06em] text-secondary uppercase transition-colors duration-300 ease-brand group-hover:text-text">
-          {cert.year && (
-            <>
-              <span>{cert.year}</span>
-              <span className={`text-border ${hasActions ? swapOut : ""}`}>•</span>
-            </>
-          )}
-          <span className={`truncate ${hasActions ? swapOut : ""}`}>{cert.type}</span>
-        </div>
-        {/* Actions take the type label's place on hover (always shown on touch) */}
-        <div className="absolute inset-y-0 right-0 flex items-center gap-3 pt-3 whitespace-nowrap">
-          {onView && (
-            <span
-              aria-hidden
-              className="inline-flex translate-y-1 items-center gap-1 font-mono text-[11px] leading-[14px] font-medium tracking-[0.06em] text-secondary opacity-0 transition-[opacity,transform] duration-300 ease-brand group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 touch:translate-y-0 touch:opacity-100"
-            >
-              <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-              </svg>
-              View
-            </span>
-          )}
-        {cert.href && (
-          <a
-            href={cert.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Verify ${cert.title}`}
-            className="pointer-events-auto inline-flex translate-y-1 items-center gap-0.5 border-b border-accent pb-0.5 font-mono text-[11px] leading-[14px] font-medium tracking-[0.06em] text-accent-ink opacity-0 transition-[opacity,transform] duration-300 ease-brand group-hover:translate-y-0 group-hover:opacity-100 focus-visible:translate-y-0 focus-visible:opacity-100 touch:translate-y-0 touch:opacity-100"
-          >
-            Verify ↗
-          </a>
+    // The article is a stationary hover target; only the inner card lifts. Lifting the hovered element
+    // itself moved its edge out from under the cursor, ending the hover and flickering at the border.
+    <article className="group relative h-[224px] w-[300px] shrink-0 snap-start sm:w-[360px]">
+      <div className="glass relative flex h-full flex-col justify-between rounded-3xl p-6 transition-[transform,border-color,box-shadow,background-color] duration-300 ease-brand group-hover:-translate-y-2 group-hover:border-accent! group-hover:shadow-[0_16px_36px_-8px_color-mix(in_srgb,var(--accent)_18%,transparent)] group-focus-within:-translate-y-2 group-focus-within:border-accent!">
+        {/* Whole card opens the viewer (stretched button); Verify stays its own link above it */}
+        {onView && (
+          <button
+            ref={buttonRef}
+            type="button"
+            aria-haspopup="dialog"
+            aria-label={`View certificate: ${cert.title}`}
+            onClick={onView}
+            className="absolute inset-0 z-0 cursor-zoom-in rounded-3xl"
+          />
         )}
+
+        <div className="pointer-events-none relative flex items-start justify-between">
+          <span className="font-mono text-[11px] leading-[14px] font-medium uppercase tracking-wider text-secondary transition-colors duration-300 ease-brand group-hover:font-semibold group-hover:text-accent-ink group-focus-within:text-accent-ink">
+            {cert.issuer}
+          </span>
+          <span className="h-2 w-2 rounded-full bg-border transition-[background-color,transform] duration-300 ease-brand group-hover:scale-110 group-hover:bg-accent group-focus-within:bg-accent" />
+        </div>
+
+        <h3 className="pointer-events-none relative line-clamp-2 text-xl leading-[26px] font-medium tracking-[-0.015em] text-text">{cert.title}</h3>
+
+        <div className="pointer-events-none relative flex items-center border-t border-border/70 pt-3 transition-colors duration-300 ease-brand group-hover:border-accent/30">
+          <div className="flex min-w-0 items-center gap-2.5 whitespace-nowrap font-mono text-[11px] leading-[14px] font-medium tracking-[0.06em] text-secondary uppercase transition-colors duration-300 ease-brand group-hover:text-text">
+            {cert.year && (
+              <>
+                <span>{cert.year}</span>
+                <span className={`text-border ${hasActions ? swapOut : ""}`}>•</span>
+              </>
+            )}
+            <span className={`truncate ${hasActions ? swapOut : ""}`}>{cert.type}</span>
+          </div>
+          {/* Actions take the type label's place on hover (always shown on touch) */}
+          <div className="absolute inset-y-0 right-0 flex items-center gap-3 pt-3 whitespace-nowrap">
+            {onView && (
+              <span
+                aria-hidden
+                className="inline-flex translate-y-1 items-center gap-1 font-mono text-[11px] leading-[14px] font-medium tracking-[0.06em] text-secondary opacity-0 transition-[opacity,transform] duration-300 ease-brand group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 touch:translate-y-0 touch:opacity-100"
+              >
+                <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+                </svg>
+                View
+              </span>
+            )}
+          {cert.href && (
+            <a
+              href={cert.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Verify ${cert.title}`}
+              className="pointer-events-auto inline-flex translate-y-1 items-center gap-0.5 border-b border-accent pb-0.5 font-mono text-[11px] leading-[14px] font-medium tracking-[0.06em] text-accent-ink opacity-0 transition-[opacity,transform] duration-300 ease-brand group-hover:translate-y-0 group-hover:opacity-100 focus-visible:translate-y-0 focus-visible:opacity-100 touch:translate-y-0 touch:opacity-100"
+            >
+              Verify ↗
+            </a>
+          )}
+          </div>
         </div>
       </div>
     </article>
