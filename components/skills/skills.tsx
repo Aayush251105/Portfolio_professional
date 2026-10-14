@@ -45,7 +45,9 @@ export function Skills() {
 
 function CategoryRow({ name, items }: { name: string; items: readonly string[] }) {
   return (
-    <div className="group/row relative -mx-4 flex flex-col items-start gap-3 border-b border-border px-4 py-6 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6 lg:py-8">
+    <div className="group/row relative -mx-4 flex flex-col items-start gap-3 px-4 py-6 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6 lg:py-8">
+      {/* Divider at the content width (the row itself bleeds 16px each side for the hover panel) */}
+      <span aria-hidden className="pointer-events-none absolute inset-x-4 bottom-0 h-px bg-border" />
       {/* Hover highlight: glass panel + accent edge, faded in so layout never shifts */}
       <span
         aria-hidden
