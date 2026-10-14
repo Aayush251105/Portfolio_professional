@@ -11,7 +11,7 @@ export type NavId = "about" | "skills" | "projects" | "experience" | "contact";
 export const site = {
   name: "Aayush",
   monogram: "A",
-  location: "India",
+  location: "Hyderabad, India",
   timezone: "IST / UTC+5:30",
 
   links: {
@@ -41,7 +41,7 @@ export const site = {
     eyebrow: ["Software Engineer", "AI/ML", "Class of 2027"],
     headline: { before: "I build ", accent: "intelligent", after: " software that feels effortless." },
     intro:
-      "Full-stack products with AI at their core. At Kyndryl, I cut failure detection from up to two hours to about six minutes.",
+      "Full-stack products with AI at their core, taken from first idea to something people actually use.",
     status: {
       label: "Status",
       badge: "Available",
@@ -68,7 +68,7 @@ export const site = {
     education: "B.Tech, Computer Science Engineering · Shiv Nadar University",
     // `darkSrc` is optional: a version of the photo on a dark backdrop, shown in dark mode.
     portrait: { src: "/about/portrait.jpg", darkSrc: "/about/portrait-dark.jpg", alt: "Portrait of Aayush Gupta" },
-    badge: { title: "Based in India", meta: "IST · UTC+5:30" },
+    badge: { title: "Based in Hyderabad", meta: "IST · UTC+5:30" },
   },
 
   skills: {

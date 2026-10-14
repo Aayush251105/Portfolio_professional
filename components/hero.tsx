@@ -183,7 +183,7 @@ function StatusCard() {
             />
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
-          {site.location} ({site.timezone})
+          {site.location}
         </span>
         <span className="text-[10px]">{status.meta}</span>
       </div>
