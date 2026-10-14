@@ -125,6 +125,7 @@ export function ProjectIndex() {
                       aria-current={active ? "true" : undefined}
                       aria-expanded={expanded}
                       aria-controls={`project-panel-${p.id}`}
+                      data-cursor="Open"
                       onMouseEnter={() => setSelectedId(p.id)}
                       onFocus={() => setSelectedId(p.id)}
                       onClick={() => onRowClick(p.id)}

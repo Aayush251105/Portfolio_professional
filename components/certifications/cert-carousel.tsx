@@ -152,6 +152,7 @@ function CertCard({ cert, onView, buttonRef }: { cert: Cert; onView?: () => void
             type="button"
             aria-haspopup="dialog"
             aria-label={`View certificate: ${cert.title}`}
+            data-cursor="View"
             onClick={onView}
             className="absolute inset-0 z-0 cursor-zoom-in rounded-3xl"
           />

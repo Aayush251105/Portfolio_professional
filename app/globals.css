@@ -492,3 +492,97 @@ html.is-loading {
     animation: none !important;
   }
 }
+
+/* ---------- Custom cursor (components/cursor.tsx) ----------
+ * The component only renders for fine pointers with motion allowed, and adds html.has-cursor once
+ * running, so touch, reduced-motion and no-JS visitors keep the system cursor.
+ */
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
+html.has-cursor :is(input:not([type="checkbox"], [type="radio"], [type="range"]), textarea, [contenteditable="true"]) {
+  cursor: text !important;
+}
+.cursor {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 200ms var(--ease);
+  --s: 0.5; /* ring scale: 64px base */
+  --d: 1; /* dot scale */
+  --p: 1; /* press squeeze */
+}
+.cursor[data-visible="true"] {
+  opacity: 1;
+}
+.cursor[data-state="interactive"] {
+  --s: 0.8;
+  --d: 0.6;
+}
+.cursor[data-state="label"] {
+  --s: 1;
+  --d: 0;
+}
+.cursor[data-state="text"] {
+  --s: 0;
+  --d: 0;
+}
+.cursor[data-pressed="true"] {
+  --p: 0.85;
+}
+.cursor-pos {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+}
+.cursor-ring {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 9999px;
+  border: 2px solid color-mix(in srgb, var(--text) 40%, transparent);
+  background: transparent;
+  transform: translate(-50%, -50%) scale(calc(var(--s) * var(--p)));
+  transition:
+    transform 350ms var(--ease),
+    border-color 250ms var(--ease),
+    background-color 250ms var(--ease);
+}
+/* Outline only: readable over solid accent buttons and plain backgrounds alike, never hides text. */
+.cursor[data-state="interactive"] .cursor-ring {
+  border-color: color-mix(in srgb, var(--text) 70%, transparent);
+}
+.cursor[data-state="label"] .cursor-ring {
+  border-color: transparent;
+  background: var(--accent-solid);
+}
+.cursor-label {
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--on-accent, #fff);
+  opacity: 0;
+  transition: opacity 200ms var(--ease);
+}
+.cursor[data-state="label"] .cursor-label {
+  opacity: 1;
+  transition-delay: 80ms;
+}
+.cursor-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--accent);
+  transform: translate(-50%, -50%) scale(calc(var(--d) * var(--p)));
+  transition: transform 250ms var(--ease);
+}
+
