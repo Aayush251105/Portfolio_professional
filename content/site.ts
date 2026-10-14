@@ -57,12 +57,12 @@ export const site = {
     headline: { before: "I like turning ", accent: "complex systems into products", after: " that feel simple." },
     // TODO: confirm wording (role tense, Kyndryl description).
     paragraphs: [
-      "Currently in my 4th year pursuing B.Tech in Computer Science Engineering at Shiv Nadar University (graduating 2027). Recognized on the Dean's List for academic distinction.",
+      "Currently in my 4th year pursuing B.Tech in Computer Science Engineering at Shiv Nadar University (graduating 2027). Named to the Dean's List four times for academic distinction.",
       "As an SDE intern at Kyndryl (May to July 2026), I built heartbeat-based failure detection for long-running report jobs and an AI documentation assistant that put scattered enterprise docs one question away.",
     ],
     stats: [
       { label: "Milestone", value: "Class of 2027" },
-      { label: "Academic", value: "Dean's List Honoree" },
+      { label: "Academic", value: "Dean's List ×4" },
       { label: "Experience", value: "SDE Intern · Kyndryl" },
     ],
     education: "B.Tech, Computer Science Engineering · Shiv Nadar University",
@@ -339,7 +339,7 @@ export const site = {
         badge: "GPA 9.30",
         role: "B.Tech, Computer Science",
         org: "Shiv Nadar University",
-        bullets: ["Dean’s List: Monsoon 2023, Spring 2024 and Monsoon 2025."],
+        bullets: ["Dean’s List: Monsoon 2023, Spring 2024, Monsoon 2025 and Spring 2026."],
         tags: [], // TODO: key coursework, e.g. Data Structures & Algorithms / Operating Systems
       },
     ] as ExperienceEntry[],
