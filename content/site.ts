@@ -22,11 +22,12 @@ export const site = {
 
   /**
    * Resume variants shown in the Resume menus (files live in /public/resumes).
-   * TODO: add the AI / ML resume's `href`. An entry with an empty `href` renders as "Soon".
+   * TODO: the AI / ML entry points at the SDE resume until a dedicated one exists. An entry with an
+   * empty `href` renders as "Soon".
    */
   resumes: [
     { label: "Software Engineering", note: "Full-stack & backend roles", href: "/resumes/AayushResume_SDE.pdf" },
-    { label: "AI / ML", note: "ML engineering & research", href: "" },
+    { label: "AI / ML", note: "ML engineering & research", href: "/resumes/AayushResume_SDE.pdf" },
   ] as { label: string; note: string; href: string }[],
 
   nav: [
