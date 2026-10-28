@@ -11,7 +11,7 @@ export const siteUrl = (
 
 export const seo = {
   fullName: "Aayush Gupta",
-  title: "Aayush Gupta — Software Engineer · AI/ML",
+  title: "Aayush Gupta · Software Engineer · AI/ML",
   description:
     "Aayush Gupta is a software engineer building full-stack products and agentic AI systems. B.Tech CSE at Shiv Nadar University, former SDE intern at Kyndryl.",
   jobTitle: "Software Engineer",
