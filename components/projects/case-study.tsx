@@ -5,6 +5,7 @@ import { useEffect, useRef, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import type { Project } from "@/content/site";
 import { getLenis } from "../smooth-scroll";
+import { Award } from "./award";
 import { ProjectLinks } from "./project-links";
 import { displayUrl, ProjectVisual } from "./project-visual";
 
@@ -94,7 +95,23 @@ export function CaseStudy({ project, number, onClose }: { project: Project | nul
                   {project.name}
                 </h3>
                 <p className="mt-1 font-mono text-[11px] leading-[14px] uppercase tracking-wider text-accent-ink">{project.tag}</p>
+                {project.award && (
+                  <div className="mt-4">
+                    <Award text={project.award} />
+                  </div>
+                )}
                 <p className="mt-4 text-[15px] leading-6 text-secondary">{project.summary}</p>
+
+                {project.story && project.story.length > 0 && (
+                  <dl className="mt-6 space-y-4 border-t border-border pt-5">
+                    {project.story.map(({ label, text }) => (
+                      <div key={label}>
+                        <dt className="font-mono text-[11px] leading-4 font-medium uppercase tracking-wider text-secondary">{label}</dt>
+                        <dd className="mt-1.5 text-sm leading-[1.45rem] text-text">{text}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
 
                 {project.highlights.length > 0 && (
                   <ul className="mt-6 space-y-3 border-t border-border pt-5">

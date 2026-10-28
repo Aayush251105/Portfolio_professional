@@ -73,7 +73,10 @@ export function Hero() {
               <RiseWords text={hero.headline.after} start={3} />
             </h1>
 
-            <p style={cssVars({ "--i": 4 })} className="intro max-w-[540px] text-base leading-relaxed tracking-tight text-secondary sm:text-lg">{hero.intro}</p>
+            <p style={cssVars({ "--i": 4 })} className="intro max-w-[540px] text-base leading-relaxed tracking-tight text-secondary sm:text-lg">
+              I&rsquo;m <span className="font-medium text-text">{hero.intro.name}</span>
+              {hero.intro.text}
+            </p>
 
             <div style={cssVars({ "--i": 5 })} className="intro flex flex-wrap items-center gap-3 pt-2 sm:gap-4">
               <a

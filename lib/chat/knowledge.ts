@@ -74,6 +74,7 @@ function siteFacts() {
     ...projects.items.map((p) =>
       [
         `- ${p.id}: ${p.name} [${p.categories.join(", ")}]${p.year ? ` ${p.year}` : ""}${p.featured ? " (featured)" : ""} — ${p.summary}`,
+        p.award ? ` Award: ${p.award}.` : "",
         p.highlights.length ? ` Highlights: ${p.highlights.join(" ")}` : "",
         ` Stack: ${list(p.stack)}.`,
         p.github ? " Has GitHub repo." : "",

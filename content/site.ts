@@ -22,12 +22,12 @@ export const site = {
 
   /**
    * Resume variants shown in the Resume menus (files live in /public/resumes).
-   * TODO: the AI / ML entry points at the SDE resume until a dedicated one exists. An entry with an
-   * empty `href` renders as "Soon".
+   * With a single ready resume the Resume buttons open it directly; with two or more they open a menu.
+   * TODO: add the AI / ML resume's `href` when it exists.
    */
   resumes: [
     { label: "Software Engineering", note: "Full-stack & backend roles", href: "/resumes/AayushResume_SDE.pdf" },
-    { label: "AI / ML", note: "ML engineering & research", href: "/resumes/AayushResume_SDE.pdf" },
+    { label: "AI / ML", note: "ML engineering & research", href: "" },
   ] as { label: string; note: string; href: string }[],
 
   nav: [
@@ -41,8 +41,10 @@ export const site = {
   hero: {
     eyebrow: ["Software Engineer", "AI/ML", "Class of 2027"],
     headline: { before: "I build ", accent: "intelligent", after: " software that feels effortless." },
-    intro:
-      "Full-stack products with AI at their core, taken from first idea to something people actually use.",
+    intro: {
+      name: "Aayush Gupta",
+      text: ", a full-stack engineer taking products with AI at their core from first idea to something people actually use.",
+    },
     status: {
       label: "Status",
       badge: "Available",
@@ -151,11 +153,43 @@ export const site = {
   projects: {
     headline: "Selected work.",
     /**
-     * Sources: Aayush's previous portfolio (summaries, stacks, repos, live links, screenshots in /public/projects)
-     * and AayushResume_SDE.pdf (case-study highlights). TODO: `year` for each (only HireLens is known).
+     * Sources: Aayush's previous portfolio (summaries, stacks, repos, live links, screenshots in /public/projects),
+     * AayushResume_SDE.pdf (highlights) and content/about-me.md (the `story` blocks, drafted for Aayush to refine).
+     * Ordered by strength; the first featured project is pre-selected. TODO: `year` for each (only HireLens is known).
      * Empty values are simply not rendered; projects without an `image` show their illustrated preview.
      */
     items: [
+      {
+        id: "hirelens-ai",
+        name: "HireLens AI",
+        categories: ["AI-ML", "Full-stack"],
+        featured: true,
+        year: "2026",
+        tag: "AI/ML · Interview simulator",
+        award: "Top 15 · GoDaddy AI Buildathon",
+        summary:
+          "AI interview simulator: it asks role-specific questions from your resume and an optional job description, then assesses your answers and your fit for the role.",
+        highlights: [],
+        story: [
+          {
+            label: "The problem",
+            text: "Preparing for an interview rarely shows how well you fit a specific role. HireLens rehearses the interview and assesses the fit.",
+          },
+          {
+            label: "What I built",
+            text: "Built solo: upload or paste a resume, pick an interviewer persona (big tech, startup or HR) and optionally add a job description. Groq generates three questions, then evaluates the answers with feedback, a summary and improvement tips. Signed-in users (Clerk) save results to TiDB.",
+          },
+          {
+            label: "Outcome",
+            text: "Top 15 at a university-wide GoDaddy AI Buildathon (Apr 2026), entered individually.",
+          },
+        ],
+        stack: ["React", "Python", "FastAPI", "Groq", "Clerk", "TiDB"],
+        github: "https://github.com/Aayush251105/HireLens-AI",
+        live: "https://hirelens-ai-q1fa.onrender.com",
+        image: "/projects/hirelens.png",
+        preview: "hirelens",
+      },
       {
         id: "vidtube-ai",
         name: "VidTube AI",
@@ -165,16 +199,54 @@ export const site = {
         tag: "Full-stack · Media AI",
         summary:
           "AI-powered SaaS platform for uploading, managing and transforming media with Cloudinary's AI APIs, with automated video compression and intelligent previews.",
-        highlights: [
-          "Built an AI-powered SaaS platform for uploading, managing, and transforming media using Cloudinary AI APIs.",
-          "Implemented intelligent media processing: video compression, hover previews, and automatic image aspect-ratio transformations.",
-          "Handled secure authentication with Clerk and optimized data management using Prisma with NeonDB (PostgreSQL).",
+        highlights: [],
+        story: [
+          {
+            label: "Why I built it",
+            text: "It started as a YouTube-style app. At ACM, student teams needed images cropped to the aspect ratio each social platform expects, so I rebuilt it around Cloudinary's AI media APIs.",
+          },
+          {
+            label: "What I built",
+            text: "Built solo: uploads, AI video compression, hover previews and automatic aspect-ratio crops, with Clerk authentication and Prisma on NeonDB (PostgreSQL).",
+          },
+          {
+            label: "Outcome",
+            text: "Deployed and used within ACM at Shiv Nadar. Free-tier hosting currently caps media quality and the number of uploads.",
+          },
         ],
         stack: ["Next.js", "React", "TypeScript", "Prisma", "NeonDB", "Cloudinary", "Clerk"],
         github: "https://github.com/Aayush251105/VidTube-AI",
         live: "https://vid-tube-ai.vercel.app/",
         image: "/projects/vidtube.png",
         preview: "vidtube",
+      },
+      {
+        id: "virtual-tryon",
+        name: "Virtual Try-On",
+        categories: ["AI-ML", "Full-stack"],
+        featured: true,
+        year: "",
+        tag: "AI/ML · Computer vision",
+        summary: "AI-powered virtual clothing try-on that uses computer-vision models for realistic garment visualization.",
+        highlights: [],
+        story: [
+          {
+            label: "The idea",
+            text: "Show how a garment looks on a person with computer vision, as a usable application rather than a model demo.",
+          },
+          {
+            label: "My part",
+            text: "A team project built around the open-source FASHN VTON model. I built the surrounding system, tuned hyperparameters and organised the workflow into an end-to-end pipeline.",
+          },
+          {
+            label: "What I learned",
+            text: "How to take an existing computer-vision model and integrate it into a larger application, working as a team.",
+          },
+        ],
+        stack: ["React", "Python", "FastAPI"],
+        github: "https://github.com/Aayush251105/VirtualTryOn",
+        live: "",
+        image: "/projects/virtual-tryon.png",
       },
       {
         id: "booknow",
@@ -185,6 +257,12 @@ export const site = {
         tag: "Full-stack · MVC",
         summary:
           "Full-stack property booking platform built on MVC, with browsing, filtering, interactive maps and secure authentication.",
+        story: [
+          {
+            label: "Why I built it",
+            text: "To learn how property-booking platforms actually work, from listings and maps to authentication and the booking flow.",
+          },
+        ],
         highlights: [
           "Engineered a full-stack property booking platform using MVC architecture, featuring listing search, dynamic filtering, user reviews, and complete CRUD operations.",
           "Implemented authentication and authorization via Passport.js with server-side input validation using Joi schemas.",
@@ -195,6 +273,30 @@ export const site = {
         live: "https://booknow-s4kr.onrender.com/",
         image: "/projects/booknow.png",
         preview: "booknow",
+      },
+      {
+        id: "summarizer-ai",
+        name: "SummarizerAI",
+        categories: ["AI-ML"],
+        featured: false,
+        year: "",
+        tag: "AI/ML · NLP",
+        summary: "Dialogue summarization with a T5 transformer fine-tuned on SAMSum, served through FastAPI to a React frontend.",
+        story: [
+          {
+            label: "Why I built it",
+            text: "To understand how a pretrained transformer is adapted to one task: working with a conversational dataset and building the fine-tuning workflow end to end.",
+          },
+        ],
+        highlights: [
+          "Fine-tuned a T5 Transformer model on the SAMSum dialogue dataset to generate conversation summaries.",
+          "Built an end-to-end text summarization pipeline including preprocessing, tokenization, model training, and inference.",
+          "Developed a React frontend and FastAPI backend for real-time AI-powered text summarization.",
+        ],
+        stack: ["Python", "PyTorch", "Hugging Face", "FastAPI", "React"],
+        github: "https://github.com/Aayush251105/SummarizerAI",
+        live: "",
+        preview: "summarizer",
       },
       {
         id: "questflow",
@@ -210,58 +312,6 @@ export const site = {
         github: "https://github.com/Aayush251105/Proj-QuestFlow",
         live: "",
         image: "/projects/questflow.png",
-      },
-      {
-        id: "hirelens-ai",
-        name: "HireLens AI",
-        categories: ["AI-ML", "Full-stack"],
-        featured: true,
-        year: "2026",
-        tag: "AI/ML · Top 15, GoDaddy AI Buildathon",
-        summary:
-          "AI talent-assessment tool for high-volume technical hiring: role-specific interview questions from a resume and job description, automated screening and AI-driven candidate evaluation.",
-        highlights: [
-          "Top 15 at the GoDaddy AI Buildathon (Apr 2026).",
-          "Generates role-specific interview questions from a candidate's resume and the job description.",
-          "Provides AI-powered feedback and evaluates candidate performance across multiple assessment metrics.",
-        ],
-        stack: ["React", "Python", "FastAPI", "TiDB"],
-        github: "https://github.com/Aayush251105/HireLens-AI",
-        live: "https://hirelens-ai-q1fa.onrender.com",
-        image: "/projects/hirelens.png",
-        preview: "hirelens",
-      },
-      {
-        id: "virtual-tryon",
-        name: "Virtual Try-On",
-        categories: ["AI-ML", "Full-stack"],
-        featured: true,
-        year: "",
-        tag: "AI/ML · Computer vision",
-        summary: "AI-powered virtual clothing try-on that uses computer-vision models for realistic garment visualization.",
-        highlights: [],
-        stack: ["React", "Python", "FastAPI"],
-        github: "https://github.com/Aayush251105/VirtualTryOn",
-        live: "",
-        image: "/projects/virtual-tryon.png",
-      },
-      {
-        id: "summarizer-ai",
-        name: "SummarizerAI",
-        categories: ["AI-ML"],
-        featured: false,
-        year: "",
-        tag: "AI/ML · NLP",
-        summary: "Dialogue summarization with a T5 transformer fine-tuned on SAMSum, served through FastAPI to a React frontend.",
-        highlights: [
-          "Fine-tuned a T5 Transformer model on the SAMSum dialogue dataset to generate conversation summaries.",
-          "Built an end-to-end text summarization pipeline including preprocessing, tokenization, model training, and inference.",
-          "Developed a React frontend and FastAPI backend for real-time AI-powered text summarization.",
-        ],
-        stack: ["Python", "PyTorch", "Hugging Face", "FastAPI", "React"],
-        github: "https://github.com/Aayush251105/SummarizerAI",
-        live: "",
-        preview: "summarizer",
       },
       {
         id: "fitrack",
@@ -295,7 +345,7 @@ export const site = {
         id: "arts",
         name: "ARTS",
         categories: ["Full-stack"],
-        featured: true,
+        featured: false,
         year: "",
         tag: "Full-stack · Airline reservations",
         summary: "Airline reservation and ticketing system with flight search, a full booking flow and seat management.",
@@ -378,6 +428,10 @@ export type Project = {
   year: string;
   tag: string;
   summary: string;
+  /** External recognition, shown with the project (e.g. a placement). */
+  award?: string;
+  /** Short labelled blocks for the case study: why it exists, what was built, what came of it. */
+  story?: { label: string; text: string }[];
   highlights: string[];
   stack: string[];
   github: string;

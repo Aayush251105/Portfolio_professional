@@ -9,8 +9,13 @@ const GAP = 12; // between the trigger and the menu
 const MENU_WIDTH = 300;
 type Position = { top: number; left: number; width: number; above: boolean };
 
+/** With a single distinct ready resume there is nothing to choose: the trigger links straight to it. */
+const readyResumes = site.resumes.filter((r) => r.href);
+const directHref = new Set(readyResumes.map((r) => r.href)).size === 1 ? readyResumes[0].href : null;
+
 /**
- * Resume trigger that opens a liquid-glass menu to pick between resume variants.
+ * Resume trigger that opens a liquid-glass menu to pick between resume variants (or, with only one
+ * resume ready, links straight to its PDF).
  * `pill` is the hero's glass button; `link` is the underlined mono link used in About;
  * `inline` is a quiet "Resume ↗" text link (Contact) whose menu opens upward.
  * The menu is portalled to <body> with fixed positioning, so no section can paint over it, and it is
@@ -89,6 +94,51 @@ export function ResumeMenu({ variant = "pill" }: { variant?: "pill" | "link" | "
     if (e.key !== "Tab") e.preventDefault();
   }
 
+  const className = variant === "pill" ? pillClass(open) : variant === "link" ? linkClass : inlineClass;
+  const content =
+    variant === "inline" ? (
+      <>
+        <span>Resume</span>
+        <span
+          aria-hidden
+          className="text-[9px] text-secondary/60 transition-[color,transform,filter] duration-300 ease-brand group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent group-hover:drop-shadow-[0_0_6px_var(--accent)]"
+        >
+          ↗
+        </span>
+        <span
+          aria-hidden
+          className={`absolute inset-x-0 bottom-0 h-px origin-left bg-accent transition-transform duration-300 ease-brand group-hover:scale-x-100 ${open ? "scale-x-100" : "scale-x-0"}`}
+        />
+      </>
+    ) : variant === "pill" ? (
+      <>
+        <span>Resume</span>
+        <svg className="h-3.5 w-3.5 text-secondary" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+          />
+        </svg>
+      </>
+    ) : (
+      <>
+        <span>Download resume</span>
+        <span className="text-accent transition-transform duration-150 ease-brand group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
+        <span className="absolute inset-x-0 -bottom-1 h-px bg-text transition-colors duration-150 ease-brand group-hover:bg-accent" />
+      </>
+    );
+
+  // One real resume: skip the menu and open the PDF in one click.
+  if (directHref) {
+    return (
+      <a href={directHref} target="_blank" rel="noopener noreferrer" className={className}>
+        {content}
+        <span className="sr-only"> (PDF, opens in a new tab)</span>
+      </a>
+    );
+  }
+
   return (
     <div ref={rootRef} className="relative">
       <button
@@ -104,40 +154,9 @@ export function ResumeMenu({ variant = "pill" }: { variant?: "pill" | "link" | "
             setOpen(true);
           }
         }}
-        className={variant === "pill" ? pillClass(open) : variant === "link" ? linkClass : inlineClass}
+        className={className}
       >
-        {variant === "inline" ? (
-          <>
-            <span>Resume</span>
-            <span
-              aria-hidden
-              className="text-[9px] text-secondary/60 transition-[color,transform,filter] duration-300 ease-brand group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent group-hover:drop-shadow-[0_0_6px_var(--accent)]"
-            >
-              ↗
-            </span>
-            <span
-              aria-hidden
-              className={`absolute inset-x-0 bottom-0 h-px origin-left bg-accent transition-transform duration-300 ease-brand group-hover:scale-x-100 ${open ? "scale-x-100" : "scale-x-0"}`}
-            />
-          </>
-        ) : variant === "pill" ? (
-          <>
-            <span>Resume</span>
-            <svg className="h-3.5 w-3.5 text-secondary" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-              />
-            </svg>
-          </>
-        ) : (
-          <>
-            <span>Download resume</span>
-            <span className="text-accent transition-transform duration-150 ease-brand group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
-            <span className="absolute inset-x-0 -bottom-1 h-px bg-text transition-colors duration-150 ease-brand group-hover:bg-accent" />
-          </>
-        )}
+        {content}
       </button>
 
       {mounted &&

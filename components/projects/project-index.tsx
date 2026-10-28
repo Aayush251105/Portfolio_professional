@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { site, type Project, type ProjectCategory } from "@/content/site";
 import { scrollToSection, useSiteAction } from "@/lib/site-actions";
 import { ArrowLink } from "../arrow-link";
+import { Award } from "./award";
 import { CaseStudy } from "./case-study";
 import { ProjectLinks } from "./project-links";
 import { displayUrl, ProjectVisual } from "./project-visual";
@@ -158,6 +159,9 @@ export function ProjectIndex() {
                         </span>
                       </span>
                       <span className="flex items-center gap-3">
+                        {p.award && (
+                          <span className="hidden font-mono text-[11px] leading-[14px] tracking-[0.04em] text-accent-ink xl:inline">{p.award}</span>
+                        )}
                         {p.year && (
                           <span className={`font-mono text-[11px] leading-[14px] tracking-[0.06em] ${active ? "text-text" : "text-secondary"}`}>
                             {p.year}
@@ -310,9 +314,10 @@ function ProjectMeta({ project }: { project: Project }) {
       <div className="flex items-center justify-between gap-3">
         <h3 className="text-xl leading-8 font-semibold tracking-tight text-text lg:text-[23px]">{project.name}</h3>
         <span className="shrink-0 rounded border border-accent/40 bg-accent/10 px-2 py-0.5 font-mono text-[11px] leading-4 font-medium uppercase text-accent-ink">
-          {project.tag.split(",")[0]}
+          {project.tag}
         </span>
       </div>
+      {project.award && <Award text={project.award} />}
       <p className="text-sm leading-[1.45rem] text-secondary">{project.summary}</p>
       {project.stack.length > 0 && (
         <p className="pt-1 font-mono text-[11.5px] leading-4 tracking-wide text-text">
