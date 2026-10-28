@@ -93,15 +93,18 @@ export function Chat() {
     return () => io.disconnect();
   }, []);
 
+  // Focus the input on open, except on touch screens, where it would pop the keyboard over the welcome.
   useEffect(() => {
-    if (open) inputRef.current?.focus({ preventScroll: true });
+    if (open && matchMedia("(hover: hover)").matches) inputRef.current?.focus({ preventScroll: true });
   }, [open]);
 
-  // Keep the newest message in view while it streams.
+  const viewport = useMobileViewport(open);
+
+  // Keep the newest message in view while it streams (and when the keyboard resizes the panel).
   useEffect(() => {
     const log = logRef.current;
     if (log && messages.length) log.scrollTop = log.scrollHeight;
-  }, [messages, open]);
+  }, [messages, open, viewport?.height]);
 
   useEffect(() => () => abortRef.current?.abort(), []);
 
@@ -228,7 +231,7 @@ export function Chat() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduced ? { opacity: 0 } : { opacity: 0, y: 12, scale: 0.97 }}
             transition={{ duration: reduced ? 0.15 : 0.35, ease }}
-            style={{ transformOrigin: "bottom right" }}
+            style={{ transformOrigin: "bottom right", ...(viewport && panelBox(viewport)) }}
             className="glass-liquid fixed inset-x-3 bottom-3 z-[55] flex h-[min(620px,calc(100dvh-5.5rem))] flex-col overflow-hidden rounded-[28px] sm:inset-x-auto sm:right-6 sm:bottom-6 sm:w-[400px] sm:h-[min(640px,calc(100dvh-7.5rem))]"
           >
             {/* Header */}
@@ -338,15 +341,53 @@ export function Chat() {
                   </svg>
                 </button>
               </div>
-              <p className="mt-2 text-center font-mono text-[10px] leading-3 tracking-[0.04em] text-secondary">
-                AI can make mistakes. Check important details.
-              </p>
+              {!viewport?.keyboard && (
+                <p className="mt-2 text-center font-mono text-[10px] leading-3 tracking-[0.04em] text-secondary">
+                  AI can make mistakes. Check important details.
+                </p>
+              )}
             </form>
           </motion.div>
         )}
       </AnimatePresence>
     </>
   );
+}
+
+type MobileViewport = { top: number; height: number; keyboard: boolean };
+
+/**
+ * Phones only: the visible part of the screen (window.visualViewport). Mobile browsers don't resize
+ * the page when the on-screen keyboard opens; they cover its bottom, where the panel and composer
+ * sit. Tracking the visual viewport lets the panel shrink to sit just above the keyboard.
+ */
+function useMobileViewport(active: boolean): MobileViewport | null {
+  const [vp, setVp] = useState<MobileViewport | null>(null);
+  useEffect(() => {
+    const vv = window.visualViewport;
+    if (!active || !vv) return;
+    const update = () => {
+      if (!matchMedia("(max-width: 639px)").matches) return setVp(null);
+      // The layout viewport keeps its height while the keyboard is up, so a big gap means a keyboard.
+      setVp({ top: vv.offsetTop, height: vv.height, keyboard: vv.height < window.innerHeight - 120 });
+    };
+    const frame = requestAnimationFrame(update);
+    vv.addEventListener("resize", update);
+    vv.addEventListener("scroll", update);
+    return () => {
+      cancelAnimationFrame(frame);
+      vv.removeEventListener("resize", update);
+      vv.removeEventListener("scroll", update);
+    };
+  }, [active]);
+  return active ? vp : null;
+}
+
+/** Panel position inside the visible viewport: same look as the CSS default, tighter with a keyboard up. */
+function panelBox({ top, height, keyboard }: MobileViewport): React.CSSProperties {
+  const margin = keyboard ? 8 : 12;
+  const h = Math.max(240, Math.min(620, height - (keyboard ? margin * 2 : 88)));
+  return { top: top + height - margin - h, bottom: "auto", height: h };
 }
 
 function Bubble({ message, onAction, reduced }: { message: Message; onAction: (a: ChatAction) => void; reduced: boolean }) {

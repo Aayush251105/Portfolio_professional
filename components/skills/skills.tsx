@@ -2,7 +2,6 @@ import { site } from "@/content/site";
 import { Container } from "../container";
 import { Reveal } from "../reveal";
 import { SectionLabel } from "../section-label";
-import { AllTechnologies } from "./all-technologies";
 import { brandColor, hasBrandIcon, TechIcon, techMeta } from "./tech-icon";
 
 const { skills } = site;
@@ -35,10 +34,6 @@ export function Skills() {
       <Reveal delay={0.1}>
         <IconMarquee />
       </Reveal>
-
-      <Container>
-        <AllTechnologies />
-      </Container>
     </section>
   );
 }
