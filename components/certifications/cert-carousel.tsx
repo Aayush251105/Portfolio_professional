@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Certification } from "@/content/site";
 import { CertViewer } from "./cert-viewer";
 import { useSiteAction } from "@/lib/site-actions";
+import { sectionHeading } from "../badge";
 
 type Cert = Certification;
 
@@ -81,15 +82,15 @@ export function CertCarousel({
     <>
       <div className="mb-8 flex flex-col items-start gap-6 sm:flex-row sm:items-end sm:justify-between lg:mb-12">
         <div className="max-w-[620px]">
-          <h2 className="mb-3 text-[34px] leading-[40px] font-normal tracking-[-0.025em] text-text lg:text-[44px] lg:leading-[50px]">
+          <h2 className={`mb-3 ${sectionHeading}`}>
             {headline.before}
             <span className="font-medium text-accent">{headline.accent}</span>
           </h2>
-          <p className="text-[15px] leading-relaxed tracking-[-0.005em] text-secondary">{intro}</p>
+          <p className="text-base leading-relaxed tracking-[-0.005em] text-secondary">{intro}</p>
         </div>
 
         <div className="flex items-center gap-4 pb-1">
-          <span className="mr-2 font-mono text-xs leading-4 font-medium tracking-wider text-text tabular-nums" aria-live="polite">
+          <span className="mr-2 font-mono text-xs leading-4 font-medium tracking-wider whitespace-nowrap text-text tabular-nums" aria-live="polite">
             {pad(lastVisible)} / {pad(items.length)}
           </span>
           <ArrowButton label="Previous certificate" disabled={atStart} onClick={() => scrollByCards(-1)} flip />
@@ -158,7 +159,7 @@ function CertCard({ cert, onView, buttonRef }: { cert: Cert; onView?: () => void
         )}
 
         <div className="pointer-events-none relative flex items-start justify-between">
-          <span className="font-mono text-[11px] leading-[14px] font-medium uppercase tracking-wider text-secondary transition-colors duration-300 ease-brand group-hover:font-semibold group-hover:text-accent-ink group-focus-within:text-accent-ink">
+          <span className="font-mono text-xs leading-4 font-medium uppercase tracking-wider text-secondary transition-colors duration-300 ease-brand group-hover:font-semibold group-hover:text-accent-ink group-focus-within:text-accent-ink">
             {cert.issuer}
           </span>
           <span className="h-2 w-2 rounded-full bg-border transition-[background-color,transform] duration-300 ease-brand group-hover:scale-110 group-hover:bg-accent group-focus-within:bg-accent" />
@@ -167,7 +168,7 @@ function CertCard({ cert, onView, buttonRef }: { cert: Cert; onView?: () => void
         <h3 className="pointer-events-none relative line-clamp-2 text-xl leading-[26px] font-medium tracking-[-0.015em] text-text">{cert.title}</h3>
 
         <div className="pointer-events-none relative flex items-center border-t border-border/70 pt-3 transition-colors duration-300 ease-brand group-hover:border-accent/30">
-          <div className="flex min-w-0 items-center gap-2.5 whitespace-nowrap font-mono text-[11px] leading-[14px] font-medium tracking-[0.06em] text-secondary uppercase transition-colors duration-300 ease-brand group-hover:text-text">
+          <div className="flex min-w-0 items-center gap-2.5 whitespace-nowrap font-mono text-xs leading-4 font-medium tracking-[0.06em] text-secondary uppercase transition-colors duration-300 ease-brand group-hover:text-text">
             {cert.year && (
               <>
                 <span>{cert.year}</span>
@@ -181,7 +182,7 @@ function CertCard({ cert, onView, buttonRef }: { cert: Cert; onView?: () => void
             {onView && (
               <span
                 aria-hidden
-                className="inline-flex translate-y-1 items-center gap-1 font-mono text-[11px] leading-[14px] font-medium tracking-[0.06em] text-secondary opacity-0 transition-[opacity,transform] duration-300 ease-brand group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 touch:translate-y-0 touch:opacity-100"
+                className="inline-flex translate-y-1 items-center gap-1 font-mono text-xs leading-4 font-medium tracking-[0.06em] text-secondary opacity-0 transition-[opacity,transform] duration-300 ease-brand group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 touch:translate-y-0 touch:opacity-100"
               >
                 <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
@@ -195,7 +196,7 @@ function CertCard({ cert, onView, buttonRef }: { cert: Cert; onView?: () => void
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Verify ${cert.title}`}
-              className="pointer-events-auto inline-flex translate-y-1 items-center gap-0.5 border-b border-accent pb-0.5 font-mono text-[11px] leading-[14px] font-medium tracking-[0.06em] text-accent-ink opacity-0 transition-[opacity,transform] duration-300 ease-brand group-hover:translate-y-0 group-hover:opacity-100 focus-visible:translate-y-0 focus-visible:opacity-100 touch:translate-y-0 touch:opacity-100"
+              className="pointer-events-auto inline-flex translate-y-1 items-center gap-0.5 border-b border-accent pb-0.5 font-mono text-xs leading-4 font-medium tracking-[0.06em] text-accent-ink opacity-0 transition-[opacity,transform] duration-300 ease-brand group-hover:translate-y-0 group-hover:opacity-100 focus-visible:translate-y-0 focus-visible:opacity-100 touch:translate-y-0 touch:opacity-100"
             >
               Verify ↗
             </a>

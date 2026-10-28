@@ -2,6 +2,7 @@ import { emailHref, site } from "@/content/site";
 import { ArrowLink } from "./arrow-link";
 import { Container } from "./container";
 import { ResumeMenu } from "./resume-menu";
+import { Badge } from "./badge";
 
 const cssVars = (v: Record<string, number>) => v as React.CSSProperties;
 
@@ -54,8 +55,8 @@ export function Hero() {
           {/* Left: typographic narrative */}
           <div className="space-y-6 lg:col-span-8 lg:space-y-7 lg:pr-6">
             <div style={cssVars({ "--i": 0 })} className="intro inline-flex items-center gap-2.5 rounded-full border border-border/80 bg-surface/60 px-3.5 py-1.5 dark:border-border/90 dark:bg-surface/80">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
-              <span className="whitespace-nowrap font-mono text-[11px] font-medium uppercase tracking-tight text-secondary">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+              <span className="whitespace-nowrap font-mono text-xs font-medium uppercase tracking-tight text-secondary">
                 {hero.eyebrow.map((item, i) => (
                   <span key={item}>
                     {i > 0 && <> <span className="mx-1 text-border">·</span> </>}
@@ -129,7 +130,7 @@ export function Hero() {
         <div data-chat-avoid style={cssVars({ "--i": 7 })} className="intro flex items-end justify-center border-t border-border/60 pt-5 sm:justify-between text-xs dark:border-border/70">
           <a
             href="#about"
-            className="group hidden items-center gap-3 font-mono text-[11px] tracking-wide text-secondary transition-colors sm:flex duration-200 ease-brand hover:text-text"
+            className="group hidden items-center gap-3 font-mono text-xs tracking-wide text-secondary transition-colors sm:flex duration-200 ease-brand hover:text-text"
           >
             <span className="uppercase">Scroll</span>
             <span className="relative h-7 w-px overflow-hidden bg-border">
@@ -137,7 +138,7 @@ export function Hero() {
             </span>
           </a>
 
-          <ul className="flex items-center gap-4 font-mono text-[11px] uppercase tracking-wider text-secondary sm:gap-6">
+          <ul className="flex items-center gap-4 font-mono text-xs uppercase tracking-wider text-secondary sm:gap-6">
             {socials.map(({ label, href, external }, i) => (
               <li key={label} className="flex items-center gap-4 sm:gap-6">
                 {i > 0 && <span className="text-border">/</span>}
@@ -163,15 +164,13 @@ function StatusCard() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
             <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
           </span>
-          <span className="font-mono text-[11px] font-medium uppercase tracking-tight text-text">{status.label}</span>
+          <span className="font-mono text-xs font-medium uppercase tracking-tight text-text">{status.label}</span>
         </div>
-        <span className="rounded border border-emerald-200/60 bg-emerald-50 px-2 py-0.5 font-mono text-[11px] font-medium text-emerald-700 dark:border-emerald-800/40 dark:bg-emerald-950/40 dark:text-emerald-400">
-          {status.badge}
-        </span>
+        <Badge tone="success">{status.badge}</Badge>
       </div>
 
       <div className="space-y-2">
-        <div className="text-[13px] font-medium tracking-tight text-text">{status.title}</div>
+        <div className="text-sm font-medium tracking-tight text-pretty text-text">{status.title}</div>
         <p className="text-xs leading-normal text-secondary">{status.note}</p>
       </div>
 
@@ -188,7 +187,6 @@ function StatusCard() {
           </svg>
           {site.location}
         </span>
-        <span className="text-[10px]">{status.meta}</span>
       </div>
     </div>
   );

@@ -29,7 +29,7 @@ export function Contact() {
               <br />
               <span className="text-accent">{contact.headline.accent}</span>
             </h2>
-            <p className="mt-4 text-base leading-7 tracking-[-0.01em] text-secondary sm:text-lg">{contact.intro}</p>
+            <p className="mt-4 text-base leading-7 tracking-[-0.01em] text-pretty text-secondary sm:text-lg">{contact.intro}</p>
           </Reveal>
 
           <Reveal delay={0.08} className="flex w-full justify-center">

@@ -4,6 +4,7 @@ import { motion, useReducedMotion, useScroll } from "framer-motion";
 import { useRef } from "react";
 import type { ExperienceEntry } from "@/content/site";
 import { Reveal } from "../reveal";
+import { Badge } from "../badge";
 
 /**
  * Vertical timeline. A hairline track with an accent fill that grows with scroll (scaleY only),
@@ -59,14 +60,7 @@ function TimelineEntry({ entry, latest }: { entry: ExperienceEntry; latest: bool
       <div className="relative">
         <div className="mb-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
           <span className="font-mono text-xs leading-4 uppercase tracking-wider text-secondary">{entry.dates}</span>
-          {entry.badge &&
-            (latest ? (
-              <span className="rounded-full bg-accent/10 px-2.5 py-0.5 font-mono text-[11px] leading-4 font-medium uppercase tracking-wider text-accent-ink">
-                {entry.badge}
-              </span>
-            ) : (
-              <span className="font-mono text-[11px] leading-4 uppercase tracking-wider text-secondary">{entry.badge}</span>
-            ))}
+          {entry.badge && <Badge tone={latest ? "accent" : "neutral"}>{entry.badge}</Badge>}
         </div>
 
         <div className="mb-4">
@@ -76,7 +70,7 @@ function TimelineEntry({ entry, latest }: { entry: ExperienceEntry; latest: bool
           <p className="mt-0.5 text-base leading-6 font-medium text-secondary">{entry.org}</p>
         </div>
 
-        <ul className={`space-y-2.5 text-[15px] leading-relaxed text-text/90 ${entry.tags.length ? "mb-6" : ""}`}>
+        <ul className={`space-y-2.5 text-base leading-relaxed text-text/90 ${entry.tags.length ? "mb-6" : ""}`}>
           {entry.bullets.map((b) => (
             <li key={b} className="flex items-start gap-2.5">
               <span aria-hidden className={`mt-1.5 font-mono text-sm leading-none ${latest ? "text-accent" : "text-secondary"}`}>

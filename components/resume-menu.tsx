@@ -175,7 +175,7 @@ export function ResumeMenu({ variant = "pill" }: { variant?: "pill" | "link" | "
                 : `pointer-events-none ${pos?.above ? "translate-y-1" : "-translate-y-1"} scale-[0.98] opacity-0 [backdrop-filter:none]` /* no blur pass while hidden */
             }`}
           >
-            <div className="px-3 pt-2 pb-2.5 font-mono text-[10px] font-medium uppercase tracking-wider text-secondary">
+            <div className="px-3 pt-2 pb-2.5 font-mono text-xs font-medium uppercase tracking-wider text-secondary">
               Choose a resume
             </div>
             <ul role="none" className="space-y-0.5">
@@ -193,15 +193,15 @@ export function ResumeMenu({ variant = "pill" }: { variant?: "pill" | "link" | "
                       </svg>
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className="block text-[13px] font-medium tracking-tight text-text">{label}</span>
+                      <span className="block text-sm font-medium tracking-tight text-text">{label}</span>
                       <span className="block truncate text-xs text-secondary">{note}</span>
                     </span>
                     {ready ? (
-                      <span className="font-mono text-[10px] uppercase tracking-wider text-secondary transition-colors duration-200 ease-brand group-hover:text-accent-ink group-focus-visible:text-accent-ink">
+                      <span className="font-mono text-xs uppercase tracking-wider text-secondary transition-colors duration-200 ease-brand group-hover:text-accent-ink group-focus-visible:text-accent-ink">
                         PDF ↗
                       </span>
                     ) : (
-                      <span className="rounded border border-border/80 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-secondary">
+                      <span className="rounded border border-border/80 px-1.5 py-0.5 font-mono text-xs uppercase tracking-wider text-secondary">
                         Soon
                       </span>
                     )}
@@ -244,7 +244,7 @@ const pillClass = (open: boolean) =>
   }`;
 
 const linkClass =
-  "group relative inline-flex items-center gap-1.5 font-mono text-[11px] leading-[14px] font-medium uppercase tracking-wider text-text transition-colors duration-150 ease-brand hover:text-accent-ink";
+  "group relative inline-flex items-center gap-1.5 font-mono text-xs leading-4 font-medium uppercase tracking-wider text-text transition-colors duration-150 ease-brand hover:text-accent-ink";
 
 const inlineClass =
   "group relative inline-flex items-center gap-1 py-1 text-secondary outline-none transition-colors duration-200 ease-brand hover:text-accent-ink focus-visible:text-accent-ink";

@@ -80,9 +80,9 @@ export function ContactForm({ email }: { email: string }) {
   return (
     <div className="glass relative z-10 w-[720px] max-w-full rounded-[24px] p-6 sm:p-8">
       <div className="mb-2 flex items-center justify-between border-b border-border/60 pb-6">
-        <span className="font-mono text-[11px] leading-[14px] font-medium uppercase tracking-wider text-secondary">Send a message</span>
-        <span className="inline-flex items-center gap-2 font-mono text-[11px] leading-[14px] font-medium tracking-[0.06em] text-secondary">
-          <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+        <span className="font-mono text-xs leading-4 font-medium uppercase tracking-wider text-secondary">Send a message</span>
+        <span className="inline-flex items-center gap-2 font-mono text-xs leading-4 font-medium tracking-[0.06em] text-secondary">
+          <span className="h-2 w-2 rounded-full bg-emerald-500" />
           Replies by email
         </span>
       </div>
@@ -135,7 +135,7 @@ export function ContactForm({ email }: { email: string }) {
             error={visibleError("message")}
             counter={
               <span
-                className={`font-mono text-[11px] leading-[14px] tracking-[0.06em] tabular-nums transition-colors duration-200 ${
+                className={`font-mono text-xs leading-4 tracking-[0.06em] tabular-nums transition-colors duration-200 ${
                   values.message.length >= MESSAGE_MAX ? "text-accent-ink" : "text-secondary"
                 }`}
               >
@@ -157,7 +157,7 @@ export function ContactForm({ email }: { email: string }) {
           </Field>
 
           <div className="flex flex-col-reverse items-stretch gap-5 pt-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex flex-wrap items-center justify-center gap-1.5 text-[13px] leading-5 text-secondary">
+            <div className="flex flex-wrap items-center justify-center gap-1.5 text-sm leading-5 text-secondary">
               <span>or email me directly</span>
               <CopyEmail email={email} />
             </div>
@@ -172,7 +172,7 @@ export function ContactForm({ email }: { email: string }) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2, ease }}
-                className="text-right text-[13px] leading-5 text-accent-ink"
+                className="text-right text-sm leading-5 text-accent-ink"
               >
                 {statusMessage}
               </motion.p>
@@ -195,7 +195,7 @@ export function ContactForm({ email }: { email: string }) {
             </svg>
           </span>
           <p className="text-xl leading-7 font-medium tracking-[-0.015em] text-text">Message sent.</p>
-          <p className="text-[15px] leading-6 text-secondary">Thanks for reaching out. I’ll reply by email soon.</p>
+          <p className="text-base leading-6 text-secondary">Thanks for reaching out. I’ll reply by email soon.</p>
           <button
             type="button"
             onClick={() => setStatus("idle")}
@@ -210,7 +210,7 @@ export function ContactForm({ email }: { email: string }) {
 }
 
 const fieldClass =
-  "w-full border-0 border-b bg-transparent px-1 py-3 text-[15px] leading-6 tracking-[-0.005em] text-text placeholder:text-secondary outline-none transition-colors duration-200 ease-brand focus:border-accent";
+  "w-full border-0 border-b bg-transparent px-1 py-3 text-base leading-6 tracking-[-0.005em] text-text placeholder:text-secondary outline-none transition-colors duration-200 ease-brand focus:border-accent";
 
 function Field({
   label,
@@ -255,7 +255,7 @@ function SubmitButton({ status }: { status: Status }) {
     <button
       type="submit"
       disabled={sending}
-      className="group flex items-center justify-center gap-2 rounded-full bg-accent-solid px-6 py-3 sm:py-2.5 text-[13px] leading-5 font-medium text-on-accent shadow-[0_2px_8px_color-mix(in_srgb,var(--accent)_25%,transparent)] transition-[filter,transform,opacity] duration-200 ease-brand hover:brightness-110 active:scale-[0.98] disabled:cursor-progress disabled:opacity-85 dark:font-semibold"
+      className="group flex items-center justify-center gap-2 rounded-full bg-accent-solid px-6 py-3 sm:py-2.5 text-sm leading-5 font-medium text-on-accent shadow-[0_2px_8px_color-mix(in_srgb,var(--accent)_25%,transparent)] transition-[filter,transform,opacity] duration-200 ease-brand hover:brightness-110 active:scale-[0.98] disabled:cursor-progress disabled:opacity-85 dark:font-semibold"
     >
       <span>{sending ? "Sending…" : "Send message"}</span>
       {sending ? (

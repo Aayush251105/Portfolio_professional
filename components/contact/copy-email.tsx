@@ -27,7 +27,7 @@ export function CopyEmail({ email }: { email: string }) {
       type="button"
       onClick={copy}
       title="Copy email address"
-      className="group inline-flex items-center gap-1.5 font-mono text-[13px] leading-5 font-medium text-text transition-colors duration-200 ease-brand hover:text-accent-ink"
+      className="group inline-flex items-center gap-1.5 font-mono text-sm leading-5 font-medium text-text transition-colors duration-200 ease-brand hover:text-accent-ink"
     >
       {/* Both labels share one grid cell so the button width doesn't jump */}
       <span className="grid [&>*]:col-start-1 [&>*]:row-start-1">

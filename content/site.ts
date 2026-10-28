@@ -51,7 +51,6 @@ export const site = {
       title: "Open to opportunities · Graduating 2027",
       // Built from known facts. TODO: replace with what Aayush is looking for (role type / timing).
       note: "Former SDE intern at Kyndryl. 4th-year B.Tech CSE at Shiv Nadar University.",
-      meta: "B.Tech",
     },
   },
 
@@ -60,13 +59,13 @@ export const site = {
     headline: { before: "I like turning ", accent: "complex systems into products", after: " that feel simple." },
     // TODO: confirm wording (role tense, Kyndryl description).
     paragraphs: [
-      "Currently in my 4th year pursuing B.Tech in Computer Science Engineering at Shiv Nadar University (graduating 2027). Named to the Dean's List four times for academic distinction.",
+      "What excites me most is where software engineering meets AI: products that use AI, and especially agentic workflows, to do genuinely useful work.",
       "As an SDE intern at Kyndryl (May to July 2026), I built heartbeat-based failure detection for long-running report jobs and an AI documentation assistant that put scattered enterprise docs one question away.",
     ],
     stats: [
-      { label: "Milestone", value: "Class of 2027" },
-      { label: "Academic", value: "Dean's List ×4" },
-      { label: "Experience", value: "SDE Intern · Kyndryl" },
+      { label: "CGPA", value: "9.30 / 10" },
+      { label: "Dean's List", value: "4 terms" },
+      { label: "AI Buildathon", value: "Top 15" },
     ],
     education: "B.Tech, Computer Science Engineering · Shiv Nadar University",
     // `darkSrc` is optional: a version of the photo on a dark backdrop, shown in dark mode.
@@ -362,7 +361,7 @@ export const site = {
     headline: { before: "Where I’ve worked and ", accent: "studied." },
     // TODO: confirm wording.
     intro: "Hands-on engineering at Kyndryl alongside a Computer Science degree at Shiv Nadar University.",
-    status: "Graduating class of 2027",
+    status: "Open to SDE and AI engineering roles",
     /** Source: AayushResume_SDE.pdf. Newest first; the first entry gets the filled "latest" node. */
     entries: [
       {

@@ -205,7 +205,7 @@ export function Chat() {
               <span>
                 Ask <span className="hidden sm:inline">about Aayush</span>
               </span>
-              <kbd className="ml-1 hidden rounded-md border border-border/80 px-1.5 py-0.5 font-mono text-[10px] leading-3 tracking-wide text-secondary transition-colors duration-200 ease-brand group-hover:text-text md:inline">
+              <kbd className="ml-1 hidden rounded-md border border-border/80 px-1.5 py-0.5 font-mono text-xs leading-3 tracking-wide text-secondary transition-colors duration-200 ease-brand group-hover:text-text md:inline">
                 {isMac ? "⌘K" : "Ctrl K"}
               </kbd>
             </motion.button>
@@ -237,14 +237,14 @@ export function Chat() {
             {/* Header */}
             <div className="flex items-center justify-between gap-3 border-b border-border/60 px-5 py-4">
               <div className="flex min-w-0 items-center gap-3">
-                <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border bg-surface text-[15px] font-bold tracking-[-0.04em] text-text">
+                <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border bg-surface text-base font-bold tracking-[-0.04em] text-text">
                   A<span className="text-accent">.</span>
                 </span>
                 <div className="min-w-0">
-                  <h2 id={titleId} className="text-[15px] leading-5 font-medium tracking-[-0.01em] text-text">
+                  <h2 id={titleId} className="text-base leading-5 font-medium tracking-[-0.01em] text-text">
                     Ask about Aayush
                   </h2>
-                  <p className="font-mono text-[10.5px] leading-4 tracking-[0.06em] text-secondary uppercase">AI guide · knows his story</p>
+                  <p className="font-mono text-xs leading-4 tracking-[0.06em] text-secondary uppercase">AI guide · knows his story</p>
                 </div>
               </div>
               <div className="flex items-center gap-1.5">
@@ -270,7 +270,7 @@ export function Chat() {
             >
               {messages.length === 0 ? (
                 <div className="my-auto">
-                  <p className="text-[22px] leading-7 font-medium tracking-[-0.02em] text-text">
+                  <p className="text-xl leading-7 font-medium tracking-[-0.02em] text-text">
                     Hi! I’m Aayush’s <span className="text-accent">AI guide</span>.
                   </p>
                   <p className="mt-2 text-sm leading-6 text-secondary">I know the stories behind his work, not just the page.</p>
@@ -282,21 +282,21 @@ export function Chat() {
                             <path d={c.icon} />
                           </svg>
                         </span>
-                        <span className="text-[13px] leading-5 text-secondary">
+                        <span className="text-sm leading-5 text-secondary">
                           <span className="block font-medium text-text">{c.title}</span>
                           {c.body}
                         </span>
                       </li>
                     ))}
                   </ul>
-                  <p className="mt-5 mb-2.5 font-mono text-[10.5px] leading-4 tracking-[0.06em] text-secondary uppercase">Try asking</p>
+                  <p className="mt-5 mb-2.5 font-mono text-xs leading-4 tracking-[0.06em] text-secondary uppercase">Try asking</p>
                   <div className="flex flex-wrap gap-2">
                     {suggestions.map((s) => (
                       <button
                         key={s}
                         type="button"
                         onClick={() => ask(s)}
-                        className="glass-pill rounded-full px-3.5 py-2 text-left text-[13px] leading-4 text-text transition-[border-color,color,translate] duration-200 ease-brand hover:-translate-y-0.5 hover:border-accent/60 hover:text-accent-ink"
+                        className="glass-pill rounded-full px-3.5 py-2 text-left text-sm leading-4 text-text transition-[border-color,color,translate] duration-200 ease-brand hover:-translate-y-0.5 hover:border-accent/60 hover:text-accent-ink"
                       >
                         {s}
                       </button>
@@ -328,7 +328,7 @@ export function Chat() {
                   placeholder="Ask a question…"
                   autoComplete="off"
                   enterKeyHint="send"
-                  className="min-w-0 flex-1 bg-transparent text-base leading-6 sm:text-[14px] text-text outline-none placeholder:text-secondary focus-visible:outline-none!"
+                  className="min-w-0 flex-1 bg-transparent text-base leading-6 sm:text-sm text-text outline-none placeholder:text-secondary focus-visible:outline-none!"
                 />
                 <button
                   type="submit"
@@ -342,7 +342,7 @@ export function Chat() {
                 </button>
               </div>
               {!viewport?.keyboard && (
-                <p className="mt-2 text-center font-mono text-[10px] leading-3 tracking-[0.04em] text-secondary">
+                <p className="mt-2 text-center font-mono text-xs leading-3 tracking-[0.04em] text-secondary">
                   AI can make mistakes. Check important details.
                 </p>
               )}
@@ -400,7 +400,7 @@ function Bubble({ message, onAction, reduced }: { message: Message; onAction: (a
       className={`flex max-w-[88%] flex-col gap-2 ${user ? "self-end items-end" : "self-start items-start"}`}
     >
       {user ? (
-        <p className="rounded-2xl rounded-br-md bg-text px-3.5 py-2 text-[14px] leading-[1.45] text-bg whitespace-pre-wrap">{message.content}</p>
+        <p className="rounded-2xl rounded-br-md bg-text px-3.5 py-2 text-sm leading-[1.45] text-bg whitespace-pre-wrap">{message.content}</p>
       ) : message.pending ? (
         <span className="flex h-9 items-center gap-1 rounded-2xl rounded-bl-md border border-border/70 bg-surface/80 px-3.5" aria-label="Thinking">
           {[0, 1, 2].map((i) => (
@@ -409,7 +409,7 @@ function Bubble({ message, onAction, reduced }: { message: Message; onAction: (a
         </span>
       ) : (
         <p
-          className={`rounded-2xl rounded-bl-md border px-3.5 py-2 text-[14px] leading-[1.55] whitespace-pre-wrap ${
+          className={`rounded-2xl rounded-bl-md border px-3.5 py-2 text-sm leading-[1.55] whitespace-pre-wrap ${
             message.error ? "border-accent/30 bg-accent/[0.06] text-text" : "border-border/70 bg-surface/80 text-text"
           }`}
         >
@@ -429,7 +429,7 @@ function Bubble({ message, onAction, reduced }: { message: Message; onAction: (a
 }
 
 const chipClass =
-  "group inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/[0.07] px-3 py-1.5 font-mono text-[11px] leading-4 font-medium tracking-[0.04em] text-accent-ink transition-[background-color,border-color,translate] duration-200 ease-brand hover:-translate-y-0.5 hover:border-accent hover:bg-accent/[0.12]";
+  "group inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/[0.07] px-3 py-1.5 font-mono text-xs leading-4 font-medium tracking-[0.04em] text-accent-ink transition-[background-color,border-color,translate] duration-200 ease-brand hover:-translate-y-0.5 hover:border-accent hover:bg-accent/[0.12]";
 
 function ActionChip({ action, onAction }: { action: ChatAction; onAction: (a: ChatAction) => void }) {
   if (action.type === "link") {

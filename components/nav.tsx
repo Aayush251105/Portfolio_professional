@@ -75,7 +75,7 @@ export function Nav() {
             </span>
           </a>
 
-          <ul className="hidden items-center gap-7 text-[13px] font-medium text-secondary md:flex">
+          <ul className="hidden items-center gap-7 text-sm font-medium text-secondary md:flex">
             {site.nav.map(({ id, label }) => (
               <li key={id}>
                 <a
@@ -135,7 +135,7 @@ export function Nav() {
                   onClick={() => setMenuOpen(false)}
                   aria-current={active === id ? "location" : undefined}
                   style={{ transitionDelay: menuOpen ? `${60 + i * 30}ms` : "0ms" }}
-                  className={`flex items-center justify-between rounded-2xl px-4 py-3 text-[15px] font-medium transition-[opacity,transform,color,background-color] duration-300 ease-brand hover:bg-text/[0.04] ${
+                  className={`flex items-center justify-between rounded-2xl px-4 py-3 text-base font-medium transition-[opacity,transform,color,background-color] duration-300 ease-brand hover:bg-text/[0.04] ${
                     active === id ? "text-text" : "text-secondary"
                   } ${menuOpen ? "translate-y-0 opacity-100" : "-translate-y-1 opacity-0"}`}
                 >

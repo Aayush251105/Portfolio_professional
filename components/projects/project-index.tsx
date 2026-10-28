@@ -10,6 +10,7 @@ import { CaseStudy } from "./case-study";
 import { ProjectLinks } from "./project-links";
 import { displayUrl, ProjectVisual } from "./project-visual";
 import { TiltCard } from "./tilt-card";
+import { Badge, sectionHeading } from "../badge";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 const filters: { key: "All" | ProjectCategory; label: string }[] = [
@@ -73,7 +74,7 @@ export function ProjectIndex() {
     <>
       {/* Headline + filter tabs */}
       <div className="mb-8 flex flex-col items-start gap-5 border-b border-border/40 pb-3 sm:flex-row sm:items-baseline sm:justify-between">
-        <h2 className="text-[34px] leading-none font-medium tracking-[-0.03em] text-text lg:text-[44px]">{site.projects.headline}</h2>
+        <h2 className={sectionHeading}>{site.projects.headline}</h2>
         <div role="tablist" aria-label="Filter projects" className="flex items-center gap-6 font-mono text-xs leading-4 font-medium tracking-[0.04em]">
           {filters.map(({ key, label }) => {
             const active = filter === key;
@@ -136,22 +137,22 @@ export function ProjectIndex() {
                     >
                       <span className="flex items-center gap-4 lg:gap-5">
                         <span
-                          className={`font-mono text-[11px] leading-[14px] tracking-[0.06em] text-secondary transition-colors duration-250 ${
+                          className={`font-mono text-xs leading-4 tracking-[0.06em] text-secondary transition-colors duration-250 ${
                             active ? "lg:font-semibold lg:text-accent-ink" : ""
                           } ${expanded ? "max-lg:font-semibold max-lg:text-accent-ink" : ""}`}
                         >
                           {number(p)}
                         </span>
                         <span
-                          className={`flex items-center gap-1.5 text-[17px] leading-6 font-medium tracking-tight text-text transition-[color,font-weight] duration-250 ${
+                          className={`flex items-center gap-1.5 text-lg leading-6 font-medium tracking-tight text-text transition-[color,font-weight] duration-250 ${
                             active ? "lg:font-semibold lg:text-accent-ink" : "lg:text-secondary lg:group-hover:text-text"
                           } ${expanded ? "max-lg:font-semibold max-lg:text-accent-ink" : ""}`}
                         >
                           {p.name}
-                          {p.featured && <span className={`text-[11px] leading-none text-accent ${active ? "lg:hidden" : ""}`}>★</span>}
+                          {p.featured && <span className={`text-xs leading-none text-accent ${active ? "lg:hidden" : ""}`}>★</span>}
                         </span>
                         <span
-                          className={`ml-1 font-mono text-[11px] leading-[14px] uppercase tracking-wider text-secondary transition-colors duration-250 ${
+                          className={`ml-1 font-mono text-xs leading-4 uppercase tracking-wider text-secondary transition-colors duration-250 ${
                             active ? "lg:text-accent-ink" : ""
                           } ${expanded ? "max-lg:text-accent-ink" : ""}`}
                         >
@@ -160,10 +161,10 @@ export function ProjectIndex() {
                       </span>
                       <span className="flex items-center gap-3">
                         {p.award && (
-                          <span className="hidden font-mono text-[11px] leading-[14px] tracking-[0.04em] text-accent-ink xl:inline">{p.award}</span>
+                          <span className="hidden font-mono text-xs leading-4 tracking-[0.04em] text-accent-ink xl:inline">{p.award}</span>
                         )}
                         {p.year && (
-                          <span className={`font-mono text-[11px] leading-[14px] tracking-[0.06em] ${active ? "text-text" : "text-secondary"}`}>
+                          <span className={`font-mono text-xs leading-4 tracking-[0.06em] ${active ? "text-text" : "text-secondary"}`}>
                             {p.year}
                           </span>
                         )}
@@ -236,7 +237,7 @@ export function ProjectIndex() {
 
         {/* Glass preview, vertically centred against the list */}
         <div className="relative col-span-5 hidden self-center lg:block">
-          <div aria-hidden className="pointer-events-none absolute -top-12 -left-12 h-72 w-72 animate-ambient rounded-full bg-accent opacity-25 blur-3xl" />
+          <div aria-hidden className="pointer-events-none absolute -top-12 -left-12 h-72 w-72 rounded-full bg-accent opacity-25 blur-3xl" />
           <TiltCard className="glass overflow-hidden rounded-2xl p-6 shadow-xl">
             {/* Browser chrome */}
             <div className="flex items-center justify-between border-b border-border/70 pb-4">
@@ -253,7 +254,7 @@ export function ProjectIndex() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.15 }}
-                    className="truncate font-mono text-[11.5px] leading-4 whitespace-nowrap text-secondary"
+                    className="truncate font-mono text-xs leading-4 whitespace-nowrap text-secondary"
                   >
                     {displayUrl(selected)}
                   </motion.span>
@@ -311,16 +312,14 @@ export function ProjectIndex() {
 function ProjectMeta({ project }: { project: Project }) {
   return (
     <div className="mt-5 space-y-3">
-      <div className="flex items-center justify-between gap-3">
-        <h3 className="text-xl leading-8 font-semibold tracking-tight text-text lg:text-[23px]">{project.name}</h3>
-        <span className="shrink-0 rounded border border-accent/40 bg-accent/10 px-2 py-0.5 font-mono text-[11px] leading-4 font-medium uppercase text-accent-ink">
-          {project.tag}
-        </span>
+      <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
+        <h3 className="text-xl leading-8 font-semibold tracking-tight text-text lg:text-2xl">{project.name}</h3>
+        <Badge tone="accent">{project.tag}</Badge>
       </div>
       {project.award && <Award text={project.award} />}
-      <p className="text-sm leading-[1.45rem] text-secondary">{project.summary}</p>
+      <p className="text-base leading-relaxed text-secondary">{project.summary}</p>
       {project.stack.length > 0 && (
-        <p className="pt-1 font-mono text-[11.5px] leading-4 tracking-wide text-text">
+        <p className="pt-1 font-mono text-xs leading-4 tracking-wide text-text">
           {project.stack.map((s, i) => (
             <span key={s}>
               <span className="whitespace-nowrap">

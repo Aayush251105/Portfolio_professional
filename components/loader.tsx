@@ -50,7 +50,7 @@ export function Loader() {
             </svg>
 
             <div className="w-[220px]">
-              <div className="mb-3 flex items-end justify-between font-mono text-[10.5px] leading-[14px] font-medium uppercase tracking-[0.28em] text-secondary">
+              <div className="mb-3 flex items-end justify-between font-mono text-xs leading-4 font-medium uppercase tracking-[0.28em] text-secondary">
                 <span className="overflow-hidden">
                   {[...NAME].map((ch, i) => (
                     <span key={i} className="loader-letter" style={{ "--l": i } as React.CSSProperties}>

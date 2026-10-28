@@ -96,7 +96,7 @@ export function CertViewer({
             {/* Header: issuer, title, year · actions */}
             <div className="mb-4 flex flex-wrap items-start justify-between gap-x-6 gap-y-3 sm:mb-5">
               <div className="min-w-0">
-                <p className="font-mono text-[11px] leading-[14px] font-medium uppercase tracking-wider text-accent-ink">
+                <p className="font-mono text-xs leading-4 font-medium uppercase tracking-wider text-accent-ink">
                   {cert.issuer}
                   {cert.year && <span className="text-secondary"> · {cert.year}</span>}
                 </p>

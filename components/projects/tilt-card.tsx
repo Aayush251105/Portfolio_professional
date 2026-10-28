@@ -6,8 +6,8 @@ const MAX_TILT = 4; // degrees
 const spring = { stiffness: 140, damping: 18, mass: 0.6 };
 
 /**
- * Gives the project preview some life: an idle float (CSS, .animate-float), a gentle tilt toward the
- * pointer that springs back on leave, and a soft light that follows the cursor across the glass.
+ * Gives the project preview some life: a gentle tilt toward the pointer that springs back on leave,
+ * and a soft light that follows the cursor across the glass.
  * Transform/opacity only; tilt and light are skipped with prefers-reduced-motion.
  */
 export function TiltCard({ className, children }: { className?: string; children: React.ReactNode }) {
@@ -37,7 +37,7 @@ export function TiltCard({ className, children }: { className?: string; children
   }
 
   return (
-    <div className="animate-float [perspective:1200px]">
+    <div className="[perspective:1200px]">
       <motion.div
         onPointerMove={onPointerMove}
         onPointerLeave={onPointerLeave}

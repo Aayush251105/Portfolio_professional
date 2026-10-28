@@ -90,24 +90,24 @@ export function CaseStudy({ project, number, onClose }: { project: Project | nul
 
             <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12">
               <div className="lg:col-span-5">
-                <span className="font-mono text-[11px] leading-[14px] tracking-[0.06em] text-secondary">{number}</span>
-                <h3 id="case-study-title" className="mt-2 pr-12 text-[26px] sm:text-[28px] leading-9 font-medium tracking-[-0.02em] text-text">
+                <span className="font-mono text-xs leading-4 tracking-[0.06em] text-secondary">{number}</span>
+                <h3 id="case-study-title" className="mt-2 pr-12 text-2xl sm:text-[28px] leading-9 font-medium tracking-[-0.02em] text-text">
                   {project.name}
                 </h3>
-                <p className="mt-1 font-mono text-[11px] leading-[14px] uppercase tracking-wider text-accent-ink">{project.tag}</p>
+                <p className="mt-1 font-mono text-xs leading-4 uppercase tracking-wider text-accent-ink">{project.tag}</p>
                 {project.award && (
                   <div className="mt-4">
                     <Award text={project.award} />
                   </div>
                 )}
-                <p className="mt-4 text-[15px] leading-6 text-secondary">{project.summary}</p>
+                <p className="mt-4 text-base leading-6 text-secondary">{project.summary}</p>
 
                 {project.story && project.story.length > 0 && (
                   <dl className="mt-6 space-y-4 border-t border-border pt-5">
                     {project.story.map(({ label, text }) => (
                       <div key={label}>
-                        <dt className="font-mono text-[11px] leading-4 font-medium uppercase tracking-wider text-secondary">{label}</dt>
-                        <dd className="mt-1.5 text-sm leading-[1.45rem] text-text">{text}</dd>
+                        <dt className="font-mono text-xs leading-4 font-medium uppercase tracking-wider text-secondary">{label}</dt>
+                        <dd className="mt-1.5 text-base leading-relaxed text-text">{text}</dd>
                       </div>
                     ))}
                   </dl>
@@ -116,7 +116,7 @@ export function CaseStudy({ project, number, onClose }: { project: Project | nul
                 {project.highlights.length > 0 && (
                   <ul className="mt-6 space-y-3 border-t border-border pt-5">
                     {project.highlights.map((h) => (
-                      <li key={h} className="flex gap-3 text-sm leading-[1.45rem] text-text">
+                      <li key={h} className="flex gap-3 text-base leading-relaxed text-text">
                         <span aria-hidden className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-accent" />
                         {h}
                       </li>
@@ -125,7 +125,7 @@ export function CaseStudy({ project, number, onClose }: { project: Project | nul
                 )}
 
                 {project.stack.length > 0 && (
-                  <p className="mt-6 font-mono text-[11.5px] leading-4 tracking-wide text-secondary">
+                  <p className="mt-6 font-mono text-xs leading-4 tracking-wide text-secondary">
                     {project.stack.map((s, i) => (
                       <span key={s}>
                         <span className="whitespace-nowrap">
@@ -147,7 +147,7 @@ export function CaseStudy({ project, number, onClose }: { project: Project | nul
                     <span className="h-2.5 w-2.5 rounded-full bg-accent/40" />
                     <span className="h-2.5 w-2.5 rounded-full bg-secondary/30" />
                     <span className="h-2.5 w-2.5 rounded-full bg-secondary/30" />
-                    <span className="mx-auto rounded-md border border-border/80 bg-surface/70 px-3 py-0.5 font-mono text-[11px] leading-4 text-secondary">
+                    <span className="mx-auto rounded-md border border-border/80 bg-surface/70 px-3 py-0.5 font-mono text-xs leading-4 text-secondary">
                       {displayUrl(project)}
                     </span>
                   </div>
